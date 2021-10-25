@@ -1,0 +1,121 @@
+/* pages/user/vitality.wxss */
+/* pages/user/sport.wxss */
+
+.main{
+    width: 100%;
+    min-height: 90vh;
+    background-image: linear-gradient(to bottom, #4b85fe, #dbe5f3, #fff);
+}
+
+.sport-data-a{
+    height: 300rpx;
+}
+
+.sport-data-a .block-left{
+}
+
+.circle-out{
+    width: 200rpx;
+    height: 200rpx;
+    border: 15rpx solid white;
+    border-radius: 50%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.circle-in{
+    width: 150rpx;
+    height: 150rpx;
+    border: 1px dotted white;
+    border-radius: 50%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    line-height: 150rpx;
+    font-size: 80rpx;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+.block-right{
+    color: white;
+    padding: 10px;
+}
+
+.block-right .block-title{
+    height: 50%;
+    font-size: 32rpx;
+    font-weight: bold;
+    position: relative;
+}
+
+.block-right .block-title text{
+    position: absolute;
+    bottom: 15rpx;
+}
+
+.block-right .block-desc{
+    height: 50%;
+    font-size: 22rpx;
+}
+
+.sport-data-b{
+    width: 95%;
+    background-color: white;
+    margin: 20rpx auto;
+    border-radius: 10rpx;
+    overflow: hidden;
+    box-shadow: 1rpx 1rpx 10rpx #ccc;
+}
+
+.sport-data-b .card-title{
+    height: 100rpx;
+    line-height: 100rpx;
+    padding: 0 20rpx;
+}
+.sport-data-b .card-title .title{
+    font-size: 32rpx;
+    font-weight: bold;
+}
+.sport-data-b .card-title .tip{
+    font-weight: bold;
+    color: #ccc;
+}
+
+.sport-data-b .card-content{
+    min-height: 200rpx;
+}
+
+.nav{
+    width: 95%;
+    height: 60rpx;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 60rpx;
+    line-height: 60rpx;
+    padding: 0;
+}
+
+.nav .cu-item{
+    width: 33.33%;
+    height: 60rpx;
+    line-height: 60rpx;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.nav .cu-item.cur{
+    background-color: #4b89f9;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    border-radius: 60rpx;
+    color: white;
+    box-shadow: 1rpx 1rpx 10rpx #4b89f9;
+}

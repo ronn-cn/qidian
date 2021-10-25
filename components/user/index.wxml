@@ -1,0 +1,95 @@
+<!--components/user/index.wxml-->
+<cu-custom>
+	<view slot="content">我的</view>
+</cu-custom>
+<view class="main">
+	<!-- 用户信息区域 -->
+	<view class="user-info-box">
+		<view wx:if="{{!hasUserInfo}}" class="no-user">
+			<button class="cu-btn block bg-blue lg light" bindtap="weixinLoginTap">
+				<text class="cuIcon-weixin"></text> 微信登陆
+			</button>
+		</view>
+		<view wx:else class="has-user">
+			<view class="user-info-avatar">
+				<image class="user-info-avatar-image" src="{{userInfo.avatarUrl}}"></image>
+			</view>
+			<view class="user-info-name">
+				<text class="user-info-nick">{{userInfo.nickName}}</text>
+				<view class="user-info-medal">
+					<text>累计获得{{starNumber}}星</text>
+				</view>
+			</view>
+			<view class="clear"></view>
+		</view>
+	</view>
+	<!-- 用户选项区域 -->
+	<view class="user-option-box">
+		<view class="user-option-card card-bg-1">
+			<view class="card-left fl">
+				<image mode="widthFix" src="/images/home/target.png"></image>
+			</view>
+
+			<view class="card-mid fl">
+				<view>
+					<text class="text-1">运动能力</text>
+					<text class="text-2"><text class="big">{{sportScore}}</text>/100</text>
+				</view>
+				<view>
+					<text class="text-3">运动能力是指综合身体各项基础数据的指数维度</text>
+				</view>
+			</view>
+			<view class="card-right fr">
+				<text class="cuIcon-roundrightfill"></text>
+				<!-- <image src="/images/home/to-right.png"></image> -->
+			</view>
+		</view>
+
+		
+		<view class="user-option-card card-bg-2">
+			<view class="card-left fl">
+				<image mode="widthFix" src="/images/home/fire.png"></image>
+			</view>
+
+			<view class="card-mid fl">
+				<view>
+					<text class="text-1">活力</text>
+					<text class="text-2"><text class="big">{{vitalityScore}}</text>/100</text>
+				</view>
+				<view>
+					<text class="text-3">活力是指运动训练频次发生变化的指数维度</text>
+				</view>
+			</view>
+
+			<view class="card-right fr">
+				<text class="cuIcon-roundrightfill"></text>
+			</view>
+		</view>
+
+		<view class="user-option-card card-bg-3">
+			<view class="card-left fl">
+				<image mode="widthFix" src="/images/home/clipboard.png"></image>
+			</view>
+
+			<view class="card-mid fl">
+				<view>
+					<text class="text-1">训练计划</text>
+					<!-- <text class="text-2"><text class="big">86</text>/100</text> -->
+				</view>
+				<view>
+					<text class="text-3">可为您提供训练指导，根据你的进度，训练结果反馈予以调整的个性化计划训练</text>
+				</view>
+			</view>
+
+			<view class="card-right fr">
+				<text class="cuIcon-roundrightfill"></text>
+			</view>
+		</view>
+
+		<view wx:if="{{hasUserInfo}}" class="user-option-logout">
+			<button class="cu-btn round bg-gray" bindtap="weixinLogout">退出登录</button>
+		</view>
+	</view>
+</view>
+<view class='cu-tabbar-height'></view>
+

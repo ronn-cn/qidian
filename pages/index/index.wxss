@@ -1,0 +1,22 @@
+/**index.wxss**/
+
+.page-show{
+  height: 600px;
+  background-color: chocolate;
+}
+
+.view-show{
+  display: block;
+}
+
+.view-hide{
+  display: none;
+}
+
+.bar-blue{
+  color: #4d8af9 ;
+}
+
+.bar-gray{
+  color: #515151;
+}

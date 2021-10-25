@@ -1,0 +1,23 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/user/vitality",
+        "pages/user/sport",
+        "pages/user/body",
+        "pages/user/plan",
+        "pages/login/index"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "Weixin",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom",
+        "backgroundColor": "#9a6ccc"
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json",
+    "usingComponents": {
+        "cu-custom": "/colorui/components/cu-custom"
+    }
+}

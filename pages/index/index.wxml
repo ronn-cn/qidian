@@ -1,0 +1,18 @@
+<!--index.wxml-->
+
+<home class="{{PageCur=='home'?'view-show':'view-hide'}}" bind:scanCodeTap="scanCodeTapHandle"></home>
+<user id="user-component" class="userComponent {{PageCur=='user'?'view-show':'view-hide'}}" bind:weixinLoginTap="weixinLoginTapHandle"></user>
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action" bindtap="NavChange" data-cur="home">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/home{{PageCur=='home'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='home'?'bar-blue':'bar-gray'}}">智能健身</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="user">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/user{{PageCur=='user'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='user'?'bar-blue':'bar-gray'}}">我的</view>
+  </view>
+</view>
