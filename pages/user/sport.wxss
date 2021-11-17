@@ -1,19 +1,30 @@
 /* pages/user/sport.wxss */
 
-.main{
+.z-ii{
+    width: 100%;
+    height: 1000px;
+    position: absolute;
+    background-color: #4b85fe;
+    top: 0;
+}
+ec-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.main {
     width: 100%;
     min-height: 90vh;
     background-image: linear-gradient(to bottom, #4b85fe, #dbe5f3, #fff);
 }
 
-.sport-data-a{
+.sport-data-a {
     height: 300rpx;
 }
 
-.sport-data-a .block-left{
-}
+.sport-data-a .block-left {}
 
-.circle-out{
+.circle-out {
     width: 200rpx;
     height: 200rpx;
     border: 15rpx solid white;
@@ -24,7 +35,7 @@
     transform: translate(-50%, -50%);
 }
 
-.circle-in{
+.circle-in {
     width: 150rpx;
     height: 150rpx;
     border: 1px dotted white;
@@ -41,29 +52,29 @@
     font-weight: bold;
 }
 
-.block-right{
+.block-right {
     color: white;
     padding: 10px;
 }
 
-.block-right .block-title{
+.block-right .block-title {
     height: 50%;
     font-size: 32rpx;
     font-weight: bold;
     position: relative;
 }
 
-.block-right .block-title text{
+.block-right .block-title text {
     position: absolute;
     bottom: 15rpx;
 }
 
-.block-right .block-desc{
+.block-right .block-desc {
     height: 50%;
     font-size: 22rpx;
 }
 
-.sport-data-b{
+.sport-data-b {
     width: 95%;
     background-color: white;
     margin: 20rpx auto;
@@ -72,20 +83,27 @@
     box-shadow: 1rpx 1rpx 10rpx #ccc;
 }
 
-.sport-data-b .card-title{
+.sport-data-b .card-title {
     height: 100rpx;
     line-height: 100rpx;
     padding: 0 20rpx;
 }
-.sport-data-b .card-title .title{
+
+.sport-data-b .card-title .title {
     font-size: 32rpx;
     font-weight: bold;
 }
-.sport-data-b .card-title .tip{
+
+.sport-data-b .card-title .tip {
     font-weight: bold;
     color: #ccc;
 }
 
-.sport-data-b .card-content{
+.sport-data-b .card-content {
     min-height: 200rpx;
+    position: relative;
+}
+
+.height-600{
+    height: 600rpx;
 }

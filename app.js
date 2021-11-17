@@ -1,13 +1,16 @@
 // app.js
 App({
   onLaunch() {
-    if (!this.globalData.userInfo) {
-      let userInfo = wx.getStorageSync('user_info');
-      console.log("userInfo:",userInfo);
-      if (userInfo) {
-        this.globalData.userInfo = userInfo;
-        this.globalData.hasUserInfo = true;
-      }
+    let sg = wx.getStorageSync('sg');
+    let ev = wx.getStorageSync('ev');
+    if (sg){
+      console.log("sg:", sg);
+      this.globalData.sg = JSON.parse(sg);
+    } 
+
+    if (ev){
+      console.log("ev:", ev);
+      this.globalData.ev = JSON.parse(ev);
     }
 
     wx.getSystemInfo({
@@ -20,8 +23,24 @@ App({
     })
   },
   globalData: {
-    userInfo: null,
-    hasUserInfo: false,
-    svrUrl: "https://sport.sportguider.com/"
+    netName: "sportguider",
+    sg: {
+      userInfo: null,
+      hasUserInfo: false,
+      userId:"",
+      userName:"",
+      userAvatar:"",
+      userJWT:"",
+      svrUrl: "https://sport.sportguider.com/",
+    },
+    ev:{
+      userInfo: null,
+      hasUserInfo: false,
+      userId:"",
+      userName:"",
+      userAvatar:"",
+      userJWT:"",
+      svrUrl: "https://sport.evinf.cn/",
+    },
   }
 })

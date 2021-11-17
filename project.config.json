@@ -9,12 +9,12 @@
         ]
     },
     "setting": {
-        "urlCheck": true,
+        "urlCheck": false,
         "es6": true,
         "enhance": true,
-        "postcss": true,
+        "postcss": false,
         "preloadBackgroundData": false,
-        "minified": true,
+        "minified": false,
         "newFeature": false,
         "coverView": true,
         "nodeModules": false,
@@ -25,18 +25,18 @@
         "checkInvalidKey": true,
         "checkSiteMap": true,
         "uploadWithSourceMap": true,
-        "compileHotReLoad": true,
+        "compileHotReLoad": false,
         "lazyloadPlaceholderEnable": false,
-        "useMultiFrameRuntime": true,
-        "useApiHook": true,
-        "useApiHostProcess": true,
+        "useMultiFrameRuntime": false,
+        "useApiHook": false,
+        "useApiHostProcess": false,
         "babelSetting": {
             "ignore": [],
             "disablePlugins": [],
             "outputPath": ""
         },
         "enableEngineNative": false,
-        "useIsolateContext": true,
+        "useIsolateContext": false,
         "userConfirmedBundleSwitch": false,
         "packNpmManually": false,
         "packNpmRelationList": [],
@@ -47,7 +47,7 @@
         "useCompilerPlugins": false
     },
     "compileType": "miniprogram",
-    "libVersion": "2.19.4",
+    "libVersion": "2.10.4",
     "appid": "wx00fb6cbcfab5e4b1",
     "projectname": "%E8%87%AA%E5%8A%A9%E5%81%A5%E8%BA%AB%E7%A9%BA%E9%97%B4",
     "debugOptions": {

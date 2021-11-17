@@ -5,17 +5,17 @@
 <view class="main">
 	<!-- 用户信息区域 -->
 	<view class="user-info-box">
-		<view wx:if="{{!hasUserInfo}}" class="no-user">
+		<view wx:if="{{!obj.hasUserInfo}}" class="no-user">
 			<button class="cu-btn block bg-blue lg light" bindtap="weixinLoginTap">
-				<text class="cuIcon-weixin"></text> 微信登陆
+				<text class="cuIcon-weixin"></text> 微信登录
 			</button>
 		</view>
 		<view wx:else class="has-user">
 			<view class="user-info-avatar">
-				<image class="user-info-avatar-image" src="{{userInfo.avatarUrl}}"></image>
+				<image class="user-info-avatar-image" src="{{obj.userInfo.avatarUrl}}"></image>
 			</view>
 			<view class="user-info-name">
-				<text class="user-info-nick">{{userInfo.nickName}}</text>
+				<text class="user-info-nick">{{obj.userInfo.nickName}}</text>
 				<view class="user-info-medal">
 					<text>累计获得{{starNumber}}星</text>
 				</view>
@@ -25,9 +25,9 @@
 	</view>
 	<!-- 用户选项区域 -->
 	<view class="user-option-box">
-		<view class="user-option-card card-bg-1">
+		<view class="user-option-card card-bg-1" bindtap="sportTap" style="background-image: url('https://www.evinf.cn/images/bg-1.png'); background-size: 100% 100%;">
 			<view class="card-left fl">
-				<image mode="widthFix" src="/images/home/target.png"></image>
+				<!-- <image mode="widthFix" src="/images/home/target.png"></image> -->
 			</view>
 
 			<view class="card-mid fl">
@@ -46,9 +46,9 @@
 		</view>
 
 		
-		<view class="user-option-card card-bg-2">
+		<view class="user-option-card card-bg-2" bindtap="vitalityTap" style="background-image: url('https://www.evinf.cn/images/bg-2.png'); background-size: 100% 100%;">
 			<view class="card-left fl">
-				<image mode="widthFix" src="/images/home/fire.png"></image>
+				<!-- <image mode="widthFix" src="/images/home/fire.png"></image> -->
 			</view>
 
 			<view class="card-mid fl">
@@ -66,9 +66,9 @@
 			</view>
 		</view>
 
-		<view class="user-option-card card-bg-3">
+		<view class="user-option-card card-bg-3" bindtap="planTap" style="background-image: url('https://www.evinf.cn/images/bg-3.png'); background-size: 100% 100%;">
 			<view class="card-left fl">
-				<image mode="widthFix" src="/images/home/clipboard.png"></image>
+				<!-- <image mode="widthFix" src="/images/home/clipboard.png"></image> -->
 			</view>
 
 			<view class="card-mid fl">
@@ -86,7 +86,7 @@
 			</view>
 		</view>
 
-		<view wx:if="{{hasUserInfo}}" class="user-option-logout">
+		<view wx:if="{{obj.hasUserInfo}}" class="user-option-logout">
 			<button class="cu-btn round bg-gray" bindtap="weixinLogout">退出登录</button>
 		</view>
 	</view>

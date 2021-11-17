@@ -1,7 +1,11 @@
 <!--index.wxml-->
 
 <home class="{{PageCur=='home'?'view-show':'view-hide'}}" bind:scanCodeTap="scanCodeTapHandle"></home>
-<user id="user-component" class="userComponent {{PageCur=='user'?'view-show':'view-hide'}}" bind:weixinLoginTap="weixinLoginTapHandle"></user>
+<user id="user-component" class="userComponent {{PageCur=='user'?'view-show':'view-hide'}}"
+  bind:weixinLoginTap="weixinLoginTapHandle"
+  bind:planTap="planTapHandle"
+  bind:vitalityTap="vitalityTapHandle"
+  bind:sportTap="sportTapHandle"></user>
 <view class="cu-bar tabbar bg-white shadow foot">
   <view class="action" bindtap="NavChange" data-cur="home">
     <view class='cuIcon-cu-image'>

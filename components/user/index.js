@@ -16,76 +16,105 @@ Component({
      * 组件的初始数据
      */
     data: {
-        userInfo: {},
-        hasUserInfo: false,
-        sportScore:0,
-        vitalityScore:0,
-        starNumber:0,
+        obj: null,
+        planId: "",
+        sportScore: 0,
+        vitalityScore: 0,
+        starNumber: 0,
     },
 
     /**
      * 组件的方法列表
      */
     methods: {
-        weixinLoginTap: function(){
+        weixinLoginTap: function () {
             this.triggerEvent('weixinLoginTap');
         },
         // 微信退出登录
-        weixinLogout: function(){
+        weixinLogout: function () {
             this.setData({
-                userInfo: null,
-                hasUserInfo: false,
                 sportScore: 0,
                 vitalityScore: 0,
                 starNumber: 0
             });
-            app.globalData.userInfo = null;
-            app.globalData.hasUserInfo = false;
-            wx.removeStorageSync('user_info');
-            wx.removeStorageSync('user_id');
-            wx.removeStorageSync('user_jwt');
+            if (app.globalData.netName == "evinf") {
+                app.globalData.ev={
+                    userInfo: null,
+                    hasUserInfo: false,
+                    userId:"",
+                    userName:"",
+                    userAvatar:"",
+                    userJWT:"",
+                    svrUrl: "https://sport.evinf.cn/",
+                }
+                wx.removeStorageSync('ev');
+                this.setData({
+                    obj: app.globalData.ev
+                });
+            } else {
+                app.globalData.sg={
+                    userInfo: null,
+                    hasUserInfo: false,
+                    userId:"",
+                    userName:"",
+                    userAvatar:"",
+                    userJWT:"",
+                    svrUrl: "https://sport.sportguider.com/",
+                }
+                wx.removeStorageSync('sg');
+                this.setData({
+                    obj: app.globalData.sg
+                });
+            }
         },
 
-        requestUserData: function(){
+        requestUserData: function () {
             let that = this;
-            let userId = wx.getStorageSync('user_id');
-            if (userId){
+            let userId = that.data.obj.userId;
+            if (userId) {
                 wx.request({
-                  url: 'https://sport.sportguider.com/get-user-all?user_id='+userId,
-                  success: function(res) {
-                    console.log(res.data)
-                    if (res.data.code == "200"){
-                        that.setData({
-                            sportScore: res.data.data.data.sport_power,
-                            vitalityScore: res.data.data.data.life_power,
-                            starNumber: res.data.data.total.star_count
-                        });
+                    url: that.data.obj.svrUrl + 'get-user-all?user_id=' + userId,
+                    success: function (res) {
+                        console.log(res.data)
+                        if (res.data.code == "200") {
+                            that.setData({
+                                planId: res.data.data.data.user_plan_id,
+                                sportScore: res.data.data.data.sport_power,
+                                vitalityScore: res.data.data.data.life_power,
+                                starNumber: res.data.data.total.star_count
+                            });
+                        }
                     }
-                  }
                 })
             }
-        }, 
+        },
         // 刷新用户数据函数
-        RefreshUserData: function(){
-            if (!app.globalData.userInfo){
-                let userInfo = wx.getStorageSync('user_info');
-                console.log("userInfo:", userInfo);
-                if (userInfo){
-                    app.globalData.userInfo = userInfo;
-                    app.globalData.hasUserInfo = true;
-                }
+        RefreshUserData: function () {
+            if (app.globalData.netName == "evinf"){
+                this.setData({
+                    obj: app.globalData.ev
+                });
+            } else {
+                this.setData({
+                    obj: app.globalData.sg
+                });
             }
-            this.setData({
-                userInfo: app.globalData.userInfo,
-                hasUserInfo: app.globalData.hasUserInfo
-            })
             this.requestUserData();
+        },
+        planTap: function () {
+            this.triggerEvent('planTap', this.data.planId);
+        },
+        vitalityTap: function () {
+            this.triggerEvent('vitalityTap');
+        },
+        sportTap: function () {
+            this.triggerEvent('sportTap');
         }
     },
 
-    lifetimes:{
-        ready(){
+    lifetimes: {
+        ready() {
             this.RefreshUserData();
-          }
-      }
+        }
+    }
 })

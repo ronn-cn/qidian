@@ -1,5 +1,5 @@
 <!--pages/user/vitality.wxml-->
-<cu-custom isBack="{{true}}" isCustom="{{false}}" isHome="{{false}}">
+<cu-custom isBack="{{true}}">
     <view slot="content">活力</view>
 </cu-custom>
 <scroll-view class="main">
@@ -7,7 +7,7 @@
         <view class="flex-sub block-left">
             <view class="circle-out">
                 <view class="circle-in">
-                    {{92}}
+                    {{vitalityValue}}
                 </view>
             </view>
         </view>
@@ -20,34 +20,70 @@
             </view>
         </view>
     </view>
-    <scroll-view scroll-x class="nav text-center">
+    <scroll-view scroll-x class="nav text-center element-hide">
         <view class="cu-item {{TabCur==0?' cur':''}}" bindtap="tabSelect" data-id="0">周</view>
         <view class="cu-item {{TabCur==1?' cur':''}}" bindtap="tabSelect" data-id="1">月</view>
         <view class="cu-item {{TabCur==2?' cur':''}}" bindtap="tabSelect" data-id="2">总</view>
     </scroll-view>
-    <view class="sport-data-b">
+    <view class="sport-data-b element-hide">
         <view class="card-title">
             <text class="title">基础体质趋势</text>
             <!-- <text class="tip">（2021/08/11）</text> -->
         </view>
+        <view class="card-content"></view>
+    </view>
+    <view class="sport-data-b">
+        <view class="card-title">
+            <text class="title">运动总计</text>
+            <!-- <text class="tip">（2021/08/11）</text> -->
+        </view>
         <view class="card-content">
+            <view class="data-item">
+                <view>总运动时长</view>
+                <view>
+                    <text class="text-big">{{sportDuration}}</text> 分钟
+                </view>
             </view>
+            <view class="data-item">
+                <view>总运动消耗</view>
+                <view>
+                    <text class="text-big">{{sportConsumption}}</text> 千卡
+                </view>
+            </view>
+            <view class="data-item">
+                <view>总运动天数</view>
+                <view>
+                    <text class="text-big">{{sportDays}}</text> 天
+                </view>
+            </view>
+            <view class="data-item">
+                <view>总运动次数</view>
+                <view>
+                    <text class="text-big">{{sportCount}}</text> 次
+                </view>
+            </view>
+        </view>
     </view>
     <view class="sport-data-b">
         <view class="card-title">
-            <text class="title">肌群能力</text>
-            <text class="tip">（2021/08/11）</text>
+            <text class="title">运动记录</text>
+            <!-- <text class="tip">（2021/08/11）</text> -->
         </view>
-        <view class="card-content"></view>
-    </view>
-    <view class="sport-data-b">
-        <view class="card-title">
-            <text class="title">体适能指数</text>
-            <text class="tip">（2021/08/11）</text>
+        <view class="card-content">
+            
+            <view class="record-item" wx:for="{{recordList}}" wx:key="item">
+                <view class="record-item-line">
+                    <text class="record-item-title">{{item.title}}</text>
+                    <text class="record-item-time">{{item.duration}}</text>
+                </view>
+                <view class="record-item-line">
+                    <text class="record-item-date">{{item.date}}</text>
+                    <text class="record-item-text">运动时长</text>
+                </view>
+            </view>
         </view>
-        <view class="card-content"></view>
     </view>
-    <view class="sport-data-b">
+    <view class="sport-data-b element-hide">
         <view class="card-title">
             <text class="title">身体成分</text>
             <text class="tip">（2021/08/11）</text>

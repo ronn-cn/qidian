@@ -1,1 +1,56 @@
 /* pages/user/plan.wxss */
+
+.card{
+	padding: 30rpx;
+}
+
+.plan-title{
+	font-size: 36rpx;
+	font-weight: bold;
+}
+
+.plan-progress {
+	font-size: 36rpx;
+	font-weight: bold;
+	float: right;
+
+}
+
+.plan-info-1{
+	padding: 15rpx 0;
+}
+
+.plan-info-2{
+	padding: 40rpx 0;
+}
+
+.plan-data-item{
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+
+.train-title{
+	font-size: 36rpx;
+	font-weight: bold;
+	padding: 20rpx 0;
+}
+
+.train-panel{
+	width: 100%;
+	height: 180rpx;
+	line-height: 180rpx;
+	border-radius: 15rpx;
+	color: #fff;
+	text-align: center;
+}
+
+.card .cu-btn{
+	width: 100%;
+	font-size: 30rpx;
+	height: 90rpx;
+}
+
+.float-clear{
+	clear: both;
+}
