@@ -1,10 +1,13 @@
 /* pages/user/vitality.wxss */
 /* pages/user/sport.wxss */
 
+.page-bg{
+    background-image: linear-gradient(-45deg,#ffffff 60%, #d7f9fa, #dcebfd);
+}
+
 .main{
     width: 100%;
     min-height: 90vh;
-    background-image: linear-gradient(to bottom, #4b85fe, #dbe5f3, #fff);
 }
 
 .sport-data-a{
@@ -17,7 +20,6 @@
 .circle-out{
     width: 200rpx;
     height: 200rpx;
-    border: 15rpx solid white;
     border-radius: 50%;
     position: relative;
     top: 50%;
@@ -25,10 +27,17 @@
     transform: translate(-50%, -50%);
 }
 
+.circle-bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .circle-in{
     width: 150rpx;
     height: 150rpx;
-    border: 1px dotted white;
     border-radius: 50%;
     position: relative;
     top: 50%;
@@ -36,14 +45,11 @@
     transform: translate(-50%, -50%);
 
     line-height: 150rpx;
-    font-size: 80rpx;
+    font-size: 60rpx;
     text-align: center;
-    color: white;
-    font-weight: bold;
 }
 
 .block-right{
-    color: white;
     padding: 10px;
 }
 
@@ -90,6 +96,7 @@
 .sport-data-b .card-content{
     min-height: 200rpx;
     padding: 0 40rpx;
+    padding-bottom: 30rpx;
 }
 
 .data-item{
@@ -109,27 +116,38 @@
 
 .record-item{
     padding: 30rpx 0;
+    border-bottom: 1px solid #ccc;
 }
 
+.record-item:last-child {
+    border-bottom: none;
+} 
+
 .record-item .record-item-title{
+    display: inline-block;
+    width: 80%;
     font-size: 30rpx;
-    float: left;
 }
 
 .record-item .record-item-time{
-    float: right;
+    display: inline-block;
+    width: 20%;
+    text-align: right;
 }
 
 .record-item .record-item-date{
+    display: inline-block;
+    width: 80%;
     font-size: 24rpx;
     color: #ccc;
-    float: left;
 }
 
 .record-item .record-item-text{
+    display: inline-block;
+    width: 20%;
+    text-align: right;
     font-size: 24rpx;
     color: #ccc;
-    float: right;
 }
 
 .nav{

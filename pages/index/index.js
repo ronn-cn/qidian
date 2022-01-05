@@ -23,13 +23,13 @@ function getQueryVariable(query, variable) {
 Page({
 	data: {
 		obj: null,
-		PageCur: 'home'
+		PageCur: 'home',
+		bgColor: ''
 	},
 	onLoad: function (options) {
 		// 判断是扫码进入
 		let url = decodeURIComponent(options.q);
-
-		if(url != "undefined"){
+		if (url != "undefined") {
 			if (url.indexOf("evinf") >= 0) {
 				app.globalData.netName = "evinf";
 				this.data.obj = app.globalData.ev;
@@ -39,21 +39,32 @@ Page({
 			}
 			if (url.indexOf("device") >= 0) {
 				let ouid = getQueryVariable(url, "ouid");
+
 				// 判断授权
-	
-				if (this.data.obj.hasUserInfo) {
+				if (app.globalData.userInfo != null) {
 					this.loginDevice(ouid);
+				} else {
+					wx.navigateTo({
+						url: '/pages/login/index',
+					});
 				}
 			}
 		} else {
-			if(app.globalData.netName == "evinf"){
+			if (app.globalData.netName == "evinf") {
 				this.data.obj = app.globalData.ev;
 			} else {
 				this.data.obj = app.globalData.sg;
 			}
 		}
-		console.log("index:", this.data.obj)
-	}, // 底部导航改变函数
+
+		//如果没有授权的话跳转到登录页面
+		// if(app.globalData.userInfo == null){
+		// 	wx.reLaunch({
+		// 	  url: '/pages/login/index',
+		// 	});
+		// }
+	},
+	// 底部导航改变函数
 	NavChange(e) {
 		this.setData({
 			PageCur: e.currentTarget.dataset.cur
@@ -67,12 +78,13 @@ Page({
 	// 点击扫码按钮的处理函数
 	scanCodeTapHandle: function () {
 		let that = this;
-		if (that.data.obj.hasUserInfo) {
+		if (app.globalData.userInfo != null) {
 			// 判断用户信息存在，直接开启扫码
 			wx.scanCode({
 				onlyFromCamera: true,
 				success: function (sc_res) {
 					let url = sc_res.result;
+					//string.includes(word);
 					if (url.indexOf("evinf") >= 0) {
 						app.globalData.netName = "evinf";
 						that.data.obj = app.globalData.ev;
@@ -87,117 +99,109 @@ Page({
 				}
 			});
 		} else {
+			wx.navigateTo({
+				url: '/pages/login/index',
+			});
 			// 用户信息不存在，先授权, 再扫码
-			if (authMark) {
-				authMark = false;
-				wx.getUserProfile({
-					desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-					success: function (res) {
-						that.data.obj.userInfo = res.userInfo;
-						that.data.obj.hasUserInfo = true;
-						that.data.obj.userName = res.userInfo.nickName;
-						that.data.obj.userAvatar = res.userInfo.avatarUrl;
+			// if (authMark) {
+			// 	authMark = false;
+			// 	wx.getUserProfile({
+			// 		desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+			// 		success: function (res) {
+			// 			app.globalData.userInfo = res.userInfo;
+			// 			that.setData({
+			// 				userInfo: app.globalData.userInfo
+			// 			});
+			// 			authMark = true;
+			// 			// 登录
+			// 			wx.login({
+			// 				success: function (res) {
+			// 					// 发送 res.code 到后台换取 openId, sessionKey, unionId
+			// 					if (res.code) {
+			// 						wx.request({
+			// 							url: that.data.obj.svrUrl + 'login/wechat',
+			// 							method: "POST",
+			// 							header: {
+			// 								"content-type": "application/x-www-form-urlencoded"
+			// 							},
+			// 							data: {
+			// 								code: res.code,
+			// 							},
+			// 							success: res2 => {
+			// 								console.log(res2);
+			// 								if (res2.statusCode == 200 && res2.data.code == "200") {
+			// 									var result = res2.data.data;
+			// 									// 返回值正确
+			// 									that.data.obj.userId = result.user_id;
+			// 									that.data.obj.userJWT = result.user_jwt;
 
+			// 									// 存储为本地数据
+			// 									if (app.globalData.netName == "evinf") {
+			// 										app.globalData.ev = that.data.obj;
+			// 										wx.setStorageSync('ev', JSON.stringify(that.data.obj));
+			// 									} else {
+			// 										app.globalData.sg = that.data.obj;
+			// 										wx.setStorageSync('sg', JSON.stringify(that.data.obj));
+			// 									}
 
-						// 存储为本地数据
-						if (app.globalData.netName == "evinf") {
-							app.globalData.ev = that.data.obj;
-							wx.setStorageSync('ev', JSON.stringify(that.data.obj));
-						} else {
-							app.globalData.sg = that.data.obj;
-							wx.setStorageSync('sg', JSON.stringify(that.data.obj));
-						}
-						authMark = true;
-						// 登录
-						wx.login({
-							success: function (res) {
-								// 发送 res.code 到后台换取 openId, sessionKey, unionId
-								if (res.code) {
-									wx.request({
-										url: that.data.obj.svrUrl + 'login/wechat',
-										method: "POST",
-										header: {
-											"content-type": "application/x-www-form-urlencoded"
-										},
-										data: {
-											code: res.code,
-										},
-										success: res2 => {
-											console.log(res2);
-											if (res2.statusCode == 200 && res2.data.code == "200") {
-												var result = res2.data.data;
-												// 返回值正确
-												that.data.obj.userId = result.user_id;
-												that.data.obj.userJWT = result.user_jwt;
-
-
-												// 存储为本地数据
-												if (app.globalData.netName == "evinf") {
-													app.globalData.ev = that.data.obj;
-													wx.setStorageSync('ev', JSON.stringify(that.data.obj));
-												} else {
-													app.globalData.sg = that.data.obj;
-													wx.setStorageSync('sg', JSON.stringify(that.data.obj));
-												}
-
-												console.log("aaa:",that.data.obj);
-												that.userComponent = that.selectComponent("#user-component");
-												that.userComponent.RefreshUserData();
-												// 调用微信扫码函数
-												wx.scanCode({
-													onlyFromCamera: true,
-													success: function (sc_res) {
-														let url = sc_res.result;
-														if (url.indexOf("evinf") >= 0) {
-															app.globalData.netName = "evinf";
-															that.data.obj = app.globalData.ev;
-														} else {
-															app.globalData.netName = "sportguider";
-															that.data.obj = app.globalData.sg;
-														}
-														var ouid = getQueryVariable(url, "ouid");
-														// 登录到设备
-														that.loginDevice(ouid);
-													}
-												});
-											} else {
-												// 返回值不正确
-												wx.showToast({
-													title: 'OpenId未获取',
-													duration: 1000,
-												})
-											}
-										},
-										fail: res2 => {
-											console.log(res2);
-											wx.showToast({
-												title: 'OpenId获取失败',
-												duration: 1000,
-											})
-										}
-									});
-								} else {
-									wx.showToast({
-										title: '未获取到代码',
-										duration: 1000,
-									})
-								}
-							},
-							fail: res => {
-								// 失败返回
-								console.log(res);
-								wx.showToast({
-									title: '微信登录失败',
-									duration: 1000,
-								})
-							}
-						})
-					},
-					fail: function () {
-						authMark = true;
-					}
-				})
-			}
+			// 									console.log("aaa:", that.data.obj);
+			// 									that.userComponent = that.selectComponent("#user-component");
+			// 									that.userComponent.RefreshUserData();
+			// 									// 调用微信扫码函数
+			// 									wx.scanCode({
+			// 										onlyFromCamera: true,
+			// 										success: function (sc_res) {
+			// 											let url = sc_res.result;
+			// 											if (url.indexOf("evinf") >= 0) {
+			// 												app.globalData.netName = "evinf";
+			// 												that.data.obj = app.globalData.ev;
+			// 											} else {
+			// 												app.globalData.netName = "sportguider";
+			// 												that.data.obj = app.globalData.sg;
+			// 											}
+			// 											var ouid = getQueryVariable(url, "ouid");
+			// 											// 登录到设备
+			// 											that.loginDevice(ouid);
+			// 										}
+			// 									});
+			// 								} else {
+			// 									// 返回值不正确
+			// 									wx.showToast({
+			// 										title: 'OpenId未获取',
+			// 										duration: 1000,
+			// 									})
+			// 								}
+			// 							},
+			// 							fail: res2 => {
+			// 								console.log(res2);
+			// 								wx.showToast({
+			// 									title: 'OpenId获取失败',
+			// 									duration: 1000,
+			// 								})
+			// 							}
+			// 						});
+			// 					} else {
+			// 						wx.showToast({
+			// 							title: '未获取到代码',
+			// 							duration: 1000,
+			// 						})
+			// 					}
+			// 				},
+			// 				fail: res => {
+			// 					// 失败返回
+			// 					console.log(res);
+			// 					wx.showToast({
+			// 						title: '微信登录失败',
+			// 						duration: 1000,
+			// 					})
+			// 				}
+			// 			})
+			// 		},
+			// 		fail: function () {
+			// 			authMark = true;
+			// 		}
+			// 	})
+			// }
 
 		}
 	},
@@ -205,6 +209,7 @@ Page({
 		console.log("loginDevice");
 		let that = this;
 		// 请求登录到设备
+		// console.log(app.globalData.userInfo);
 		wx.request({
 			url: that.data.obj.svrUrl + 'login/device',
 			method: "POST",
@@ -215,9 +220,8 @@ Page({
 				"device_id": ouid,
 				"user_id": that.data.obj.userId,
 				"user_jwt": that.data.obj.userJWT,
-				"user_name": that.data.obj.userName,
-				"user_avatar": that.data.obj.userAvatar,
-				"user_info": that.data.obj.userInfo
+				"user_name": app.globalData.userInfo.nickName,
+				"user_avatar": app.globalData.userInfo.avatarUrl
 			},
 			success: res2 => {
 				console.log("loginDevice:", res2);
@@ -250,107 +254,13 @@ Page({
 		})
 	},
 	weixinLoginTapHandle: function () {
-		var that = this;
-		if (authMark) {
-			authMark = false;
-			wx.getUserProfile({
-				desc: '展示用户信息',
-				success: function (res) {
-					console.log(res)
-					that.data.obj.userInfo = res.userInfo;
-					that.data.obj.hasUserInfo = true;
-					that.data.obj.userName = res.userInfo.nickName;
-					that.data.obj.userAvatar = res.userInfo.avatarUrl;
-
-					// 存储为本地数据
-					if (app.globalData.netName == "evinf") {
-						app.globalData.ev = that.data.obj;
-						wx.setStorageSync('ev', JSON.stringify(that.data.obj));
-					} else {
-						app.globalData.sg = that.data.obj;
-						wx.setStorageSync('sg', JSON.stringify(that.data.obj));
-					}
-
-					authMark = true;
-					// 登录
-					wx.login({
-						success: function (res) {
-							console.log(res.code);
-							// 发送 res.code 到后台换取 openId, sessionKey, unionId
-							if (res.code) {
-								wx.request({
-									url: that.data.obj.svrUrl + 'login/wechat',
-									method: "POST",
-									header: {
-										"content-type": "application/x-www-form-urlencoded"
-									},
-									data: {
-										code: res.code,
-									},
-									success: res2 => {
-										console.log(res2);
-										if (res2.statusCode == 200 && res2.data.code == "200") {
-											var result = res2.data.data;
-											// 返回值正确
-											that.data.obj.userId = result.user_id;
-											that.data.obj.userJWT = result.user_jwt;
-
-
-											// 存储为本地数据
-											if (app.globalData.netName == "evinf") {
-												app.globalData.ev = that.data.obj;
-												wx.setStorageSync('ev', JSON.stringify(that.data.obj));
-											} else {
-												app.globalData.sg = that.data.obj;
-												wx.setStorageSync('sg', JSON.stringify(that.data.obj));
-											}
-
-											
-											console.log("bbb:",that.data.obj);
-
-											that.userComponent = that.selectComponent("#user-component");
-											that.userComponent.RefreshUserData();
-										} else {
-											// 返回值不正确
-											wx.showToast({
-												title: 'OpenId未获取',
-												duration: 1000,
-											})
-										}
-									},
-									fail: res2 => {
-										console.log(res2);
-										wx.showToast({
-											title: 'OpenId获取失败',
-											duration: 1000,
-										})
-									}
-								});
-							} else {
-								wx.showToast({
-									title: '未获取到代码',
-									duration: 1000,
-								})
-							}
-						},
-						fail: res => {
-							// 失败返回
-							console.log(res);
-							wx.showToast({
-								title: '微信登录失败',
-								duration: 1000,
-							})
-						}
-					})
-				},
-				fail: function () {
-					authMark = true;
-				}
-			})
-		}
+		wx.navigateTo({
+			url: '/pages/login/index'
+		})
 	},
 	planTapHandle: function (e) {
-		if (this.data.obj.hasUserInfo){
+		if (app.globalData.userInfo != null) {
+			console.log("plan:", e);
 			if (e.detail != "") {
 				wx.navigateTo({
 					url: '/pages/user/plan'
@@ -364,17 +274,48 @@ Page({
 		}
 	},
 	vitalityTapHandle: function () {
-		if (this.data.obj.hasUserInfo){
+		if (app.globalData.userInfo != null) {
 			wx.navigateTo({
 				url: '/pages/user/vitality'
 			})
 		}
 	},
 	sportTapHandle: function () {
-		if (this.data.obj.hasUserInfo){
+		if (app.globalData.userInfo != null) {
 			wx.navigateTo({
 				url: '/pages/user/sport'
 			})
+		}
+	},
+	editTapHandle: function (e) {
+		console.log(e.detail);
+		wx.navigateTo({
+			url: '/pages/login/profile?first=0&sex=' + e.detail.sex + '&birthday=' + e.detail.birthday
+		})
+	},
+	// 刷新主页数据
+	RefreshUserData: function(){
+		let userComponent = this.selectComponent('#user-component');
+		userComponent.RefreshUserData();
+	},
+
+	/**
+	 * 页面滚动
+	 */
+	onPageScroll: function (e) {
+		console.log(e.scrollTop)
+		if (e.scrollTop <= 0) {
+			if (this.data.bgColor != '') {
+				this.setData({
+					bgColor: ''
+				})
+			}
+		} else {
+			if (this.data.bgColor == '') {
+				this.setData({
+					bgColor: '#fff'
+				})
+			}
 		}
 	}
 })

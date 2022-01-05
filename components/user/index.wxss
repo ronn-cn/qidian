@@ -2,7 +2,6 @@
 
 .main{
     width: 100%;
-    background-image: linear-gradient(to bottom, #4b85fe, #dbe5f3, #fff);
 }
 
 .fl{
@@ -15,7 +14,7 @@
 
 .user-info-box{
     width: 100%;
-    height: 150px;
+    height: 250rpx;
 }
 .user-info-box .no-user{
     width: 100%;
@@ -26,9 +25,24 @@
 }
 
 .user-info-box .no-user .cu-btn{
-    width: 80%;
+    width: 90%;
+    height: 100rpx;
+    border-radius: 50rpx;
     font-weight: lighter;
 }
+
+/* .user-info-box .no-user .cu-btn{
+    width: 90%;
+    height: 100rpx;
+    line-height: 100rpx;
+    padding:0;
+    color: white;
+    font-weight: 200;
+    margin: 0 auto;
+    background: rgb(48,114,255);
+    background: linear-gradient(0deg, rgba(48,114,255,1) 35%, rgba(103,155,255,1) 100%);
+    border-radius: 50rpx;
+} */
 
 .user-info-box .has-user{
     width: 80%;
@@ -47,31 +61,60 @@
     height: 150rpx;
     border-radius: 50%;
     overflow: hidden;
-    border: 1px solid #23b0ed;
+    border: 2px solid #fff;
+    margin-top: 25rpx;
     float: left;
 }
 
 .user-info-box .has-user .user-info-name{
-    color: white;
+    color: black;
     width: 400rpx;
-    height: 150rpx;
+    height: 200rpx;
     line-height: 75rpx;
     float: right;
 }
 
 .user-info-nick{
-    font-weight: bold;
+    font-size: 30rpx;
+    height: 50rpx;
+    font-weight: 700;
+}
+
+.user-info-sex{
+    height: 50rpx;
+    color: #888;
+}
+
+.user-info-sex-i{
+    display: inline-block;
+    width: 80rpx;
 }
 
 .user-info-medal{
-    width: 180rpx;
+    display: inline-block;
+    width: auto;
     height: 50rpx;
     line-height: 50rpx;
     text-align: center;
     border-radius: 25rpx;
     background-color: black;
-    color: #f0ef61;
-    font-size: 10px;
+    color: white;
+    font-size: 12px;
+}
+
+.user-info-medal-image{
+    width: 40rpx;
+    height: 40rpx;
+    margin: 5rpx 10rpx;
+    float: left;
+}
+
+.user-info-medal-text{
+    padding-right: 20rpx;
+}
+
+.user-info-medal-text-text{
+    color: #ffd15b;
 }
 
 .user-info-box .has-user .user-info-avatar .user-info-avatar-image{
@@ -132,7 +175,10 @@
 }
 
 .user-option-card .card-mid .text-2{
+    display: inline-block;
+    width: 50%;
     font-size: 10px;
+    text-align: right;
 }
 
 .user-option-card .card-mid .text-2 .big{
@@ -168,5 +214,5 @@
     font-size: 30rpx;
     background-color: #fff;
     color: #4b85fe;
-    border: 2px solid #4b85fe;
+    border: 1px solid #4b85fe;
 }

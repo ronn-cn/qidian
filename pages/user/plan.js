@@ -29,7 +29,9 @@ Page({
         realDay: 0,
         percentage: 0,
         spotArr: [],
-        position: "胸部",
+        position: "暂无",
+        positionStatus: -1,
+        bgColor: '',
     },
 
     /**
@@ -111,15 +113,29 @@ Page({
             if (this.data.userInfoAll.data.user_timetable != "") {
                 // 获取用户的排期日程
                 let schedule = JSON.parse(this.data.userInfoAll.data.user_timetable);
+                let positionStatus = -1;
                 if (schedule) {
                     for (let i = 0; i < schedule.length; i++) {
                         if (schedule[i].date == e.detail.dateString) {
-                            console.log(schedule[i].sport_guider)
+                            if (schedule[i].value == 0) {
+                                // 判断日期为今日小的日期
+                                let selectTime = new Date(e.detail.dateString).getTime();
+                                let todayTime = new Date().getTime();
+                                console.log(selectTime, todayTime);
+                                if (todayTime - selectTime > 24 * 3600000) {
+                                    positionStatus = 0;
+                                } else {
+                                    positionStatus = 2;
+                                }
+                            } else {
+                                positionStatus = 1;
+                            }
                             for (var key in positionJSON) {
                                 if (key == schedule[i].sport_guider) {
                                     console.log(positionJSON[key]);
                                     this.setData({
-                                        position: positionJSON[key]
+                                        position: positionJSON[key],
+                                        positionStatus: positionStatus
                                     });
                                     return
                                 }
@@ -129,7 +145,8 @@ Page({
                 }
             }
             this.setData({
-                position: "其他"
+                position: "暂无",
+                positionStatus: -1
             });
         }
 
@@ -139,7 +156,7 @@ Page({
         let userId = that.data.obj.userId;
         if (userId) {
             wx.request({
-                url: that.data.obj.svrUrl + 'get-user-all?user_id=' + userId,
+                url: that.data.obj.svrUrl + 'get-user-all?user_id=' + userId+"&time="+new Date().getTime(),
                 success: function (res) {
                     console.log(res.data)
                     if (res.data.code == "200") {
@@ -148,6 +165,7 @@ Page({
                         let percentage = 0;
                         let spotArr = new Array();
                         let position = "";
+                        let positionStatus = -1;
                         if (res.data.data.data.user_timetable != "") {
                             // 获取用户的排期日程
                             let schedule = JSON.parse(res.data.data.data.user_timetable);
@@ -159,13 +177,37 @@ Page({
                                     if (schedule[i].value == 1) {
                                         realDay++;
                                     }
+                                    // for (var key in positionJSON) {
+                                    //     if (key == schedule[i].sport_guider) {
+                                    //         console.log(positionJSON[key]);
+                                    //         that.setData({
+                                    //             position: positionJSON[key]
+                                    //         });
+                                    //     }
+                                    // }
 
-                                    for (var key in positionJSON) {
-                                        if (key == schedule[i].sport_guider) {
-                                            console.log(positionJSON[key]);
-                                            that.setData({
-                                                position: positionJSON[key]
-                                            });
+                                    if (schedule[i].date == that.data.dateString) {
+                                        if (schedule[i].value == 0) {
+                                            // 判断日期为今日小的日期
+                                            let selectTime = new Date(that.data.dateString).getTime();
+                                            let todayTime = new Date().getTime();
+                                            console.log(selectTime, todayTime);
+                                            if (todayTime - selectTime > 24 * 3600000) {
+                                                positionStatus = 0;
+                                            } else {
+                                                positionStatus = 2;
+                                            }
+                                        } else {
+                                            positionStatus = 1;
+                                        }
+                                        for (var key in positionJSON) {
+                                            if (key == schedule[i].sport_guider) {
+                                                console.log(positionJSON[key]);
+                                                that.setData({
+                                                    position: positionJSON[key],
+                                                    positionStatus: positionStatus
+                                                });
+                                            }
                                         }
                                     }
                                 }
@@ -189,6 +231,26 @@ Page({
                     }
                 }
             })
+        }
+    },
+
+    /**
+     * 页面滚动
+     */
+    onPageScroll: function (e) {
+        console.log(e.scrollTop)
+        if (e.scrollTop <= 0) {
+            if (this.data.bgColor != '') {
+                this.setData({
+                    bgColor: ''
+                })
+            }
+        } else {
+            if (this.data.bgColor == '') {
+                this.setData({
+                    bgColor: '#fff'
+                })
+            }
         }
     }
 })

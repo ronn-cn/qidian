@@ -1,16 +1,13 @@
 <!--components/home/index.wxml-->
-<cu-custom>
-    <!-- <view slot="backText">返回</view> -->
-    <view slot="content">自主健身</view>
-</cu-custom>
 <scroll-view scroll-y class="scrollPage">
     <view class="main">
         <view class="scan-box">
             <view bindtap="scanCodeTap" class="scan-button">
                 <image class="scan-button-image" src="/images/home/scan.png"></image>
-                <view class="scan-button-text">
-                    <text>扫一扫开启器械</text>
-                </view>
+            </view>
+
+            <view class="scan-button-tips">
+                <image class="scan-button-tips-bg" src="/images/home/tips.png" mode="scaleToFill"></image>
             </view>
         </view>
         <view class="card-box">
@@ -20,7 +17,7 @@
                     <text class="card-item-left-text">扫描健身镜或健身器械二维码</text>
                 </view>
                 <view class="card-item-right">
-                    <image mode="widthFix" class="card-image" src="/images/home/img-1.jpg"></image>
+                    <image mode="widthFix" class="card-image" src="/images/home/img-1.png"></image>
                 </view>
             </view>
             <view class="card-item">
@@ -29,7 +26,7 @@
                     <text class="card-item-left-text">授权账户，开启智能器械</text>
                 </view>
                 <view class="card-item-right">
-                    <image mode="widthFix" class="card-image" src="/images/home/img-2.jpg"></image>
+                    <image mode="widthFix" class="card-image" src="/images/home/img-2.png"></image>
                 </view>
             </view>
             <view class="card-item">
@@ -38,7 +35,7 @@
                     <text class="card-item-left-text">开始训练，训练数据同步更新</text>
                 </view>
                 <view class="card-item-right">
-                    <image mode="widthFix" class="card-image" src="/images/home/img-3.jpg"></image>
+                    <image mode="widthFix" class="card-image" src="/images/home/img-3.png"></image>
                 </view>
             </view>
         </view>

@@ -1,23 +1,26 @@
 <!--components/user/index.wxml-->
-<cu-custom>
-	<view slot="content">我的</view>
-</cu-custom>
 <view class="main">
 	<!-- 用户信息区域 -->
 	<view class="user-info-box">
-		<view wx:if="{{!obj.hasUserInfo}}" class="no-user">
-			<button class="cu-btn block bg-blue lg light" bindtap="weixinLoginTap">
-				<text class="cuIcon-weixin"></text> 微信登录
-			</button>
-		</view>
+		<view wx:if="{{!hasUserInfo}}" class="no-user"> 
+            <button class="cu-btn block bg-blue lg light" bindtap="weixinLoginTap">前往授权</button> 
+        </view> 
 		<view wx:else class="has-user">
 			<view class="user-info-avatar">
-				<image class="user-info-avatar-image" src="{{obj.userInfo.avatarUrl}}"></image>
+				<image class="user-info-avatar-image" src="{{avatarUrl}}"></image>
 			</view>
 			<view class="user-info-name">
-				<text class="user-info-nick">{{obj.userInfo.nickName}}</text>
+				<view class="user-info-nick">{{nickName}}</view>
+				<view class="user-info-sex">
+					<text class="user-info-sex-i" wx:if="{{sex == 1}}">男</text>
+					<text class="user-info-sex-i" wx:elif="{{sex == 2}}">女</text>
+					<text class="user-info-sex-i" wx:else>-</text>
+					<text class="user-info-sex-i">{{age}}岁</text>
+					<text class="user-info-sex-i cuIcon-write text-center" bindtap="editTap"></text>
+				</view>
 				<view class="user-info-medal">
-					<text>累计获得{{starNumber}}星</text>
+					<image class="user-info-medal-image" src="/images/user/ico_star.png"></image>
+					<text class="user-info-medal-text">累计获星 <text class="user-info-medal-text-text">{{star}}</text> 颗</text>
 				</view>
 			</view>
 			<view class="clear"></view>
@@ -33,7 +36,7 @@
 			<view class="card-mid fl">
 				<view>
 					<text class="text-1">运动能力</text>
-					<text class="text-2"><text class="big">{{sportScore}}</text>/100</text>
+					<text class="text-2"><text class="big">{{sport}}</text>/100</text>
 				</view>
 				<view>
 					<text class="text-3">运动能力是指综合身体各项基础数据的指数维度</text>
@@ -54,7 +57,7 @@
 			<view class="card-mid fl">
 				<view>
 					<text class="text-1">活力</text>
-					<text class="text-2"><text class="big">{{vitalityScore}}</text>/100</text>
+					<text class="text-2"><text class="big">{{vitality}}</text>/100</text>
 				</view>
 				<view>
 					<text class="text-3">活力是指运动训练频次发生变化的指数维度</text>
@@ -86,7 +89,7 @@
 			</view>
 		</view>
 
-		<view wx:if="{{obj.hasUserInfo}}" class="user-option-logout">
+		<view wx:if="{{hasUserInfo}}" class="user-option-logout">
 			<button class="cu-btn round bg-gray" bindtap="weixinLogout">退出登录</button>
 		</view>
 	</view>

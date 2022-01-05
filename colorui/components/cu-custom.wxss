@@ -1,13 +1,14 @@
 /* colorui/components/cu-custom.wxss */
 
 .cu-custom{
-    color: white;
-    background-image: linear-gradient(#3476fe, #4b85fe);
+    /* color: white; */
+	/* background-image: linear-gradient(#3476fe, #4b85fe); */
 }
 
 .cu-bar{
-    color: white;
-    background-image: linear-gradient(#3476fe, #4b85fe);
+	font-weight: bold;
+    /* color: white; */
+    /* background-image: linear-gradient(#3476fe, #4b85fe); */
 }
 
 .border-home{
