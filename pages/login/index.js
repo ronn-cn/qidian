@@ -90,10 +90,12 @@ Page({
                     app.setUserInfo(resUserProfile.userInfo);
                     wx.login({
                         success: resWxLogin => {
-                            console.log(resWxLogin);
+                            console.log("resWxLogin:",resWxLogin);
                             // 调用两个服务器的微信登录
                             if (resWxLogin.code) {
+
                                 let serverUrl = app.globalData.sg.svrUrl;
+                                app.globalData.netName = "evinf" // TODO:测试
                                 if (app.globalData.netName == "evinf") {
                                     serverUrl = app.globalData.ev.svrUrl;
                                 }
