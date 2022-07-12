@@ -8,7 +8,7 @@ Page({
     data: {
         obj: "",
         bodyData: null,
-        bgColor:'',
+        bgColor:true,
     },
 
     /**
@@ -79,11 +79,11 @@ Page({
 		let userId = that.data.obj.userId;
 		if (userId) {
 			wx.request({
-				url: that.data.obj.svrUrl + 'get-user-all?user_id=' + userId,
+				url: that.data.obj.svrUrl + 'get-user-all?user_ouid=' + userId,
 				success: function (res) {
 					console.log(res.data)
 					if (res.data.code == "200") {
-                        let userAll = res.data.data;
+                        let userAll = res.data.data.user;
 
                         let bodyData = [{
                             "name": "BMI",
@@ -271,19 +271,9 @@ Page({
 	 * 页面滚动
 	 */
 	onPageScroll: function (e) {
-		console.log(e.scrollTop)
-		if (e.scrollTop <= 0) {
-			if (this.data.bgColor != '') {
-				this.setData({
-					bgColor: ''
-				})
-			}
-		} else {
-			if (this.data.bgColor == '') {
-				this.setData({
-					bgColor: '#fff'
-				})
-			}
-		}
+		let flag = e.scrollTop <= 0;
+    this.setData({
+      bgColor: flag
+    })
 	}
 })

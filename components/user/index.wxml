@@ -1,57 +1,69 @@
 <!--components/user/index.wxml-->
-<view class="main">
+<scroll-view scroll-y>
+  <van-dialog
+    title="需要登录"
+    message="需要登录或注册 健身Link 账号"
+    confirmButtonText="去登录"
+    show="{{ showLogin }}"
+    show-cancel-button
+    confirm-button-open-type="authorizedLoginTap"
+    bind:close="onClose"
+    bind:confirm="authorizedLoginTap"
+  >
+  </van-dialog>
 	<!-- 用户信息区域 -->
 	<view class="user-info-box">
-		<view wx:if="{{!hasUserInfo}}" class="no-user"> 
-            <button class="cu-btn block bg-blue lg light" bindtap="weixinLoginTap">前往授权</button> 
-        </view> 
+		<view wx:if="{{!hasUserInfo}}" class="no-user" bindtap="authorizedLoginTap"> 
+      <image class="avatar-image" src="/images/home/avatar.svg"></image>
+      <view class="no-user-text">点击登录</view>
+    </view> 
 		<view wx:else class="has-user">
-			<view class="user-info-avatar">
-				<image class="user-info-avatar-image" src="{{avatarUrl}}"></image>
-			</view>
-			<view class="user-info-name">
-				<view class="user-info-nick">{{nickName}}</view>
-				<view class="user-info-sex">
-					<text class="user-info-sex-i" wx:if="{{sex == 1}}">男</text>
-					<text class="user-info-sex-i" wx:elif="{{sex == 2}}">女</text>
-					<text class="user-info-sex-i" wx:else>-</text>
-					<text class="user-info-sex-i">{{age}}岁</text>
-					<text class="user-info-sex-i cuIcon-write text-center" bindtap="editTap"></text>
-				</view>
-				<view class="user-info-medal">
-					<image class="user-info-medal-image" src="/images/user/ico_star.png"></image>
-					<text class="user-info-medal-text">累计获星 <text class="user-info-medal-text-text">{{star}}</text> 颗</text>
-				</view>
-			</view>
-			<view class="clear"></view>
+      <van-row>
+        <van-col span="5">
+				  <van-image round width="140rpx" height="140rpx" fit="contain" src="{{avatarUrl}}"/>
+        </van-col>
+        <van-col span="15" offset="4">
+          <view class="user-info-nick">Hi, {{nickName}}</view>
+          <view class="user-info-sex">
+            <view class="user-info-sex-i">
+              <text wx:if="{{sex == 1}}">男</text>
+              <text wx:elif="{{sex == 2}}">女</text>
+              <text  wx:else>-</text>
+            </view>
+            <text class="user-info-sex-i">{{age}}岁</text>
+            <van-icon name="edit" bindtap="editTap" />
+          </view>
+        </van-col>
+      </van-row>
 		</view>
 	</view>
+  <van-divider     
+    customStyle="border-color: rgba(134, 150, 187, 0.15); width:90%;margin:0 auto;">
+  </van-divider>
 	<!-- 用户选项区域 -->
 	<view class="user-option-box">
-		<view class="user-option-card card-bg-1" bindtap="sportTap" style="background-image: url('https://www.evinf.cn/images/bg-1.png'); background-size: 100% 100%;">
+		<view class="user-option-card card-bg-1" bindtap="jumpView" data-index="sport"
+    style="background-image: url('https://www.evinf.cn/images/bg-1.png'); background-size: 100% 100%;"> 
 			<view class="card-left fl">
 				<!-- <image mode="widthFix" src="/images/home/target.png"></image> -->
 			</view>
-
 			<view class="card-mid fl">
 				<view>
-					<text class="text-1">运动能力</text>
+					<text class="text-1">运动力</text>
 					<text class="text-2"><text class="big">{{sport}}</text>/100</text>
 				</view>
 				<view>
-					<text class="text-3">运动能力是指综合身体各项基础数据的指数维度</text>
+					<text class="text-3">运动力是指人体从事体育活动所具备的身体素质和运动能力的指数</text>
 				</view>
 			</view>
 			<view class="card-right fr">
-				<text class="cuIcon-roundrightfill"></text>
-				<!-- <image src="/images/home/to-right.png"></image> -->
+        <image class="icon-goin" src="/images/home/goin.svg"></image>
 			</view>
 		</view>
-
 		
-		<view class="user-option-card card-bg-2" bindtap="vitalityTap" style="background-image: url('https://www.evinf.cn/images/bg-2.png'); background-size: 100% 100%;">
+		<view class="user-option-card card-bg-2" bindtap="jumpView" data-index="vitality"
+    style="background-image: url('https://www.evinf.cn/images/bg-2.png'); background-size: 100% 100%;">
 			<view class="card-left fl">
-				<!-- <image mode="widthFix" src="/images/home/fire.png"></image> -->
 			</view>
 
 			<view class="card-mid fl">
@@ -60,39 +72,46 @@
 					<text class="text-2"><text class="big">{{vitality}}</text>/100</text>
 				</view>
 				<view>
-					<text class="text-3">活力是指运动训练频次发生变化的指数维度</text>
+					<text class="text-3">活力是指通过监测一定强度和持续性的运动类型及频次，综合计算得出的数值</text>
 				</view>
 			</view>
 
 			<view class="card-right fr">
-				<text class="cuIcon-roundrightfill"></text>
+        <image class="icon-goin" src="/images/home/goin.svg"></image>
 			</view>
 		</view>
 
-		<view class="user-option-card card-bg-3" bindtap="planTap" style="background-image: url('https://www.evinf.cn/images/bg-3.png'); background-size: 100% 100%;">
+		<view class="user-option-card card-bg-3" bindtap="planTap" data-index="plan"
+    style="background-image: url('https://www.evinf.cn/images/bg-3.png'); background-size: 100% 100%;">
 			<view class="card-left fl">
-				<!-- <image mode="widthFix" src="/images/home/clipboard.png"></image> -->
 			</view>
-
 			<view class="card-mid fl">
 				<view>
 					<text class="text-1">训练计划</text>
-					<!-- <text class="text-2"><text class="big">86</text>/100</text> -->
 				</view>
 				<view>
-					<text class="text-3">可为您提供训练指导，根据你的进度，训练结果反馈予以调整的个性化计划训练</text>
+					<text class="text-3">可为您提供训练指导，根据运动课程的结果，予以调整计划训练内容</text>
 				</view>
 			</view>
-
 			<view class="card-right fr">
-				<text class="cuIcon-roundrightfill"></text>
+        <image class="icon-goin" src="/images/home/goin.svg"></image>
 			</view>
 		</view>
-
+       
 		<view wx:if="{{hasUserInfo}}" class="user-option-logout">
-			<button class="cu-btn round bg-gray" bindtap="weixinLogout">退出登录</button>
+			<van-button type="default" bindtap="showExit" block color="#7989AA" plain>退出登录</van-button>
 		</view>
 	</view>
-</view>
-<view class='cu-tabbar-height'></view>
+  
+  <van-dialog
+    message="确认退出账号吗？"
+    confirmButtonText="确定"
+    show="{{ showExit }}"
+    show-cancel-button
+    bind:close="onClose"
+    bind:confirm="weixinLogout"
+  >
+  </van-dialog>
+</scroll-view>
+<!-- <view class='cu-tabbar-height'></view> -->
 

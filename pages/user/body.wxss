@@ -34,7 +34,7 @@
 	font-size: 32rpx;
 	height: 80rpx;
 	line-height: 80rpx;
-	float: left;
+	/* float: left; */
 }
 
 .item-card .item-top .item-top-right .ident{

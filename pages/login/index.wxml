@@ -10,7 +10,7 @@
             <view class="desc">健身Link微信小程序将使用您的昵称和头像来登录</view>
         </view>
         <view class="middle">
-            <image src="/images/login/main.png" mode="widthFix"></image>
+            <!-- <image src="/images/login/main.png" mode="widthFix"></image> -->
         </view>
         <view class="footer">
             <view class="footer-btn">

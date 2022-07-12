@@ -16,22 +16,35 @@ const positionJSON = {
     "muscle": "增肌",
     "fat": "减脂",
 }
-Page({
 
+function addZero(v, size) {
+  for (var i = 0, len = size - (v + "").length; i < len; i++) {
+      v = "0" + v;
+  };
+  return v + "";
+}
+
+Page({
     /**
      * 页面的初始数据
      */
     data: {
-        obj: null,
-        dateString: "",
-        planName: "",
-        planDay: 0,
-        realDay: 0,
-        percentage: 0,
-        spotArr: [],
-        position: "暂无",
-        positionStatus: -1,
-        bgColor: '',
+      bgColor:true,
+      obj: null,
+      planName: "",
+      planDes:"",
+      stageName:"",
+      factor:"",
+      condition:[],
+
+      steps:[{},{},{},{}],
+      active:0,
+
+      spotArr: [],
+      recordList: [],
+
+      position: "暂无",
+      positionStatus: -1,
     },
 
     /**
@@ -50,35 +63,30 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-
     },
 
     /**
@@ -102,135 +110,78 @@ Page({
             icon: 'none'
         })
     },
-    dateChange(e) {
-        console.log("选中日期变了,现在日期是", e.detail.dateString)
-        this.setData({
-            dateString: e.detail.dateString
-        });
-
-        if (this.data.userInfoAll) {
-            console.log(this.data.userInfoAll);
-            if (this.data.userInfoAll.data.user_timetable != "") {
-                // 获取用户的排期日程
-                let schedule = JSON.parse(this.data.userInfoAll.data.user_timetable);
-                let positionStatus = -1;
-                if (schedule) {
-                    for (let i = 0; i < schedule.length; i++) {
-                        if (schedule[i].date == e.detail.dateString) {
-                            if (schedule[i].value == 0) {
-                                // 判断日期为今日小的日期
-                                let selectTime = new Date(e.detail.dateString).getTime();
-                                let todayTime = new Date().getTime();
-                                console.log(selectTime, todayTime);
-                                if (todayTime - selectTime > 24 * 3600000) {
-                                    positionStatus = 0;
-                                } else {
-                                    positionStatus = 2;
-                                }
-                            } else {
-                                positionStatus = 1;
-                            }
-                            for (var key in positionJSON) {
-                                if (key == schedule[i].sport_guider) {
-                                    console.log(positionJSON[key]);
-                                    this.setData({
-                                        position: positionJSON[key],
-                                        positionStatus: positionStatus
-                                    });
-                                    return
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            this.setData({
-                position: "暂无",
-                positionStatus: -1
-            });
-        }
-
-    },
     requestUserData: function () {
         let that = this;
         let userId = that.data.obj.userId;
         if (userId) {
             wx.request({
-                url: that.data.obj.svrUrl + 'get-user-all?user_id=' + userId+"&time="+new Date().getTime(),
+                url: that.data.obj.svrUrl + 'get-user-all?user_ouid=' + userId+"&time="+new Date().getTime(),
                 success: function (res) {
-                    console.log(res.data)
                     if (res.data.code == "200") {
-                        let planDay = 0;
-                        let realDay = 0;
-                        let percentage = 0;
-                        let spotArr = new Array();
-                        let position = "";
-                        let positionStatus = -1;
-                        if (res.data.data.data.user_timetable != "") {
-                            // 获取用户的排期日程
-                            let schedule = JSON.parse(res.data.data.data.user_timetable);
-                            if (schedule) {
-                                planDay = schedule.length;
-                                realDay = 0;
-                                for (let i = 0; i < planDay; i++) {
-                                    spotArr[i] = schedule[i].date;
-                                    if (schedule[i].value == 1) {
-                                        realDay++;
-                                    }
-                                    // for (var key in positionJSON) {
-                                    //     if (key == schedule[i].sport_guider) {
-                                    //         console.log(positionJSON[key]);
-                                    //         that.setData({
-                                    //             position: positionJSON[key]
-                                    //         });
-                                    //     }
-                                    // }
+                        let userAll = res.data.data.user
+                        let plan = userAll.plan_describe
+                        let planDes = JSON.parse(userAll.plan).desc
 
-                                    if (schedule[i].date == that.data.dateString) {
-                                        if (schedule[i].value == 0) {
-                                            // 判断日期为今日小的日期
-                                            let selectTime = new Date(that.data.dateString).getTime();
-                                            let todayTime = new Date().getTime();
-                                            console.log(selectTime, todayTime);
-                                            if (todayTime - selectTime > 24 * 3600000) {
-                                                positionStatus = 0;
-                                            } else {
-                                                positionStatus = 2;
-                                            }
-                                        } else {
-                                            positionStatus = 1;
-                                        }
-                                        for (var key in positionJSON) {
-                                            if (key == schedule[i].sport_guider) {
-                                                console.log(positionJSON[key]);
-                                                that.setData({
-                                                    position: positionJSON[key],
-                                                    positionStatus: positionStatus
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if (realDay == 0) {
-                            percentage = 0
-                        } else {
-                            percentage = parseInt((realDay / planDay) * 100)
-                        }
+                        let stepsTmp = []
+                        let count = plan.stage_count
 
+                        for (let i = 0; i<count; i++){
+                          let item = {
+                            inactiveIcon: 'star',
+                            activeIcon: 'star',
+                          }
+                          stepsTmp.push(item)
+                        }
                         that.setData({
-                            userInfoAll: res.data.data,
-                            planName: res.data.data.data.user_plan_name,
-                            planDay: planDay,
-                            realDay: realDay,
-                            percentage: percentage,
-                            spotArr: spotArr,
+                            userInfoAll: userAll,
+                            planName: plan.plan_name,
+                            stageName:plan.stage_name,
+                            factor:plan.factor/10,
+                            condition:plan.condition,
+                            steps: stepsTmp,
+                            active:plan.stage_index,
+                            planDes:planDes
                         });
-
+                        
                     }
                 }
             })
+
+            wx.request({
+              url: that.data.obj.svrUrl + 'get-sport-log',
+              method: "POST",
+              data: {
+                  "user_ouid": userId
+                  // "user_ouid": "a3bbbc4d009df04ad843af4c8421466ecf3e8926a4b72c92db384e3b948bf2a8"
+              },
+              success: function (res) {
+                let spotArr = [];
+                let recordList =[];
+                // spotArkr
+                  if (res.data.code == "200" && res.data.data != null) {
+                    let arr = res.data.data;
+                    let i = 0;
+                    for (const key in arr) {
+                      let record = arr[key];
+                      if (new Date(record.date).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0)){
+                        let m = parseInt(record.time / 60);
+                        let s = parseInt(record.time % 60);
+                        let item = {
+                          title: record.name,
+                          duration: addZero(m, 2) + "′" + addZero(s, 2) + "″",
+                        }
+                        recordList.push(item)
+                      }
+                      spotArr.push(record.date)
+                    }
+
+                    that.setData({
+                      spotArr : spotArr,
+                      recordList: recordList
+                    })
+                  }
+                }
+              });
         }
     },
 
@@ -238,19 +189,14 @@ Page({
      * 页面滚动
      */
     onPageScroll: function (e) {
-        console.log(e.scrollTop)
-        if (e.scrollTop <= 0) {
-            if (this.data.bgColor != '') {
-                this.setData({
-                    bgColor: ''
-                })
-            }
-        } else {
-            if (this.data.bgColor == '') {
-                this.setData({
-                    bgColor: '#fff'
-                })
-            }
-        }
-    }
+      let flag = e.scrollTop <= 0;
+      this.setData({
+        bgColor: flag
+      })
+    },
+    returnHome(){
+      wx.navigateBack({
+        delta: 1
+      });
+    },
 })

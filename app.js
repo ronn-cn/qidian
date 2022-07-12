@@ -36,7 +36,8 @@ App({
   },
   // 全局数据,默认sportguider
 	globalData: {
-		netName: "sportguider", // 网络名称
+		// netName: "sportguider", // 网络名称
+		netName: "evinf", // 网络名称
 		userInfo: null, // 用户信息
 		sg: {
 			userId: "",
@@ -48,7 +49,8 @@ App({
 			userId: "",
 			userJWT: "",
 			userAll: null,
-			svrUrl: "https://sport.evinf.cn/",
+			// svrUrl: "https://sport.evinf.cn/",
+			svrUrl: "https://sport1.evinf.cn/",
 		}
 	},
 	// 设置用户信息函数
@@ -58,12 +60,13 @@ App({
 	},
 	// 设置用户权限信息
 	setUserAuth(user) {
+    console.log("用户信息", user)
 		if(this.globalData.netName == "evinf"){
-			this.globalData.ev.userId = user.user_id;
+			this.globalData.ev.userId = user.user_ouid;
 			this.globalData.ev.userJWT = user.user_jwt;
 			wx.setStorageSync('ev', JSON.stringify(this.globalData.ev));
 		} else {
-			this.globalData.sg.userId = user.user_id;
+			this.globalData.sg.userId = user.user_ouid;
 			this.globalData.sg.userJWT = user.user_jwt;
 			wx.setStorageSync('sg', JSON.stringify(this.globalData.sg));
 		}

@@ -1,7 +1,6 @@
 // pages/user/vitality.js
 const app = getApp();
 
-
 function addZero(v, size) {
     for (var i = 0, len = size - (v + "").length; i < len; i++) {
         v = "0" + v;
@@ -24,14 +23,14 @@ Page({
         obj: null,
         TabCur: 0,
         userInfoAll: null,
-        vitalityValue: 0,
-        sportDuration: 0,
-        sportConsumption: 0,
-        sportDays: 0,
-        sportCount: 0,
+        vitalityValue: 0,           //活力值
+        sportLength: 0,             //总运动时长
+        sportEnergy: 0,             //总运动消耗
+        sportDay: 0,                //总运动天数
+        sportCount: 0,              //总运动次数
         sportRecord: null,
         recordList: [],
-        bgColor: '',
+        bgColor: true,
     },
 
     /**
@@ -105,22 +104,23 @@ Page({
         let userId = that.data.obj.userId;
         if (userId) {
             wx.request({
-                url: that.data.obj.svrUrl + 'get-user-all?user_id=' + userId,
+                url: that.data.obj.svrUrl + 'get-user-all?user_ouid=' + userId,
                 success: function (res) {
                     console.log(res.data)
                     if (res.data.code == "200") {
+                      var userAll = res.data.data.user;
 
                         // 时长（单位秒）需转化为分钟
-                        let sec = res.data.data.total.sport_timespan
-                        let minute = Math.ceil(res.data.data.total.sport_timespan / 60)
+                        let sec = userAll.sport_length
+                        let minute = Math.ceil(sec / 60)
 
                         that.setData({
                             userInfoAll: res.data.data,
-                            vitalityValue: res.data.data.data.life_power,
-                            sportDuration: minute,
-                            sportConsumption: res.data.data.total.sport_calorie,
-                            sportDays: res.data.data.total.sport_day,
-                            sportCount: res.data.data.total.sport_count,
+                            vitalityValue: userAll.vitality_v,
+                            sportLength: minute,
+                            sportEnergy: userAll.sport_energy,
+                            sportDay: userAll.sport_day,
+                            sportCount: userAll.sport_count,
                         });
 
                     }
@@ -128,36 +128,28 @@ Page({
             })
 
             wx.request({
-                url: that.data.obj.svrUrl + '/get-lesson-log',
+                url: that.data.obj.svrUrl + 'get-sport-log',
                 method: "POST",
                 data: {
-                    "user_id": userId
+                    "user_ouid": userId
+                    // "user_ouid": "a3bbbc4d009df04ad843af4c8421466ecf3e8926a4b72c92db384e3b948bf2a8"
                 },
                 success: function (res) {
                     console.log(res.data);
                     let recordList = [];
-                    if (res.data.code == "200") {
-                        let arr = res.data.data.sport_records.reverse();
+                    if (res.data.code == "200" && res.data.data != null) {
+                        let arr = res.data.data;
                         let i = 0;
                         for (const key in arr) {
                             if (i >= 10) {
                                 break;
                             }
                             let record = arr[key];
-                            let unix_time = 0;
                             // 判断时间戳的长度
-                            if (record.sport_start_time.toString().length > 10) {
-                                unix_time = record.sport_start_time
-                            } else {
-                                unix_time = record.sport_start_time * 1000
-                            }
-                            let date = formatDate(new Date(unix_time), "YYYY年MM月DD日 HH:ii");
-                            // date.setTime(record.sport_time);
-                            let m = parseInt(record.sport_duration / 60);
-                            let s = parseInt(record.sport_duration % 60);
+                            let m = parseInt(record.time / 60);
+                            let s = parseInt(record.time % 60);
                             let item = {
-                                title: record.lesson_name,
-                                date: date,
+                                title: record.name,
                                 duration: addZero(m, 2) + "′" + addZero(s, 2) + "″",
                             }
                             recordList.push(item);
@@ -176,19 +168,14 @@ Page({
      * 页面滚动
      */
     onPageScroll: function (e) {
-        console.log(e.scrollTop)
-        if (e.scrollTop <= 0) {
-            if (this.data.bgColor != '') {
-                this.setData({
-                    bgColor: ''
-                })
-            }
-        } else {
-            if (this.data.bgColor == '') {
-                this.setData({
-                    bgColor: '#fff'
-                })
-            }
-        }
+      let flag = e.scrollTop <= 0;
+      this.setData({
+        bgColor: flag
+      })
+    },
+    returnHome(){
+      wx.navigateBack({
+        delta: 1
+      });
     }
 })

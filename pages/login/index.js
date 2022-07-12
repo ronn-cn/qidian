@@ -20,9 +20,7 @@ Page({
         
 		//如果没有授权的话跳转到登录页面
 		if(app.globalData.userInfo != null){
-			wx.reLaunch({
-				url: '/pages/index/index',
-			});
+      this.authorizedLoginTap();
 		}
     },
 
@@ -115,11 +113,11 @@ Page({
                                             app.setUserAuth(result);
                                             // 请求用户全部信息
                                             wx.request({
-                                                url: serverUrl + 'get-user-all?user_id=' + result.user_id,
+                                                url: serverUrl + 'get-user-all?user_ouid=' + result.user_id,
                                                 success: resUserAll => {
                                                     console.log(resUserAll.data)
                                                     if (resUserAll.data.code == "200") {
-                                                        let userAll = resUserAll.data.data;
+                                                        let userAll = resUserAll.data.data.user;
                                                         app.setUserAll(userAll);
                                                         if (userAll.user.birthday == "") {
                                                             // 跳转到设置性别出生日期页面

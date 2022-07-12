@@ -20,8 +20,9 @@ function getQueryVariable(query, variable) {
 Page({
 	data: {
 		obj: null,
-		PageCur: 'home',
-		bgColor: ''
+		PageCur: 'user',
+    active:'',
+    bgColor:'true'
 	},
 	onLoad: function (options) {
 		// 判断是扫码进入
@@ -42,7 +43,6 @@ Page({
 			}
 			if (url.includes("device")) {
 				let ouid = getQueryVariable(url, "ouid");
-
 				// 判断授权
 				if (app.globalData.userInfo != null) {
 					this.loginDevice(ouid);
@@ -59,21 +59,17 @@ Page({
 				this.data.obj = app.globalData.sg;
 			}
 		}
-	},
-	// 底部导航改变函数
-	NavChange(e) {
-		this.setData({
-			PageCur: e.currentTarget.dataset.cur
-		});
-		if (wx.pageScrollTo) {
-			wx.pageScrollTo({
-				scrollTop: 0
-			})
-		}
-	},
+  },
+  onChange(event) {
+    // event.detail 的值为当前选中项的索引
+    this.setData({ 
+      PageCur: event.detail,
+     });
+  },
+
 	// 点击扫码按钮的处理函数
 	scanCodeTapHandle: function () {
-		let that = this;
+    let that = this;
 		if (app.globalData.userInfo != null) {
 			// 判断用户信息存在，直接开启扫码
 			wx.scanCode({
@@ -95,9 +91,10 @@ Page({
 				}
 			});
 		} else {
-			wx.navigateTo({
-				url: '/pages/login/index',
-			});
+      this.setData({
+        PageCur: 'user'
+      });
+      this.selectComponent('#user-component').authorizedLoginTap();
 		}
 	},
 	loginDevice: function (ouid) {
@@ -150,44 +147,10 @@ Page({
 	},
 	weixinLoginTapHandle: function () {
 		wx.navigateTo({
-			url: '/pages/login/index'
+			url: '/pages/home/index'
 		})
 	},
-	planTapHandle: function (e) {
-		if (app.globalData.userInfo != null) {
-			console.log("plan:", e);
-			if (e.detail != "") {
-				wx.navigateTo({
-					url: '/pages/user/plan'
-				})
-			} else {
-				wx.showToast({
-					title: '当前没有开启任何计划',
-					icon: 'none'
-				});
-			}
-		}
-	},
-	vitalityTapHandle: function () {
-		if (app.globalData.userInfo != null) {
-			wx.navigateTo({
-				url: '/pages/user/vitality'
-			})
-		}
-	},
-	sportTapHandle: function () {
-		if (app.globalData.userInfo != null) {
-			wx.navigateTo({
-				url: '/pages/user/sport'
-			})
-		}
-	},
-	editTapHandle: function (e) {
-		console.log(e.detail);
-		wx.navigateTo({
-			url: '/pages/login/profile?first=0&sex=' + e.detail.sex + '&birthday=' + e.detail.birthday
-		})
-	},
+
 	// 刷新主页数据
 	RefreshUserData: function(){
 		let userComponent = this.selectComponent('#user-component');
@@ -198,19 +161,9 @@ Page({
 	 * 页面滚动
 	 */
 	onPageScroll: function (e) {
-		console.log(e.scrollTop)
-		if (e.scrollTop <= 0) {
-			if (this.data.bgColor != '') {
-				this.setData({
-					bgColor: ''
-				})
-			}
-		} else {
-			if (this.data.bgColor == '') {
-				this.setData({
-					bgColor: '#fff'
-				})
-			}
-		}
+    let flag = e.scrollTop <= 0;
+      this.setData({
+        bgColor: flag
+      })
 	}
 })

@@ -1,13 +1,16 @@
 /* components/home/index.wxss */
 
-.main{
-    width: 100%;
-    /* background-image: linear-gradient(to bottom, #4b85fe, #dbe5f3, #fff); */
+.line-box{
+  margin: 0 auto;
+  width: 90%;
+  height: 4rpx;
+  background-color: rgba(134, 150, 187, 0.15);
 }
 
 .scan-box{
     width: 100%;
     position: relative;
+    padding-bottom: 15rpx;
 }
 
 .scan-button{
@@ -20,12 +23,6 @@
 .scan-button .scan-button-image{
     width: 100%;
     height: 100%;
-    /* width: 60px;
-    height: 60px;
-    position: relative;
-    top: 89px;
-    left: 89px;
-    transform: translate(-50%, -50%); */
 }
 
 .scan-button-tips{
@@ -34,68 +31,47 @@
     right: 20rpx;
 }
 
-.scan-button-tips-bg{
-    width: 280rpx;
-    height: 80rpx;
-    box-sizing: content-box;
+.card-title{
+  text-align: center;
+  /* padding: 30px 40%; */
+  margin: 20px auto;
+  font-size: 16px;
+  color: #576B95;
 }
 
 .card-item{
     width: 90%;
-    height: 100px;
-    background: white;
-    margin: 15px auto;
-    box-shadow: 0 3px 3px #eee;
-    border-radius: 15px;
-    font-weight: bold;
+    height: 140rpx;
+    background: #e4e7ee;
+    margin: 0px auto;
+    /* box-shadow: 0 3px 3px #eee; */
+    border-radius: 12px;
+    /* font-weight: bold; */
+    color:#576B95;
+    font-size: 24rpx;
 }
 
-.card-item-left{
-    width: 65%;
-    float: left;
+.card-row{
+  background: #e4e7ee;
 }
 
-.card-item-left-title{
-    display: block;
-    width: 50px;
-    height: 25px;
-    line-height: 25px;
-    text-align: center;
-    color: white;
-    background-color: #4b85fe;
-    border-radius: 15px 0px 15px 0px;
+.card-item-index{
+  width: 40px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  color: white;
+  background-color: #cddbf0;
+  border-radius: 15px 0px 15px 0px;
 }
 
-.card-item-left-text{
-    display: block;
-    margin-top: 15px;
-    margin-left: 25px;
+.card-item-text{
+  line-height: 140rpx;
 }
 
-.card-item-right{
-    width: 35%;
-    height: 100%;
-    padding: 5px;
-    float: right;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.card-item-content-text{
-    float: left;
-    display: inline-block;
-}
-
-.bottom-box{
-    width: 90%;
-    height: 25px;
-    line-height: 25px;
-    text-align: center;
-    color: #aaa;
-    font-size: 10px;
-    margin: 0 auto;
-    background-color: #fff;
+.arrow-image{
+  width: 100%;
+  height: 15px;
+  margin: 0 auto;
+  background-image: url("/images/home/arrow.svg") 20px 15px;
 }

@@ -1,8 +1,6 @@
 /* components/user/index.wxss */
 
-.main{
-    width: 100%;
-}
+
 
 .fl{
     float: left;
@@ -11,54 +9,34 @@
 .fr{
     float: right;
 }
-
 .user-info-box{
-    width: 100%;
-    height: 250rpx;
+  width: 90%;
+  height: 200rpx;
+  text-align: center;
+  font-size: 28rpx;
+  margin: 0 auto;
 }
-.user-info-box .no-user{
-    width: 100%;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.no-user-text{
+  font-size: 28rpx;
+  color: #7989AA;
 }
-
-.user-info-box .no-user .cu-btn{
-    width: 90%;
-    height: 100rpx;
-    border-radius: 50rpx;
-    font-weight: lighter;
-}
-
-/* .user-info-box .no-user .cu-btn{
-    width: 90%;
-    height: 100rpx;
-    line-height: 100rpx;
-    padding:0;
-    color: white;
-    font-weight: 200;
-    margin: 0 auto;
-    background: rgb(48,114,255);
-    background: linear-gradient(0deg, rgba(48,114,255,1) 35%, rgba(103,155,255,1) 100%);
-    border-radius: 50rpx;
-} */
 
 .user-info-box .has-user{
     width: 80%;
-    position: relative;
+    /* position: relative;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
 }
 
-.clear {
-    clear: both;
+.avatar-image{
+  width: 140rpx;
+  height: 140rpx;
 }
 
 .user-info-box .has-user .user-info-avatar{
-    width: 150rpx;
-    height: 150rpx;
+    width: 140rpx;
+    height: 140rpx;
     border-radius: 50%;
     overflow: hidden;
     border: 2px solid #fff;
@@ -66,23 +44,17 @@
     float: left;
 }
 
-.user-info-box .has-user .user-info-name{
-    color: black;
-    width: 400rpx;
-    height: 200rpx;
-    line-height: 75rpx;
-    float: right;
-}
-
 .user-info-nick{
-    font-size: 30rpx;
-    height: 50rpx;
-    font-weight: 700;
+  color:#465677;
+  font-size: 32rpx;
+  font-weight: 700;
+  text-align: left;
+  line-height: 80rpx;
 }
 
 .user-info-sex{
-    height: 50rpx;
-    color: #888;
+  color: #7989AA;
+  text-align: left;
 }
 
 .user-info-sex-i{
@@ -101,6 +73,7 @@
     color: white;
     font-size: 12px;
 }
+
 
 .user-info-medal-image{
     width: 40rpx;
@@ -123,16 +96,23 @@
 }
 
 .user-option-box{
-    background-color: white;
+    /* background-color: white; */
     border-radius: 15px 15px 0 0;
     padding-top: 1px;
 }
 
 .user-option-card{
     width: 90%;
-    height: 300rpx;
-    margin:15px auto;
+    height: 250rpx;
+    margin: 40rpx auto;
     border-radius: 10px;
+}
+
+.line-box{
+  margin: 0 auto;
+  width: 90%;
+  height: 4rpx;
+  background-color: rgba(134, 150, 187, 0.15);
 }
 
 .card-bg-1{
@@ -159,10 +139,10 @@
 } */
 
 .user-option-card .card-mid {
-    width: 55%;
+    width: 60%;
     height: 80px;
     color: white;
-    font-weight: bold;
+    /* font-weight: bold; */
     position: relative;
     top: 50%;
     transform: translate(0%, -50%);
@@ -176,23 +156,23 @@
 
 .user-option-card .card-mid .text-2{
     display: inline-block;
-    width: 50%;
-    font-size: 10px;
+    width: 47%;
+    font-size: 22rpx;
     text-align: right;
 }
 
 .user-option-card .card-mid .text-2 .big{
-    font-size: 18px;
+    font-size: 32rpx;
 }
 
 .user-option-card .card-mid .text-3{
     display: inline-block;
-    margin-top: 20px;
-    font-size: 10px;
+    margin-top: 20rpx;
+    font-size: 22rpx;
 }
 
 .user-option-card .card-right{
-    width: 10%;
+    width: 12%;
     position: relative;
     top: 50%;
     transform: translate(0%, -50%);
@@ -200,19 +180,17 @@
 
 .user-option-card .card-right .cuIcon-roundrightfill{
     color: white;
-    font-size: 24px;
+    font-size: 48rpx;
+}
+
+.icon-goin{
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .user-option-logout{
     width: 90%;
-    margin: 10px auto;
-}
-
-.user-option-logout .cu-btn{
-    width: 100%;
-    height: 100rpx;
-    font-size: 30rpx;
-    background-color: #fff;
-    color: #4b85fe;
-    border: 1px solid #4b85fe;
+    margin: 60rpx auto 20rpx auto;
+    --button-border-radius: 24rpx;
+    --button-plain-background-color: transparent !important;
 }

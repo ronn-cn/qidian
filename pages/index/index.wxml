@@ -1,29 +1,25 @@
 <!--index.wxml-->
-<view class="page-bg">
-  <cu-custom bgColor="{{bgColor}}">
-    <view slot="content">{{PageCur=='home'?'健身Link':'我的'}}</view>
-  </cu-custom>
-  
-  <home class="{{PageCur=='home'?'view-show':'view-hide'}}" bind:scanCodeTap="scanCodeTapHandle"></home>
-  <user id="user-component" class="userComponent {{PageCur=='user'?'view-show':'view-hide'}}" 
-  bind:weixinLoginTap="weixinLoginTapHandle" 
-  bind:planTap="planTapHandle" 
-  bind:vitalityTap="vitalityTapHandle" 
-  bind:sportTap="sportTapHandle"
-  bind:editTap="editTapHandle"></user>
+<view class="main">
+  <van-nav-bar transparent="{{bgColor}}" title="{{PageCur=='home'?'健身Link':'我的'}}" border="{{false}}" fixed="{{true}}"  placeholder="{{true}}"> 
+  </van-nav-bar> 
+  <scoll-view class="page-bg">  
+    <home wx:if="{{PageCur =='home'}}" bind:scanCodeTap="scanCodeTapHandle"></home>
+    <user wx:else id="user-component" class="userComponent"
+    bind:weixinLoginTap="weixinLoginTapHandle" 
+    bind:planTap="planTapHandle" 
+    bind:vitalityTap="vitalityTapHandle" 
+    bind:sportTap="sportTapHandle"
+    bind:editTap="editTapHandle"></user>
 
-  <view class="cu-bar tabbar bg-white shadow foot">
-    <view class="action" bindtap="NavChange" data-cur="home">
-      <view class='cuIcon-cu-image'>
-        <image src="/images/tabbar/home{{PageCur=='home'?'_cur':''}}.png"></image>
-      </view>
-      <view class="{{PageCur=='home'?'bar-blue':'bar-gray'}}">智能健身</view>
-    </view>
-    <view class="action" bindtap="NavChange" data-cur="user">
-      <view class='cuIcon-cu-image'>
-        <image src="/images/tabbar/user{{PageCur=='user'?'_cur':''}}.png"></image>
-      </view>
-      <view class="{{PageCur=='user'?'bar-blue':'bar-gray'}}">我的</view>
-    </view>
-  </view>
+    <van-tabbar active="{{ PageCur }}" bind:change="onChange" placeholder="{{true}}">
+      <van-tabbar-item name="home">
+        <image slot="icon" src="/images/tabbar/scan.svg" mode="aspectFit" style="width: 30px; height: 18px;" />
+        <image slot="icon-active" src="/images/tabbar/scan-o.svg" mode="aspectFit" style="width: 30px; height: 18px;" />
+      扫码健身</van-tabbar-item>
+      <van-tabbar-item name="user">
+        <image slot="icon" src="/images/tabbar/my.svg" mode="aspectFit" style="width: 30px; height: 18px;" />
+        <image slot="icon-active" src="/images/tabbar/my-o.svg" mode="aspectFit" style="width: 30px; height: 18px;" />
+      我的</van-tabbar-item>
+    </van-tabbar>
+  </scoll-view>
 </view>

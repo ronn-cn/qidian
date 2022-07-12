@@ -1,62 +1,49 @@
 // pages/login/profile.js
+import Toast from '@vant/weapp/toast/toast';
 
 const app = getApp();
 
-const date = new Date();
-const years = [];
-const months = [];
-const days = [];
-
-for (let i = 1920; i <= date.getFullYear(); i++) {
-	years.push(i);
-}
-
-for (let i = 1; i <= 12; i++) {
-	months.push(i);
-}
-
-for (let i = 1; i <= 31; i++) {
-	days.push(i);
-}
-
 Page({
-
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
-		bgColor: '',
+		bgColor: true,
 		first: true,
-		years,
-		year: date.getFullYear(),
-		months,
-		month: 2,
-		days,
-		day: 2,
-		value: [9999, 1, 1],
-		sex: -1,
+    sex: -1,
+    show:false, 
+    checked:false,
+
+    birthdayInit: '',
+    birthday: '',
+    minDate: new Date(1900, 0, 1).getTime(),
+    maxDate: new Date().getTime(),
 	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		let first = true;
+    let first = true;
+    let birthday = new Date(2000, 0, 1).getTime();
+    let sex= -1;
 		if (options.first == "0") {
 			first = false;
-		}
-		let date = new Date();
-		if (options.birthday) {
-			date = new Date(options.birthday);
-		}
-		this.setData({
-			year: date.getFullYear(),
-			month: date.getMonth() + 1,
-			day: date.getDate(),
-			sex: parseInt(options.sex),
-			first: first,
-			value: [date.getFullYear() - 1920, date.getMonth(), date.getDate() - 1]
-		});
+    }
+		if (options.birthday && options.birthday != "") {
+      let year = options.birthday.slice(0, 4)
+      let month = options.birthday.slice(4, 6)
+      let day = options.birthday.slice(6, 8)
+      birthday= new Date(year + "-" + (month) + "-" + day).getTime();
+    }
+    if (options.sex != ""){
+      sex = options.sex;
+    }
+    this.setData({
+      birthdayInit : birthday,
+      sex :sex,
+      first : first
+    })
 	},
 
 	/**
@@ -107,171 +94,113 @@ Page({
 	onShareAppMessage: function () {
 
 	},
-	bindChange(e) {
-		function isLoopYear(theYear) {
-			return (new Date(theYear, 1, 29).getDate() == 29);
-		}
-		const val = e.detail.value
-		let selectDate = this.data.years[val[0]] + '-' + this.data.months[val[1]] + '-' + this.data.days[val[2]];
-		console.log(selectDate);
-		let todayTime = date.getTime();
-		let selectTime = new Date(selectDate).getTime();
-		if (selectTime > todayTime) {
-			this.setData({
-				year: date.getFullYear(),
-				month: date.getMonth() + 1,
-				day: date.getDate(),
-
-				value: [date.getFullYear() - 1920, date.getMonth(), date.getDate() - 1]
-			});
-			console.log("rrrr: 2021-12-17", this.data);
-		}
-
-
-		this.setData({
-			year: this.data.years[val[0]],
-			month: this.data.months[val[1]],
-			day: this.data.days[val[2]],
-
-			// value: [this.data.years[val[0]] - 1920, this.data.months[val[1]] - 1, this.data.days[val[2]] - 1]
-		});
-
-		switch (this.data.months[val[1]]) {
-			case 2:
-				if (isLoopYear(this.data.years[val[0]])) {
-					// 判断是闰年
-					if (this.data.days[val[2]] > 29) {
-						this.setData({
-							day: 29,
-							value: [this.data.years[val[0]] - 1920, this.data.months[val[1]] - 1, 28]
-						});
-					}
-				} else {
-					if (this.data.days[val[2]] > 28) {
-						this.setData({
-							day: 28,
-							value: [this.data.years[val[0]] - 1920, this.data.months[val[1]] - 1, 27]
-						});
-					}
-				}
-				break;
-			case 4:
-			case 6:
-			case 9:
-			case 11:
-				if (this.data.days[val[2]] > 30) {
-					this.setData({
-						day: 30,
-						value: [this.data.years[val[0]] - 1920, this.data.months[val[1]] - 1, 29]
-					});
-				}
-				break;
-		}
-	},
 	/**
 	 * 页面滚动
 	 */
 	onPageScroll: function (e) {
-		console.log(e.scrollTop)
-		if (e.scrollTop <= 0) {
-			if (this.data.bgColor != '') {
-				this.setData({
-					bgColor: ''
-				})
-			}
-		} else {
-			if (this.data.bgColor == '') {
-				this.setData({
-					bgColor: '#fff'
-				})
-			}
-		}
+    let flag = e.scrollTop <= 0;
+    this.setData({
+      bgColor: flag
+    })
 	},
 	// 性别选择
 	bindSexSelect: function (e) {
-		console.log(e);
 		let query = e.currentTarget.dataset['index'];
-		console.log(parseInt(query))
 		this.setData({
 			sex: parseInt(query)
 		})
 	},
 	// 提交信息
 	submitTap: function () {
-		// console.log(this.data.year + "-" + this.data.month + "-" + this.data.day);
-		let m = this.data.month < 10 ? '0' + this.data.month : this.data.month;
-		let d = this.data.day < 10 ? '0' + this.data.day : this.data.day;
-		console.log(this.data.year + "-" + m + "-" + d);
-
 		let userId = "";
-		let serverUrl = ""
+    let serverUrl = ""
 		if (app.globalData.netName == "evinf") {
-			userId = app.globalData.ev.userId;
+      userId = app.globalData.ev.userId;
 			serverUrl = app.globalData.ev.svrUrl;
 		} else {
 			userId = app.globalData.sg.userId;
 			serverUrl = app.globalData.sg.svrUrl;
 		}
-
-		let s = 0;
-		if (this.data.sex == 0) {
-			s = 2;
-		} else if (this.data.sex == 1) {
-			s = 1;
-		} else {
-			s = 0;
+    let s = parseInt(this.data.sex);
+    if (s != 2 && s != 1){
+      Toast('请选择性别');
+      return;
 		}
 
-		console.log({
-			user_id: userId,
-			sex: s,
-			birthday: this.data.year + "-" + m + "-" + d
-		});
+    let bir = Number(this.dateFormat("YYYYmmdd",new Date(this.data.birthday)));
 		// 提交信息
 		wx.request({
 			url: serverUrl + 'update-sex-birthday',
 			method: 'POST',
 			data: {
-				user_id: userId,
+				user_ouid: userId,
 				sex: s,
-				birthday: this.data.year + "-" + m + "-" + d
+				birthday: bir
 			},
 			header: {
 				'content-type': 'application/json' // 默认值
 			},
 			success: resSexBirthday => {
-				console.log(resSexBirthday.data)
 				if (resSexBirthday.data.code == "200") {
 					// 刷新主页数据
-					var pages = getCurrentPages();
-					var beforePage = pages[pages.length - 2];
-					// 返回上一页
-					wx.navigateBack({
-						delta: 1,
-						success: function(){
-							beforePage.RefreshUserData();
-						}
+          // var pages = getCurrentPages();
+          // console.log(pages)
+					// var beforePage = pages[pages.length - 2];
+          // 返回上一页
+					wx.navigateTo({
+            url: '/pages/index/index'
+						// delta: 1,
+						// success: function(){
+						// 	beforePage.RefreshUserData();
+						// }
 					});
-
-
-					// wx.redirectTo({
-					// 	url: '/pages/index/index'
-					// });
-
-					// let userAll = resUserAll.data.data;
-					// app.setUserAll(userAll);
-					// if (userAll.user.birthday == "") {
-					// 	// 跳转到设置性别出生日期页面
-					// 	wx.navigateTo({
-					// 		url: '/pages/login/profile?sex='+userAll.user.sex
-					// 	});
-					// } else {
-					// 	wx.navigateTo({
-					// 		url: '/pages/index/index'
-					// 	});
-					// }
 				}
 			}
 		})
-	}
+  },
+  
+  showTipsTap: function (){
+    this.setData({show : true});
+  },
+  onClose(event){
+    this.setData({show : false});
+  },
+  noCheckAndClose(){
+    this.setData({
+      checked: false,
+      show : false,
+    });
+  },
+  checkAndClose(){
+    this.setData({
+      checked: true,
+      show : false,
+    });
+  },
+
+  onInput(event) {
+    this.setData({
+      birthday: event.detail,
+    });
+  },
+
+  dateFormat(fmt, date) {
+    let ret;
+    const opt = {
+        "Y+": date.getFullYear().toString(),        // 年
+        "m+": (date.getMonth() + 1).toString(),     // 月
+        "d+": date.getDate().toString(),            // 日
+        "H+": date.getHours().toString(),           // 时
+        "M+": date.getMinutes().toString(),         // 分
+        "S+": date.getSeconds().toString()          // 秒
+        // 有其他格式化字符需求可以继续添加，必须转化成字符串
+    };
+    for (let k in opt) {
+        ret = new RegExp("(" + k + ")").exec(fmt);
+        if (ret) {
+            fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+        };
+    };
+    return fmt;
+}
 })
