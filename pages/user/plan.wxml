@@ -1,6 +1,6 @@
 <!--pages/user/plan.wxml-->
 <scroll-view class="page-bg"  scroll-y>
-    <van-nav-bar transparent="{{bgColor}}"  title="训练计划"  placeholder="{{true}}" fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome">
+    <van-nav-bar transparent="{{bgColor}}"  title="训练计划"  placeholder="{{true}}" fixed="{{true}}" border="{{false}}" z-index="2" left-arrow bind:click-left="returnHome">
     </van-nav-bar>
 
     <view class="main">
@@ -27,8 +27,8 @@
             <text class="title">{{stageName}}</text>
             <van-steps steps="{{ steps }}" active="{{ active }}" />
             <view class="card-check" wx:for="{{condition}}" wx:key="item">
-              <van-checkbox  value="false" icon-size="30rpx" >
-                {{item}}
+              <van-checkbox  value="{{tag == 1}}" icon-size="30rpx" >
+                {{item.text}}
               </van-checkbox>
             </view >
            </view>

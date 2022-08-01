@@ -50,49 +50,42 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-
 	},
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-
 	},
 
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
 	onHide: function () {
-
 	},
 
 	/**
 	 * 生命周期函数--监听页面卸载
 	 */
 	onUnload: function () {
-
 	},
 
 	/**
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-
 	},
 
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
 	onReachBottom: function () {
-
 	},
 
 	/**
 	 * 用户点击右上角分享
 	 */
 	onShareAppMessage: function () {
-
 	},
 	/**
 	 * 页面滚动
@@ -120,7 +113,15 @@ Page({
 		} else {
 			userId = app.globalData.sg.userId;
 			serverUrl = app.globalData.sg.svrUrl;
-		}
+    }
+    
+    if (this.data.first){
+      if (!this.data.checked){
+        Toast('请勾选同意《健身Link用户协议》和《隐私政策》');
+        return;
+      }
+    }
+
     let s = parseInt(this.data.sex);
     if (s != 2 && s != 1){
       Toast('请选择性别');
@@ -147,7 +148,7 @@ Page({
           // console.log(pages)
 					// var beforePage = pages[pages.length - 2];
           // 返回上一页
-					wx.navigateTo({
+					wx.redirectTo({
             url: '/pages/index/index'
 						// delta: 1,
 						// success: function(){

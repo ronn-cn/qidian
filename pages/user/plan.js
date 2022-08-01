@@ -132,11 +132,13 @@ Page({
                           }
                           stepsTmp.push(item)
                         }
+
+                        console.log("计划",plan);
                         that.setData({
                             userInfoAll: userAll,
                             planName: plan.plan_name,
                             stageName:plan.stage_name,
-                            factor:plan.factor/10,
+                            factor:plan.factor,
                             condition:plan.condition,
                             steps: stepsTmp,
                             active:plan.stage_index,

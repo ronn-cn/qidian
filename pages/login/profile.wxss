@@ -31,8 +31,8 @@
 .middle{
 	margin-top: 50rpx;
 	/* padding-bottom: 10vh; */
-    padding-bottom: 50rpx;
-    width: 100%;
+  padding-bottom: 50rpx;
+  width: 100%;
   text-align: center;
 }
 
@@ -112,4 +112,13 @@
 .sheet-box-button{
   /* margin: 120rpx; */
   text-align: center;
+}
+
+.bg-btn{
+  width: 46% !important;
+}
+
+.bg-btn-green{
+  width: 46% !important;
+  color : #28cd41 !important;
 }

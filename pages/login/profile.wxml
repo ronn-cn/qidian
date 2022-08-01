@@ -71,8 +71,8 @@
     若你点击“不同意并退出”，则你将无法使用我们的产品或服务,请你退出本小程序。
 
       <view class="sheet-box-button">
-        <van-button type="default" round bindtap="noCheckAndClose">不同意，退出</van-button>
-        <van-button type="primary" color="#28cd41" round bindtap="checkAndClose" style="padding-left: 50rpx;">同意并继续</van-button>
+        <van-button type="default" color="#f2f2f2" round bindtap="noCheckAndClose" custom-class="bg-btn-green">不同意，退出</van-button>
+        <van-button type="primary" color="#28cd41" round bindtap="checkAndClose" style="padding-left: 20rpx;" custom-class="bg-btn">同意并继续</van-button>
       </view>
     </view>
   </van-action-sheet>
