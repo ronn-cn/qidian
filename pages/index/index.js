@@ -19,12 +19,27 @@ function getQueryVariable(query, variable) {
 
 Page({
 	data: {
+    scrollViewHeight: 0,
 		obj: null,
-		PageCur: 'user',
+		currPage: 'home',
     active:'',
     bgColor:'true'
 	},
 	onLoad: function (options) {
+    let query = wx.createSelectorQuery();
+    var screenHeight = wx.getSystemInfoSync().windowHeight
+    let that = this
+    // 获取navbar的高度
+    query.select('.nav-bar').boundingClientRect();
+    query.exec(function (navRect) {
+      query.select('.tab-bar').boundingClientRect();
+      query.exec(function (tabRect) {
+        that.setData({
+          scrollViewHeight: screenHeight - navRect.height - tabRect.height,
+        })
+      })
+    });
+
 		// 判断是扫码进入
 		let url = decodeURIComponent(options.q);
     if (url != "undefined") { // url有定义，说明是微信扫码打开的小程序
@@ -63,7 +78,7 @@ Page({
   onChange(event) {
     // event.detail 的值为当前选中项的索引
     this.setData({ 
-      PageCur: event.detail,
+      currPage: event.detail,
      });
   },
 
@@ -92,7 +107,7 @@ Page({
 			});
 		} else {
       this.setData({
-        PageCur: 'user'
+        currPage: 'user'
       });
       this.selectComponent('#user-component').authorizedLoginTap();
 		}

@@ -1,8 +1,7 @@
 @import '../common/index.wxss';
 
 .van-nav-bar {
-  /* background-color: var(--nav-bar-background-color, #FFF); */
-  background-color: transparent !important;
+  background-color: var(--nav-bar-background-color, #FFF);
   height: var(--nav-bar-height, 46px);
   line-height: var(--nav-bar-height, 46px);
   position: relative;

@@ -1,25 +1,26 @@
-<!--index.wxml-->
+<!-- 首页 -->
 <view class="main">
-  <van-nav-bar transparent="{{bgColor}}" title="{{PageCur=='home'?'健身Link':'我的'}}" border="{{false}}" fixed="{{true}}"  placeholder="{{true}}"> 
-  </van-nav-bar> 
-  <scoll-view class="page-bg">  
-    <home wx:if="{{PageCur =='home'}}" bind:scanCodeTap="scanCodeTapHandle"></home>
-    <user wx:else id="user-component" class="userComponent"
-    bind:weixinLoginTap="weixinLoginTapHandle" 
-    bind:planTap="planTapHandle" 
-    bind:vitalityTap="vitalityTapHandle" 
-    bind:sportTap="sportTapHandle"
-    bind:editTap="editTapHandle"></user>
-
-    <van-tabbar active="{{ PageCur }}" bind:change="onChange" placeholder="{{true}}">
-      <van-tabbar-item name="home">
-        <image slot="icon" src="/images/tabbar/scan.svg" mode="aspectFit" style="width: 30px; height: 18px;" />
-        <image slot="icon-active" src="/images/tabbar/scan-o.svg" mode="aspectFit" style="width: 30px; height: 18px;" />
-      扫码健身</van-tabbar-item>
-      <van-tabbar-item name="user">
-        <image slot="icon" src="/images/tabbar/my.svg" mode="aspectFit" style="width: 30px; height: 18px;" />
-        <image slot="icon-active" src="/images/tabbar/my-o.svg" mode="aspectFit" style="width: 30px; height: 18px;" />
-      我的</van-tabbar-item>
-    </van-tabbar>
-  </scoll-view>
+  <!-- 导航栏部分 -->
+  <van-nav-bar class="nav-bar" title="{{currPage=='home'?'奇点运动':'我的'}}" border="{{false}}" fixed="{{true}}" placeholder="{{true}}" custom-style="background-image: linear-gradient(-45deg,#ffffff 50%, #e0fcfc, #dbeafd); background-size: 100% 830px;">
+    <!-- 导航栏-返回 -->
+    <view slot="left" bindtap="ClickBack">
+      <van-icon name="arrow-left" size="18px" />
+    </view>
+  </van-nav-bar>
+  <scroll-view class="content" scroll-y="true" style="height: {{scrollViewHeight}}px; " > 
+    <Home></Home>
+  </scroll-view>
+  <!-- 底部切换栏部分 -->
+  <van-tabbar class="tab-bar" active="{{ currPage }}" bind:change="onChange" placeholder="{{true}}" active-color="#fd5e36" inactive-color="#465677">
+    <van-tabbar-item name="home">
+      <image slot="icon" src="/images/tabbar/home-smile-line.png" mode="aspectFit" style="width: 30px; height: 18px;" />
+      <image slot="icon-active" src="/images/tabbar/home-smile-fill.png" mode="aspectFit" style="width: 30px; height: 18px;" />
+      首页
+    </van-tabbar-item>
+    <van-tabbar-item name="user">
+      <image slot="icon" src="/images/tabbar/user-5-line.png" mode="aspectFit" style="width: 30px; height: 18px;" />
+      <image slot="icon-active" src="/images/tabbar/user-5-fill.png" mode="aspectFit" style="width: 30px; height: 18px;" />
+      我的
+    </van-tabbar-item>
+  </van-tabbar>
 </view>
