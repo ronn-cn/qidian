@@ -1,0 +1,20 @@
+<!--pages/login/index.wxml-->
+<view class="page-view">
+  <!-- 导航栏部分 -->
+  <van-nav-bar class="nav-bar" title="" border="{{false}}" fixed="{{true}}" placeholder="{{true}}">
+    <!-- 导航栏-返回 -->
+    <view slot="left" bindtap="ClickBack">
+      <van-icon name="arrow-left" size="18px" />
+    </view>
+  </van-nav-bar>
+  <view class="main" style="height:{{pageMainHeight}}px">
+    <view class="header">
+      <image class="logo" src="/images/login/奇点运动.png" mode="widthFix"></image>
+    </view>
+    <view class="footer">
+      <text class="tips tips-margin">申请获取你的手机号和公开信息（昵称、头像等）</text>
+      <button class="btn">微信快捷登录</button>
+      <text class="tips">登录即表示同意 <text class="agreement">《奇点运动平台协议》</text></text>
+    </view>
+  </view>
+</view>

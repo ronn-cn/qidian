@@ -1,0 +1,79 @@
+<!--pages/login/profile.wxml-->
+<view>
+	<view class="main">
+    <view class="navbar">
+      <van-nav-bar transparent="{{bgColor}}" title="健身Link" placeholder ="{{true}}" border="{{false}}" fixed="{{true}}">
+    </van-nav-bar>
+    </view>
+		<view class="header">
+			<view class="title" wx:if="{{first}}">欢迎你的加入</view>
+			<view class="title" wx:else>修改你的个人信息</view>
+			<view class="desc"> <text>请填写以下信息，从而有助于我们为你提供更准确的\n健康评估，此信息还可为你科学定制专属训练计划</text> </view>
+		</view>
+		<view class="middle">
+			<view class="block-sex">
+				<view class="block-title">性别</view>
+        <van-row>
+          <van-col span="12" bindtap="bindSexSelect" data-index="1">
+            <van-image wx:if="{{sex != 1}}" round width="200rpx" height="200rpx" fit="contain" src="/images/login/1-1.png"/>
+            <van-image  wx:else round width="200rpx" height="200rpx" fit="contain" src="/images/login/1-2.png"/>
+						<view class="radio-new-text">男</view>
+          </van-col>
+          <van-col span="12" bindtap="bindSexSelect" data-index="2">
+            <van-image wx:if="{{sex != 2}}" round width="200rpx" height="200rpx" fit="contain" src="/images/login/0-1.png"/>
+            <van-image  wx:else round width="200rpx" height="200rpx" fit="contain" src="/images/login/0-2.png"/>
+						<view class="radio-new-text">女</view>
+          </van-col>
+        </van-row>
+			</view>
+			<view class="block-birth">
+				<view class="block-title">出生日期</view>
+
+        <van-datetime-picker
+          show-toolbar="false"
+          visible-item-count="3"
+          type="date"
+          value="{{ birthdayInit }}"
+          bind:input="onInput"
+          min-date="{{ minDate }}"
+          max-date="{{ maxDate }}"
+          confirm-button-text=""
+          cancel-button-text=""
+          column-class = "column-class"
+        />
+			</view>
+		</view>
+    <view class="tips-box">
+      <van-checkbox wx:if="{{first}}" value="{{ checked }}" icon-size="20rpx" class="text-tips" bindtap="showTipsTap">
+      我已阅读并同意<text class="tips-green">《健身Link用户协议》</text>和<text class="tips-green">《隐私政策》</text>
+      </van-checkbox>
+    </view>
+    <van-tabbar placeholder="{{true}}" fixed ="{{true}}">
+		<view class="footer">
+      <van-button wx:if="{{first}}" round type="primary" block color="#28cd41" bindtap="submitTap">开始健身</van-button>
+      <van-button wx:else round type="primary" block color="#4894fe" bindtap="submitTap">确认修改</van-button>
+		</view>
+
+</van-tabbar>
+	</view>
+  <van-toast id="van-toast" />
+  <van-action-sheet
+    show="{{ show }}"
+    bind:close="onClose"
+    title = "健身Link 隐私政策"
+  >
+    <view class="sheet-box">欢迎来到 健身Link 小程序!
+    
+    点击“同意并继续”代表你已阅读并理解<text class="tips-green">《健身Link用户协议》</text>和<text class="tips-green">《隐私政策》</text>，并且进入基本业务功能。在此模式下，我们不收集你的任何个人信息。在使用过程中，当你自愿开启扩展业务功能(训练计划等)，我们将根据《隐私政策》收集为提供对应功能所需的个人信息。
+    
+    针对收集敏感个人信息、向第三方共享你的信息，以及获取设备系统权限,我们都将单独征得你的同意。此外,还为你提供撤回同意、查询、更正、删除个人信息和注销账号的路径，更好地保护你的个人信息。
+    
+    若你点击“不同意并退出”，则你将无法使用我们的产品或服务,请你退出本小程序。
+
+      <view class="sheet-box-button">
+        <van-button type="default" color="#f2f2f2" round bindtap="noCheckAndClose" custom-class="bg-btn-green">不同意，退出</van-button>
+        <van-button type="primary" color="#28cd41" round bindtap="checkAndClose" style="padding-left: 20rpx;" custom-class="bg-btn">同意并继续</van-button>
+      </view>
+    </view>
+  </van-action-sheet>
+</view>

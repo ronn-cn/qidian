@@ -1,0 +1,164 @@
+/* pages/home/home.wxss */
+.clear-float{
+  clear:both;
+}
+.container{
+  height: 100%;
+}
+.container .section{
+  width: 100%;
+  padding: 0 50rpx;
+  box-sizing: border-box;
+}
+
+/* 段落1 */
+.section-1 .orange{
+  margin-top: 30rpx;
+  padding: 30rpx 20rpx;
+  background-image: linear-gradient(145deg,#fdad4c 20%, #fe5a35);
+  border-radius: 40rpx 40rpx 0 0;
+  position: relative;
+}
+.section-1 .left{
+  width: 20%;
+  float: left;
+}
+.section-1 .middle{
+  width: 50%;
+  height: 120rpx;
+  float: left;
+  display: flex;
+  align-items: center;
+  padding-left: 15rpx;
+  box-sizing: border-box;
+}
+.section-1 .right{
+  width: 30%;
+  height: 120rpx;
+  float: left;
+  display: flex;
+  align-items: center;
+}
+.section-1 .avatar{
+  width: 100%;
+}
+.section-1 .nickname{
+  color: #ffffff;
+  padding: 10rpx 0;
+}
+.section-1 .tips{
+  color: #ffffff;
+  font-size: 0.9em;
+  opacity: 0.5;
+}
+.section-1 .open-btn{
+  width: 150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 1em;
+  background-color: #fff;
+  opacity: 0.9;
+  border: 0;
+  text-align: center;
+  color: #fd6b3a;
+  border-radius: 30rpx;
+  position: absolute;
+  right: 20rpx;
+}
+
+/* 段落2 */
+.section-2{
+  margin-top: 60rpx;
+  padding: 0;
+}
+.section-2 .icon-block {
+  width: 25%;
+  height: 200rpx;
+  text-align: center;
+  color: #576b95;
+  float: left;
+}
+
+.section-2 .icon-back{
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 30rpx;
+  margin: 0 auto;
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-2 .icon-block .icon-image{
+  width: 50rpx;
+  height: 50rpx;
+}
+.section-2 .icon-block .icon-text{
+  line-height: 60rpx;
+}
+.icon-1 .icon-back{
+  background-image: linear-gradient(#ff7c18 20%, #fbc610);
+}
+.icon-2 .icon-back{
+  background-image: linear-gradient(#d2de16 20%, #f9d80d);
+}
+.icon-3 .icon-back{
+  background-image: linear-gradient(#5cc5a2 20%, #d2e0a8);
+}
+.icon-4 .icon-back{
+  background-image: linear-gradient(#38bcc9 20%, #a0d9df);
+}
+
+/* 段落3 */
+.section-3 .header{
+  margin: 30rpx auto;
+  color: #576b95;
+}
+
+.section-3 .header .header-title{
+  font-size: 1.2em;
+  font-weight: 600;
+  float: left;
+}
+
+.section-3 .header .header-btn{
+  width: 180rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 1em;
+  background-color: transparent;
+  border-radius: 30rpx;
+  border: 1px solid #576b95;
+  color: #576b95;
+  float: right;
+}
+
+.section-3 .card{
+  height: 600rpx;
+  background-color: #d2e0a8;
+  border-radius: 60rpx;
+}
+.section-3 .card .card-image{
+  width: 100%; 
+}
+
+.section-3 .card .card-body-logo{
+  width: 120rpx;
+  position: relative;
+  top: -40rpx;
+  left: 30rpx;
+  float: left;
+}
+
+.card-body-text{
+  float: left;
+  color: #576b95;
+  font-size: 1.1em;
+  margin-top: 30rpx;
+  margin-left: 50rpx;
+}
+.small-text{
+  font-size: 0.8em;
+  color: #ea5419;
+}
