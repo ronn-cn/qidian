@@ -1,0 +1,21 @@
+.container{
+  width: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.footer{
+  margin: 10rpx auto;
+  /* padding-bottom: 30rpx; */
+  width: 90%;
+  text-align: center;
+  color: #8696bb;
+}
+
+.van-cell-group{
+  background-color: transparent !important;
+}
+
+.van-cell{
+  background-color: transparent !important;
+}

@@ -1,0 +1,21 @@
+<!-- pages/user/vitality.wxml -->
+<view class="container">
+  <van-nav-bar transparent="{{bgColor}}" left-text="个人信息" placeholder="{{true}}" fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2"></van-nav-bar>
+  <van-cell-group>
+    <van-field value="{{ username }}" label="用户昵称" input-align="right" />
+    <van-field value="{{ username }}" clearable label="手机号码" input-align="right" />
+    <picker bindchange="bindPickerChange" value="{{ genderIndex }}" range="{{genderArray}}">
+      <van-cell value="{{ gender }}" clearable label="性别" input-align="right" is-link/>
+    </picker>
+    <van-field value="{{ username }}" clearable label="出生日期" input-align="right" />
+    <van-field value="{{ username }}" clearable label="微信" input-align="right" />
+    <van-field value="{{ username }}" clearable label="平台协议" input-align="right" />
+  </van-cell-group>
+  <van-toast id="van-toast" />
+  <van-dialog id="van-dialog" />
+  <van-tabbar placeholder="{{true}}" fixed="{{true}}" border="{{false}}">
+    <view class="footer">
+      <van-button round type="primary" block color="#fd5e36" bindtap="logout">退出登录</van-button>
+    </view>
+  </van-tabbar>
+</view>

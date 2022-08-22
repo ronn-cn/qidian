@@ -1,0 +1,22 @@
+<!--pages/user/autorenew.wxml-->
+<view class="container">
+  <van-nav-bar transparent="{{bgColor}}" left-text="兑换会员卡" placeholder="{{true}}" fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2"></van-nav-bar>
+  <view wx:if="{{isAuto}}">
+    <text class="title">自动续费套餐</text>
+    <input class="input" name="input" value="{{renewInfo.type}}" disabled="true" />
+    <text class="title">下次续费金额</text>
+    <input class="input" name="input" value='￥{{renewInfo.price}}' />
+    <text class="title">下次续费日期</text>
+    <input class="input" name="input" value='{{renewInfo.date}}' />
+  </view>
+  <view wx:else class="tip-box">
+    当前您还没有开通自动续费哦~
+  </view>
+  <van-tabbar placeholder="{{true}}" fixed="{{true}}" border="{{false}}">
+    <view class="footer">
+      <van-button round type="primary" block color="#fd5e36" bindtap="exchange">
+      {{ isAuto ? '关闭自动续费' : '立即开通'}}</van-button>
+    </view>
+  </van-tabbar> 
+  <van-toast id="van-toast" />
+</view>

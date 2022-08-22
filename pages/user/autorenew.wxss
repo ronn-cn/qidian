@@ -1,0 +1,36 @@
+/* pages/user/autorenew.wxss */
+.container{
+  width: 100%;
+  padding: 0 50rpx;
+  box-sizing: border-box;
+  color: #465677;
+}
+
+.container .title{
+  font-size: 28rpx;
+  line-height: 100rpx;
+}
+
+.container .input{
+  border-bottom: 2rpx solid #8696BB;
+  font-weight: 700;
+  font-size: 24rpx;
+}
+
+.container .tip-box{
+  margin-top: 80rpx;
+  background: #FFFFFF;
+  border-radius: 10rpx;
+  height: 240rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer{
+  margin: 10rpx auto;
+  width: 90%;
+  text-align: center;
+  color: #8696bb;
+}

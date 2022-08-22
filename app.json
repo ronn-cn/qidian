@@ -7,7 +7,13 @@
     "pages/user/plan",
     "pages/user/body",
     "pages/user/sport",
-    "pages/user/vitality"
+    "pages/user/vitality",
+    "pages/user/openMember",
+    "pages/user/exchange",
+    "pages/user/userinfo",
+    "pages/user/opinion",
+    "pages/user/autorenew",
+    "pages/user/coupon"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,7 +33,6 @@
     "van-checkbox": "@vant/weapp/checkbox/index",
     "van-action-sheet": "@vant/weapp/action-sheet/index",
     "van-divider": "@vant/weapp/divider/index",
-    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
     "van-picker": "@vant/weapp/picker/index",
     "van-nav-bar": "@vant/weapp/nav-bar/index",
     "van-row": "@vant/weapp/row/index",
@@ -40,6 +45,12 @@
     "van-image": "@vant/weapp/image/index",
     "van-icon": "@vant/weapp/icon/index",
     "van-grid": "@vant/weapp/grid/index",
-    "van-grid-item": "@vant/weapp/grid-item/index"
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-submit-bar": "@vant/weapp/submit-bar/index",
+    "van-card": "@vant/weapp/card/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-sticky": "@vant/weapp/sticky/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index"
   }
 }

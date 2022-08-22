@@ -1,0 +1,23 @@
+/* pages/user/exchange.wxss */
+.container{
+  width: 100%;
+  padding: 0 50rpx;
+  box-sizing: border-box;
+}
+
+.container .title{
+  font-size: 28rpx;
+  line-height: 100rpx;
+}
+
+.container .input{
+  border-bottom: 2rpx solid #8696BB;
+}
+
+.footer{
+  margin: 10rpx auto;
+  /* padding-bottom: 30rpx; */
+  width: 90%;
+  text-align: center;
+  color: #8696bb;
+}

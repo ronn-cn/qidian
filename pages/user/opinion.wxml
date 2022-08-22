@@ -1,0 +1,20 @@
+<!--pages/user/opinion.wxml-->
+<!-- pages/user/vitality.wxml -->
+<view class="container">
+  <van-nav-bar transparent="{{bgColor}}" left-text="意见反馈" placeholder="{{true}}" fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2"></van-nav-bar>
+  <text class="title">问题说明</text>
+  <van-field
+    model:value="{{ content }}"
+    placeholder="请留下您的宝贵建议或意见～"
+    type="textarea"
+    autosize="{{ autosize }}"
+  />
+
+  <van-toast id="van-toast" />
+  <van-dialog id="van-dialog" />
+  <van-tabbar placeholder="{{true}}" fixed="{{true}}" border="{{false}}">
+    <view class="footer">
+      <van-button round type="primary" block color="#fd5e36" bindtap="logout">提交反馈</van-button>
+    </view>
+  </van-tabbar>
+</view>

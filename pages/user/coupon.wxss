@@ -1,0 +1,55 @@
+/* pages/user/coupon.wxss */
+.container{
+  width: 100%;
+  padding: 0 50rpx;
+  box-sizing: border-box;
+  color: #465677;
+}
+
+.coupon-box{
+  margin: 20rpx 0;
+  padding: 0 24rpx;
+  background: radial-gradient(circle at left, transparent 20rpx, #fff 0) left,
+  radial-gradient(circle at right, transparent 20rpx, #fff 0) right;
+  background-repeat: no-repeat;
+  background-size: 50% 100%;
+  border-radius: 10rpx;
+  height: 220rpx;
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+  /* position:relative; */
+}
+
+.coupon-box .coupon-title{
+  color: #465677;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  line-height: 60rpx;
+}
+
+.coupon-box .coupon-date{
+  color: rgba(70, 86, 119, 0.54);
+  font-size: 20rpx;
+  line-height: 50rpx;
+}
+
+.coupon-box .coupon-number{
+  color: #FD5E36;
+  font-size: 40rpx;
+}
+
+.coupon-box text{
+  font-size: 80rpx;
+}
+
+.coupon-box .coupon-tip{
+  font-size: 20rpx;
+  align-items: center;
+  text-align: center;
+}
+
+.btn-custom{
+  width: 140rpx;
+}

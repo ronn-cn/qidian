@@ -1,0 +1,82 @@
+<!--pages/user/plan.wxml-->
+<scroll-view class="container"  scroll-y>
+    <van-nav-bar transparent="{{bgColor}}" left-text="会员续费" placeholder="{{true}}" 
+    fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2">
+  </van-nav-bar>
+
+    <view class="section section-1">
+      <view class="card-box">
+        <view class="card-info">
+          <text class="card-name">奇点运动<text class="card-vip">VIP</text></text>
+          <text class="card-state">成为会员 立享权益</text>
+        </view>
+        <view class="store-info">
+          <van-image width="20" height="20" src="/images/home/logo.svg" fit="cover" radius="4"/>
+          <view class="store-right">
+            <view class="store-name">奇点运动黄岛一店</view>
+            <view class="store-address">经济技术开发区井冈山路157号A座3楼</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section section-2">
+      <view class="header">
+        <text class="header-title">选择套餐</text>
+        <button class="header-btn">仅单店使用</button>
+        <view class="clear-float"></view>
+      </view>
+      <view class="middle">
+      </view>
+      <text class="tip">到期将按99元每月自动续费，可随时取消。</text>
+      <van-divider />
+      <view class="pay-box">
+      <view style="display: flex;">
+        <van-image width="20" height="18" src="/images/home/wepay.svg" fit="contain"/>
+        <text class="pay-text">微信支付</text>
+      </view>
+        <van-checkbox slot="right-icon" value="{{ true }}" checked-color="#FD5E36"/>  
+      </view>
+    </view>
+
+    <view class="section section-3">
+      <view class="header">
+        <text class="header-title">会员特权</text>
+        <view class="clear-float"></view>
+      </view>
+      <view class="content">
+        <van-row gutter="20">
+          <van-col span="12" wx:for="{{display}}" wx:key="key">
+          <view class="content-group">
+            <view class="content-card">
+              <view>{{item.text}}</view>
+              <view class="content-text">{{item.des}}</view>          
+            </view>
+            <view class="content-icon">
+              <van-image width="20" height="20" src="{{item.icon}}" fit="contain"/>
+            </view>
+          </view>
+          </van-col>
+        </van-row>
+        <!-- <view class="content-group">
+          <view class="content-card">111</view>
+          <view class="content-card">111</view>
+        </view> -->
+    
+      </view>
+    </view>
+    <view class="main">
+      <van-submit-bar
+        label=" "
+        price="{{ 12900 }}"
+        button-text="立即购买"
+        bind:submit="onClickButton"
+        tip="{{ true }}"
+      >
+        <view slot="tip">
+          <van-checkbox slot="right-icon" icon-size="30rpx" value="{{ checked }}" bind:change="onChange" >
+            同意《奇点运动会员协议》和《连续包月协议》</van-checkbox>
+          </view>
+      </van-submit-bar>
+    </view>
+</scroll-view>

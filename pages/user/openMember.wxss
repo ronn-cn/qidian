@@ -1,0 +1,179 @@
+/* pages/user/openMember.wxss */
+.clear-float{
+  clear:both;
+}
+.container{
+  height: 100%;
+}
+.container .section{
+  width: 100%;
+  padding: 0 50rpx;
+  box-sizing: border-box;
+}
+
+.section-1{
+  height: 290rpx;
+  /* margin: 10rpx 0; */
+}
+
+.section-1 .card-box{
+  height: 290rpx;
+  background-color: blanchedalmond;
+  padding: 0 50rpx 0;
+  border-radius: 24rpx;
+  /* background-image: url(); */
+}
+
+.section-1 .card-info{
+   display: flex;
+  align-items:center;
+  justify-content: space-between;
+}
+
+.section-1 .card-info .card-name{
+  font-weight: 400;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.54);
+}
+.section-1 .card-info .card-vip{
+  padding-left: 20rpx;
+  font-family: 'Times New Roman';
+  font-style: italic;
+  font-size: 48rpx;
+  line-height: 56rpx;
+  color: rgba(0, 0, 0, 0.54);
+}
+.section-1 .card-info .card-state{
+  line-height: 100rpx;
+  font-size: 20rpx;
+  align-items: center;
+  text-align: right;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.section-1 .store-info{
+  display: flex;
+  align-items:center;
+  height: 150rpx;
+}
+
+.store-right{
+  padding-left: 40rpx;
+}
+.section-1 .store-info .store-name{
+  font-size: 28rpx;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.section-1 .store-info .store-address{
+  font-size: 20rpx;
+  line-height: 50rpx;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+/* 段落2 */
+.section-2 .header{
+  margin: 30rpx auto;
+  color: #576b95;
+}
+
+.section-2 .header .header-title{
+  font-size: 1.2em;
+  font-weight: 600;
+  float: left;
+}
+
+.section-2 .header .header-btn{
+  width: 200rpx;
+  height: 50rpx;
+  line-height: 45rpx;
+  font-size: 1em;
+  background-color: transparent;
+  border-radius: 30rpx;
+  border: 1px solid #576b95;
+  color: #576b95;
+  float: right;
+}
+
+.section-2 .middle{
+  height: 300rpx;
+  background-color: blanchedalmond;
+}
+.section-2 .tip{
+  font-size: 20rpx;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.section-2 .pay-box{
+  padding: 0 30rpx;
+  height: 90rpx;
+  border-radius: 24rpx;
+  display: flex;
+  background-color: rgba(134, 150, 187, 0.15);
+  align-items:center;
+  justify-content: space-between;
+}
+
+.section-2 .pay-box .pay-text{
+  color: #000000;
+  padding-left: 20rpx;  
+}
+
+.van-divider{
+  margin-top: 0 !important;
+}
+
+
+.section-3 .header{
+  margin: 30rpx auto;
+  color: #576b95;
+}
+
+.section-3 .header .header-title{
+  font-size: 1.2em;
+  font-weight: 600;
+  float: left;
+}
+
+.section-3 .content{
+  padding-bottom: 260rpx;
+}
+
+.section-3 .content-group{
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  background: linear-gradient(90deg, #FDDEC1 0%, #FFF7F3 100%);
+  color:rgba(0, 0, 0, 0.54);
+  border-radius: 24rpx;
+  margin-bottom: 30rpx;
+  height: 160rpx;
+  padding-right: 20rpx;
+}
+
+.content-group .content-icon{
+  height: 47rpx;
+  width: 52rpx;
+  padding-top: 5rpx;
+  text-align: center;
+  background: #F4C997;
+  box-shadow: 0px 5px 10px rgba(233, 186, 131, 0.54);
+  border-radius: 52rpx;
+}
+
+.content-group .content-card{
+  font-size: 24rpx;
+  padding: 50rpx 0 40rpx 30rpx;
+}
+
+.content-card .content-text{
+  font-size: 20rpx;
+  line-height: 60rpx;
+  /* padding: 10rpx; */
+}
+
+.van-submit-bar__text{
+  text-align: left !important;
+}

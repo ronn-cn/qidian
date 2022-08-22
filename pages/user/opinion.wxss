@@ -1,0 +1,31 @@
+/* pages/user/opinion.wxss */
+.container{
+  width: 100%;
+  padding: 0 50rpx;
+  box-sizing: border-box;
+}
+
+.footer{
+  margin: 10rpx auto;
+  /* padding-bottom: 30rpx; */
+  width: 90%;
+  text-align: center;
+  color: #8696bb;
+}
+
+.title{
+  line-height: 100rpx;
+}
+
+.van-cell{
+  background-color: transparent !important;
+  border: 2rpx solid;
+  border-radius: 10rpx;
+} 
+/* .van-cell-group{
+  background-color: transparent !important;
+}
+
+.van-cell{
+  background-color: transparent !important;
+} */

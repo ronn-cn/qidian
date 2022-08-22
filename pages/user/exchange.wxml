@@ -1,0 +1,24 @@
+<!-- pages/user/vitality.wxml -->
+<view class="container">
+  <van-nav-bar transparent="{{bgColor}}" left-text="兑换会员卡" placeholder="{{true}}" fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2"></van-nav-bar>
+  <view>
+    <text class="title">卡片来源</text>
+    <input class="input" name="input" placeholder="请选择卡片来源" bindtap="showSheet" value="{{source}}" />
+    <text class="title">兑换码</text>
+    <input class="input" name="input" placeholder="请输入兑换码" value='{{cdk}}' />
+    <text class="title">选择使用门店</text>
+    <input class="input" name="input" placeholder="请选择门店" bindtap="showStore" value='{{store}}' />
+  </view>
+  <van-tabbar placeholder="{{true}}" fixed="{{true}}" border="{{false}}">
+    <view class="footer">
+      <van-button round type="primary" block color="#fd5e36" bindtap="exchange">兑换</van-button>
+    </view>
+  </van-tabbar>
+  <van-action-sheet show="{{ show }}" actions="{{ actions }}" cancel-text="取消" bind:select="onSelect" bind:close="onClose" bind:cancel="onClose" />
+  <van-action-sheet show="{{ showStore }}" title="选择门店" bind:select="onSelectStore" bind:close="onCloseStore" bind:cancel="onCloseStore">
+    <view>
+      <van-card desc="经济技术开发区井冈山路157号A座3楼" title="奇点运动黄岛一店" thumb="{{ imageURL }}" bindtap="chooseStore" />
+    </view>
+  </van-action-sheet>
+  <van-toast id="van-toast" />
+</view>

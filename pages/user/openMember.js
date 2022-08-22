@@ -1,19 +1,24 @@
-// pages/home/home.js
+// pages/user/openMember.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    display:[
+      {text:'7*24h营业',des:'想练就练，全天不打烊',icon:'/images/home/24hour.svg'},
+      {text:'智能器械免费用',des:'器械使用次数不限',icon:'/images/home/equ.svg'},
+      {text:'专属训练计划',des:'基于能力，量身定制',icon:'/images/home/plan.svg'},
+      {text:'海量课程种类',des:'多种分类，练到嗨',icon:'/images/home/type.svg'},
+    ]
+  },
 
+  returnHome(){
+    wx.navigateBack({
+      delta: 1
+    });
   },
-  
-  OpenMember: function (){
-    console.log('跳转开通会员界面')
-    wx.navigateTo({
-      url: '/pages/user/openMember'
-      })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
