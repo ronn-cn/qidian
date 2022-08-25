@@ -4,11 +4,12 @@
   <view class="section section-1">
     <view class="orange">
       <view class="left">
-        <image class="avatar" src="/images/home/avatar.svg" mode="widthFix"></image>
+        <van-image round width="120rpx" height="120rpx" fit="contain" src="{{avatar}}" />
+        <!-- <image class="avatar" src="{{avatar}}" mode="widthFix"></image> -->
       </view>
       <view class="middle">
         <view>
-          <view class="nickname">Memorial | 勇敢的心</view>
+          <view class="nickname">{{nickname}}</view>
           <view class="tips">门店VIP会员未开通</view>
         </view>
       </view>
@@ -20,29 +21,11 @@
   </view>
   <!-- 段落2 ，可以使用for循环显示 -->
   <view class="section section-2">
-    <view class="icon-block icon-1">
+    <view class="icon-block icon-{{index+1}}" wx:for="{{showInfo}}" wx:key="index" bindtap="menuClick">
       <view class="icon-back">
-        <image class="icon-image" src="/images/home/扫一扫.png"></image>
+        <image class="icon-image" src="/images/home/{{item}}.png"></image>
       </view>
-      <text class="icon-text">扫一扫</text>
-    </view>
-    <view class="icon-block icon-2">
-      <view class="icon-back">
-        <image class="icon-image" src="/images/home/训练计划.png"></image>
-      </view>
-      <text class="icon-text">训练计划</text>
-    </view>
-    <view class="icon-block icon-3">
-      <view class="icon-back">
-        <image class="icon-image" src="/images/home/体质检测.png"></image>
-      </view>
-      <text class="icon-text">体质检测</text>
-    </view>
-    <view class="icon-block icon-4">
-      <view class="icon-back">
-        <image class="icon-image" src="/images/home/意见反馈.png"></image>
-      </view>
-      <text class="icon-text">意见反馈</text>
+      <text class="icon-text">{{item}}</text>
     </view>
     <!-- 清除浮动 -->
     <view class="clear-float"></view> 
@@ -51,7 +34,7 @@
   <view class="section section-3">
     <view class="header">
       <text class="header-title">附近门店</text>
-      <button class="header-btn">切换门店</button>
+      <button class="header-btn" bindtap="switchstore">切换门店</button>
       <view class="clear-float"></view>
     </view>
     <view class="card">
@@ -61,43 +44,38 @@
       <view class="card-body">
         <view class="card-body-title">
           <image class="card-body-logo" src="/images/home/奇点运动logo.png" mode="widthFix"></image>
-          <text class="card-body-text">奇点运动黄岛一店 <text class="small-text">[营业中]</text></text>
+          <text class="card-body-text">{{store.name}} <text class="small-text">[营业中]</text></text>
           <view class="clear-float"></view>
         </view>
         <view class="card-body-info">
           <view>
-            <text>7*24h自助健身</text>
-            <text>按月付费</text>
+            <text class="card-body-info-text">7*24h自助健身</text>
+            <van-tag color="#ffcca1" text-color="#FD8342" size ="large">￥</van-tag>
+            <van-tag color="#ffece6" text-color="#FD8342" size ="large">{{store.type}}</van-tag>
           </view>
           <view>
-            <text>面积120m2</text>
-            <text>基础服务</text>
-            <text>器械设施</text>
+            <van-tag color="#F2F2F2" text-color="#576B95" wx:for="{{tag}}" wx:key="key" size ="medium" custom-class="card-body-tag">{{item}}</van-tag>
           </view>
-          <view>></view>
-        </view>
-      </view>
-      <view class="card-footer">
-        <view>
-          <image></image>
-        </view>
-        <view>
-          <text></text>
-        </view>
-        <view>
-          <view>
-            <image></image>
-            <text></text>
-          </view>
-          <view>
-            <image></image>
-            <text></text>
+          <view></view>
+          <van-divider />
+
+          <view class="card-contact">
+            <van-icon name="location-o"  size="20px"/>
+            <view class="card-address">
+              <view>{{store.address}}</view>
+              <view>距您1.6 km</view>
+            </view>
+            <view>
+              <van-icon name="wechat" size="20px"/>
+              <view>微信</view>
+            </view>
+            <view>
+              <van-icon name="phone-circle" size="20px"/>
+              <view>电话</view>
+            </view>
           </view>
         </view>
       </view>
     </view>
-  </view>
-  <view class="section section-4">
-    <image></image>
   </view>
 </view>

@@ -1,10 +1,6 @@
 // pages/user/exchange.js
 import Toast from '@vant/weapp/toast/toast';
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     show: false,
     showStore: false,
@@ -23,20 +19,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow () {
 
   },
 

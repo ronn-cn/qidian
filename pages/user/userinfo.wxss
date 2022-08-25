@@ -2,6 +2,7 @@
   width: 100%;
   padding: 0 20rpx;
   box-sizing: border-box;
+  color: #465677;
 }
 
 .footer{
@@ -18,4 +19,12 @@
 
 .van-cell{
   background-color: transparent !important;
+}
+
+.van-field__label{
+  color: #465677 !important;
+}
+
+.van-field__label--disabled{
+  color: #465677 !important;
 }

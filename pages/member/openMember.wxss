@@ -97,10 +97,53 @@
   float: right;
 }
 
-.section-2 .middle{
-  height: 300rpx;
-  background-color: blanchedalmond;
+.section-2 .swiper_box{
+  padding-top: 40rpx;
+  height: 270rpx;
 }
+
+.section-2 .clear-float .good-box{
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  height: 160rpx;
+  text-align: center;
+  padding: 50rpx 0;
+  margin-right: 20rpx;
+}
+
+.good-box-nocheck{
+  background-color: rgba(134, 150, 187, 0.15);
+  border: 1px solid transparent;
+}
+
+.good-box-check{
+  background-color: #FBEBD4;
+  border: 1px solid #FDA74A;
+}
+
+.good-box .good-tip{
+  position: absolute;
+  right: 15rpx;
+  top: 0rpx;
+  width: 100rpx;
+  height: 34rpx;
+  background: #FD5E36;
+  border-radius: 24px;
+  color:#fff;
+}
+
+.good-box .good-money{
+  color:  #EA5419;
+  font-size: 32rpx;
+}
+.good-money .good-money-big{
+  font-size: 72rpx;
+}
+
+.good-box .money-old{
+  text-decoration:line-through;
+}
+
 .section-2 .tip{
   font-size: 20rpx;
   color: rgba(0, 0, 0, 0.54);

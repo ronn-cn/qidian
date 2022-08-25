@@ -1,0 +1,46 @@
+/* pages/order/order.wxss */
+.container{
+  width: 100%;
+  padding: 0 50rpx;
+  box-sizing: border-box;
+  color: #465677;
+  font-size: 20rpx;
+}
+
+.order-card{
+  margin: 20rpx 0;
+  padding: 20rpx 24rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  /* height: 220rpx; */
+}
+
+.order-card .order-layout{
+  display: flex;
+  align-items:center;
+  justify-content: space-between; 
+}
+
+.order-card .order-time{
+  color: rgba(70, 86, 119, 0.54);
+}
+
+.order-title{
+  font-size: 24rpx;
+  line-height: 60rpx;
+}
+
+.order-money{
+  color: rgba(253, 94, 54, 0.87);
+}
+
+.order-btn{
+  padding-top: 20rpx;
+}
+
+.btn-custom{
+  width: 140rpx;
+  height: 40rpx !important;
+  font-size: 18rpx !important;
+  margin-left: 20rpx;
+}

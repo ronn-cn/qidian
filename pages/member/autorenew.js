@@ -1,4 +1,5 @@
 // pages/user/autorenew.js
+// 自动续费
 Page({
   data: {
     isAuto : false,
@@ -9,27 +10,15 @@ Page({
     }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
+  }, 
   returnHome () {
     wx.navigateBack({ delta: 1 });
   },
+
+  exchange(){
+    // wx.navigateTo({ url: '/pages/user/openMember' })
+    console.log('开通自动续费')
+  }
 })

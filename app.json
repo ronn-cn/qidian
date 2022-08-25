@@ -1,19 +1,20 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/home/home",
     "pages/login/login",
+    "pages/sport/plan",
+    "pages/sport/body",
+    "pages/sport/sport",
+    "pages/sport/vitality",
     "pages/user/profile",
-    "pages/user/plan",
-    "pages/user/body",
-    "pages/user/sport",
-    "pages/user/vitality",
-    "pages/user/openMember",
-    "pages/user/exchange",
     "pages/user/userinfo",
     "pages/user/opinion",
-    "pages/user/autorenew",
-    "pages/user/coupon"
+    "pages/member/autorenew",
+    "pages/member/openMember",
+    "pages/member/exchange",
+    "pages/order/coupon",
+    "pages/order/order",
+    "pages/order/orderDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -31,6 +32,7 @@
     "van-button": "@vant/weapp/button/index",
     "van-dialog": "@vant/weapp/dialog/index",
     "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-checkbox-group": "@vant/weapp/checkbox-group/index",
     "van-action-sheet": "@vant/weapp/action-sheet/index",
     "van-divider": "@vant/weapp/divider/index",
     "van-picker": "@vant/weapp/picker/index",
@@ -51,6 +53,7 @@
     "van-field": "@vant/weapp/field/index",
     "van-sticky": "@vant/weapp/sticky/index",
     "van-tab": "@vant/weapp/tab/index",
-    "van-tabs": "@vant/weapp/tabs/index"
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-notice-bar": "@vant/weapp/notice-bar/index"
   }
 }

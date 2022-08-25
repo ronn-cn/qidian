@@ -1,7 +1,7 @@
 {
   "usingComponents": {
     "Home": "/pages/home/home",
-    "user": "/components/user/index"
+    "user": "/pages/user/user"
   },
   "backgroundColor": "#ffffff"
 }

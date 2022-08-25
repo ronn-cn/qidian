@@ -47,13 +47,11 @@ Page({
         if(app.globalData.netName != "evinf"){
           app.globalData.userInfo = null
         }
-        app.setNetName("evinf");
 				this.data.obj = app.globalData.ev;
       } else {  //只要不是包含evinf都属于sportguider
         if(app.globalData.netName != "sportguider"){
           app.globalData.userInfo = null
         }
-        app.setNetName("sportguider");
 				this.data.obj = app.globalData.sg ;
 			}
 			if (url.includes("device")) {
@@ -77,41 +75,10 @@ Page({
   },
   onChange(event) {
     // event.detail 的值为当前选中项的索引
-    this.setData({ 
-      currPage: event.detail,
-     });
+    this.setData({ currPage: event.detail});
   },
-
-	// 点击扫码按钮的处理函数
-	scanCodeTapHandle: function () {
-    let that = this;
-		if (app.globalData.userInfo != null) {
-			// 判断用户信息存在，直接开启扫码
-			wx.scanCode({
-				onlyFromCamera: true,
-				success: function (sc_res) {
-					let url = sc_res.result;
-					//string.includes(word);
-					if (url.indexOf("evinf") >= 0) {
-						app.globalData.netName = "evinf";
-						that.data.obj = app.globalData.ev;
-					} else {
-						app.globalData.netName = "sportguider";
-						that.data.obj = app.globalData.sg;
-					}
-					var ouid = getQueryVariable(url, "ouid");
-					// 登录到设备
-					console.log(that.data.obj);
-					that.loginDevice(ouid);
-				}
-			});
-		} else {
-      this.setData({
-        currPage: 'user'
-      });
-      this.selectComponent('#user-component').authorizedLoginTap();
-		}
-	},
+ 
+	
 	loginDevice: function (ouid) {
 		console.log("loginDevice");
 		let that = this;

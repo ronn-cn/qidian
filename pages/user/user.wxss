@@ -74,9 +74,23 @@
 }
 
 .card-info{
+  padding: 0 30rpx;
   height: 150rpx;
-  background-color: blanchedalmond;
+  background-color: #f7e1b4;
   border-radius: 24rpx;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 24rpx;
+}
+
+.card-info .card-title{
+  font-size: 40rpx;
+}
+.card-info .card-text{
+  font-size: 20rpx;
 }
 
 .user-option-box{

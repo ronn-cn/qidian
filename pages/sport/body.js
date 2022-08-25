@@ -84,7 +84,6 @@ Page({
 					console.log(res.data)
 					if (res.data.code == "200") {
                         let userAll = res.data.data.user;
-
                         let bodyData = [{
                             "name": "BMI",
                             "image": "/images/user/ico_body_01.png",

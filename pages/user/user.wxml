@@ -28,18 +28,24 @@
       </van-row>
     </view>
   </view>
-  <view class="card-info">VIP会员</view>
+  <view class="card-info">
+    <van-image width="50rpx" height="50rpx" fit="contain" src="/images/user/vip.svg"/>
+    <view class="card-title">VIP会员</view>
+    <view class="card-text">不仅是运动，更是生活</view>
+    <van-button type="default" round color="#FD5E36" size="small" 
+    open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">开通</van-button>
+  </view>
   <van-divider></van-divider>
   <van-row gutter="20">
     <van-col span="12">
-        <view class="cell-box sport-box" bindtap="jumpView" data-index="sport">
+        <view class="cell-box sport-box" bindtap="jumpView" data-index="/page/sport/sport">
           <van-image width="70rpx" height="70rpx" fit="contain" src="/images/user/fire.svg"/>
           <view class="sport-content">运动力 \n{{sport}} / 100 </view>
           <van-image width="50rpx" height="50rpx" fit="contain" src="/images/user/arrow.svg"/>
         </view>
     </van-col>
     <van-col span="12">
-      <view class="cell-box vitality-box" bindtap="jumpView" data-index="vitality">
+      <view class="cell-box vitality-box" bindtap="jumpView" data-index="/page/sport/vitality">
         <van-image width="70rpx" height="70rpx" fit="contain" src="/images/user/tree.svg"/>
         <view class="sport-content">活力 \n{{vitality}} / 100 </view>
         <van-image width="50rpx" height="50rpx" fit="contain" src="/images/user/arrow.svg" />

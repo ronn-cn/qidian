@@ -24,9 +24,20 @@
       <view class="header">
         <text class="header-title">选择套餐</text>
         <button class="header-btn">仅单店使用</button>
-        <view class="clear-float"></view>
-      </view>
-      <view class="middle">
+        <view class="clear-float">
+          <swiper class="swiper_box" indicator-active-color="#fff"
+          display-multiple-items="3">
+            <swiper-item wx:for="{{goods}}" wx:key="index" bindtap="swipclick" data-index="{{index}}">
+            <view class="good-box {{index == currentIndex ? 'good-box-check' : 'good-box-nocheck'}}" >
+              <view class="good-tip">{{item.tag}}</view>
+              <view>{{item.name}}</view>
+              <view class="good-money">￥<text class="good-money-big">{{item.money}}</text></view>
+              <!-- <view><text class="money-old">￥{{item.original_price}}</text>立省￥{{item.original_price - item.money}}</view> -->
+              <view>{{item.describe}}</view>
+            </view>
+            </swiper-item>
+          </swiper>
+        </view>
       </view>
       <text class="tip">到期将按99元每月自动续费，可随时取消。</text>
       <van-divider />
@@ -58,23 +69,18 @@
           </view>
           </van-col>
         </van-row>
-        <!-- <view class="content-group">
-          <view class="content-card">111</view>
-          <view class="content-card">111</view>
-        </view> -->
-    
       </view>
     </view>
     <view class="main">
       <van-submit-bar
         label=" "
-        price="{{ 12900 }}"
+        price="{{ price  }}"
         button-text="立即购买"
-        bind:submit="onClickButton"
+        bind:submit="submit"
         tip="{{ true }}"
       >
         <view slot="tip">
-          <van-checkbox slot="right-icon" icon-size="30rpx" value="{{ checked }}" bind:change="onChange" >
+          <van-checkbox slot="right-icon" icon-size="30rpx" value="{{ checked }}" bind:change="onChange" checked-color="#FD5E36" >
             同意《奇点运动会员协议》和《连续包月协议》</van-checkbox>
           </view>
       </van-submit-bar>

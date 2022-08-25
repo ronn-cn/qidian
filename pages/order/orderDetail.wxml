@@ -1,0 +1,63 @@
+<!--pages/user/orderDetail.wxml-->
+<van-nav-bar transparent="{{bgColor}}" left-text="订单详情" placeholder="{{true}}" 
+    fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="return" z-index="2">
+</van-nav-bar>
+<van-notice-bar text="已支付" color="#fff" background="#524D63" />
+<view class="order-card">
+  <van-row>
+    <van-col span="6">
+      <van-image width="110rpx" height="110rpx" fit="contain" src="/images/home/img-1.png" />
+    </van-col>
+    <van-col span="18">
+      <view>
+        <view class="order-layout">
+          <text class="order-title">奇点运动门店专属月卡</text>
+          <text>¥ {{item.original_price}}</text>
+        </view>
+        <view class="order-layout">
+          <text class="order-time">{{item.store_name}}</text>
+          <text>×{{item.count}}</text>
+        </view>
+      </view>
+    </van-col>
+  </van-row>
+</view>
+
+<view class="order-card order-time">
+  <text class="order-title">订单信息</text>
+  <view class="order-layout order-list" wx:for="{{display}}">
+    <view>{{item.name}}</view>
+    <view>{{item.value}}</view>
+  </view>
+</view>
+
+<van-tabbar placeholder="{{true}}" fixed="{{true}}" border="{{false}}">
+  <view class="footer">
+    <van-button round type="primary" block color="#fd5e36" bindtap="refund">
+    {{ isAuto ? '关闭自动续费' : '申请退款'}}</van-button>
+  </view>
+  
+</van-tabbar> 
+
+<van-action-sheet show="{{ show }}" title="申请退款">
+  <view>
+    <van-checkbox-group value="{{ result }}" bind:change="onChange">
+      <van-cell-group>
+        <van-cell
+          wx:for="{{ list }}"
+          wx:key="index"
+          title="复选框 {{ item }}"
+          value-class="value-class"
+          clickable
+          data-index="{{ index }}"
+          bind:click="toggle"
+        >
+          <van-checkbox
+            catch:tap="noop"
+            name="{{ item }}"
+            square/>
+        </van-cell>
+      </van-cell-group>
+    </van-checkbox-group>
+  </view>
+</van-action-sheet>

@@ -1,4 +1,5 @@
 <!--pages/user/coupon.wxml-->
+<wxs src="../../utils/formatDate.wxs" module="util" />
   <van-nav-bar transparent="{{bgColor}}" left-text="我的优惠券" placeholder="{{true}}" 
     fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2">
   </van-nav-bar>
@@ -8,14 +9,14 @@
     </van-tabs>
   </van-sticky>
 <view class="container">
-  <view class="coupon-box">
+  <view class="coupon-box" wx:for="{{showCoupons}}" wx:key="key">
     <view>
-      <view class="coupon-number">￥<text>20</text></view>
-      <view class="coupon-tip">满159可用</view>
+      <view class="coupon-number">￥<text>{{item.money}}</text></view>
+      <view class="coupon-tip">满{{item.condition}}可用</view>
     </view>
     <view>
-      <view class="coupon-title">新人优惠券</view>
-      <view class="coupon-date">有效期：2022.08.08-2022.08.28</view>
+      <view class="coupon-title">{{item.name}}</view>
+      <view class="coupon-date">有效期：{{util.formatDate(item.start_time)}}-{{util.formatDate(item.end_time)}}</view>
     </view>
     <view>
       <van-button custom-class="btn-custom" round size="small" plain color="{{activeIndex > 0? '#465677': '#FD5E36'}}" 

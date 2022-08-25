@@ -1,72 +1,70 @@
 // pages/home/home.js
-Page({
+const app = getApp();
+import { request } from "../../utils/request.js";
 
-  /**
-   * 页面的初始数据
-   */
+Component({
   data: {
-
+    nickname:'',
+    avatar:'/images/home/avatar.svg',    
+    store:{},
+    tag:{},
+    showInfo:['扫一扫', '训练计划', '体质检测', '意见反馈'],
   },
-  
-  OpenMember: function (){
-    console.log('跳转开通会员界面')
-    wx.navigateTo({
-      url: '/pages/user/openMember'
+  methods:{
+    onLoad(options) {
+      this.RefreshUserData()
+    },
+    RefreshUserData(){
+      let userInfo = app.globalData.userInfo
+      if (userInfo){
+        this.setData({
+          nickname: userInfo.nickName,
+          avatar: userInfo.avatarUrl
+        })
+      }
+      request({ url:"get-store", method:"POST"}).then((res) => {
+        if(res.code=='200'){
+          this.setData({
+            store: res.data,
+            tag: JSON.parse(res.data.tag)
+          }) 
+        }
       })
+    },
+    OpenMember: function (){
+      wx.navigateTo({ url: '/pages/user/openMember' })
+    },
+    switchstore(){
+      // this.RefreshUserData()
+    },
+    menuClick(){
+      this.scanCodeTapHandle();
+    },
+
+    // 点击扫码按钮的处理函数
+	  scanCodeTapHandle: function () {
+      let that = this;
+      if (app.globalData.userInfo != null) {
+        // 判断用户信息存在，直接开启扫码
+        wx.scanCode({
+          onlyFromCamera: true,
+          success: function (sc_res) {
+            let url = sc_res.result;            
+            var ouid = getQueryVariable(url, "ouid");
+            // 登录到设备
+            that.loginDevice(ouid);
+          }
+        });
+      } else {
+        this.setData({
+          currPage: 'user'
+        });
+      }
+    },
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  lifetimes: {
+    ready () {
+      this.RefreshUserData();
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
 })

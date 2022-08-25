@@ -28,7 +28,7 @@
 }
 
 .van-nav-bar__arrow {
-  color: var(--nav-bar-icon-color, #1989fa) !important;
+  color: var(--nav-bar-icon-color, #000) !important;
   font-size: var(--nav-bar-arrow-size, 16px) !important;
   vertical-align: middle
 }

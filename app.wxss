@@ -17,6 +17,6 @@ page {
   color: #000 !important;
 }
 
-.van-nav-bar__arrow {
+.van-icon .van-nav-bar__arrow {
   color: #000 !important;
 }

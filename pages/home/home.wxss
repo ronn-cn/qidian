@@ -4,6 +4,7 @@
 }
 .container{
   height: 100%;
+  color: #576B95;
 }
 .container .section{
   width: 100%;
@@ -18,6 +19,7 @@
   background-image: linear-gradient(145deg,#fdad4c 20%, #fe5a35);
   border-radius: 40rpx 40rpx 0 0;
   position: relative;
+  filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.1));
 }
 .section-1 .left{
   width: 20%;
@@ -39,17 +41,16 @@
   display: flex;
   align-items: center;
 }
-.section-1 .avatar{
-  width: 100%;
-}
+
 .section-1 .nickname{
   color: #ffffff;
-  padding: 10rpx 0;
+  line-height: 40rpx;
 }
 .section-1 .tips{
   color: #ffffff;
   font-size: 0.9em;
   opacity: 0.5;
+  line-height: 40rpx;
 }
 .section-1 .open-btn{
   width: 150rpx;
@@ -98,16 +99,16 @@
   line-height: 60rpx;
 }
 .icon-1 .icon-back{
-  background-image: linear-gradient(#ff7c18 20%, #fbc610);
+  background-image: linear-gradient(180deg, #FF7B18 0%, #FBC610 100%)
 }
 .icon-2 .icon-back{
-  background-image: linear-gradient(#d2de16 20%, #f9d80d);
+  background-image: linear-gradient(180deg, #D2DE16 0%, #F9D80D 100%);
 }
 .icon-3 .icon-back{
-  background-image: linear-gradient(#5cc5a2 20%, #d2e0a8);
+  background-image: linear-gradient(180deg, #5BC4A2 0%, #D3E0A8 100%);
 }
 .icon-4 .icon-back{
-  background-image: linear-gradient(#38bcc9 20%, #a0d9df);
+  background-image: linear-gradient(180deg, #37BBC9 0%, #A0D9DF 100%);
 }
 
 /* 段落3 */
@@ -135,8 +136,8 @@
 }
 
 .section-3 .card{
-  height: 600rpx;
-  background-color: #d2e0a8;
+  height: 640rpx;
+  background-color: #fff;
   border-radius: 60rpx;
 }
 .section-3 .card .card-image{
@@ -154,11 +155,36 @@
 .card-body-text{
   float: left;
   color: #576b95;
-  font-size: 1.1em;
+  font-size: 28rpx;
   margin-top: 30rpx;
   margin-left: 50rpx;
 }
 .small-text{
   font-size: 0.8em;
   color: #ea5419;
+}
+
+.card-body-info{
+  padding: 0 30rpx;
+}
+
+.card-body-info .card-body-info-text{
+  font-size: 26rpx;
+  line-height: 26rpx;
+  padding-right: 30rpx;
+}
+
+.card-body-tag{
+  margin: 20rpx 20rpx 0 0;
+}
+
+.card-address{
+  width:380rpx;
+}
+
+.card-contact{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20rpx;
 }

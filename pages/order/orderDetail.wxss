@@ -1,0 +1,35 @@
+/* pages/user/orderDetail.wxss */
+
+.order-layout{
+  display: flex;
+  align-items:center;
+  justify-content: space-between; 
+  font-size: 20rpx;
+}
+
+.order-card{
+  padding: 50rpx;
+  background-color: #fff;
+  margin-bottom: 30rpx;
+}
+
+.order-time{
+  color: rgba(70, 86, 119, 0.54);
+}
+
+.order-title{
+  font-size: 24rpx;
+  line-height: 60rpx;
+  color:#465677;
+}
+
+.order-list{
+  padding-top: 20rpx;
+}
+
+.footer{
+  margin: 10rpx auto;
+  width: 90%;
+  text-align: center;
+  color: #8696bb;
+}

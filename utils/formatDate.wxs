@@ -1,0 +1,13 @@
+var formatDate = function(date) {
+  var d = date.split('T')[0]
+  d = d.replace('-', '.').replace('-', '.')
+  return d
+};
+
+var formatTime =  function(date) {
+  
+}
+
+module.exports = {
+  formatDate: formatDate
+};

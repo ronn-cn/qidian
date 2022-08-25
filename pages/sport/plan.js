@@ -121,7 +121,6 @@ Page({
                         let userAll = res.data.data.user
                         let plan = userAll.plan_describe
                         let planDes = JSON.parse(userAll.plan).desc
-
                         let stepsTmp = []
                         let count = plan.stage_count
 

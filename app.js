@@ -2,28 +2,27 @@
 App({
 	onLaunch() {
     // 当小程序启动的时候，先判断是否存储sg
-		let sg = wx.getStorageSync('sg');
-		if (sg) {
-			// console.log("sg:", sg);
-			this.globalData.sg = JSON.parse(sg);
+    const version = __wxConfig.envVersion;
+    switch (version) {
+      // 开发 测试
+      case 'develop':
+      case 'trial':
+      default:
+        this.globalData.svrUrl= 'https://sport1.evinf.cn/'
+        break;
+      // 线上
+      case 'release':
+        this.globalData.svrUrl= 'https://sport.sportguider.com/'
+        break;
     }
-    // 判断是否存储ev
-		let ev = wx.getStorageSync('ev');
-		if (ev) {
-			// console.log("ev:", ev);
-			this.globalData.ev = JSON.parse(ev);
-    }
-    // 判断是否存储用户授权信息
-		let userInfo = wx.getStorageSync('user_info');
-		if (userInfo) {
-			// console.log("userInfo:", userInfo);
-			this.globalData.userInfo = JSON.parse(userInfo);
-    }
+		let user_info = wx.getStorageSync('user_info');
+    if (user_info)  this.globalData.userInfo = JSON.parse(user_info);
     
-    let netName = wx.getStorageSync('net_name');
-		if (netName) {
-			this.globalData.netName = netName;
-		}
+    let user_ouid = wx.getStorageSync('user_ouid');
+    if (user_ouid) 	this.globalData.user_ouid = user_ouid;
+
+    let userAll = wx.getStorageSync('user_all');
+    if (userAll) 	this.globalData.userAll = JSON.parse(userAll);
 
 		wx.getSystemInfo({
 			success: e => {
@@ -34,58 +33,38 @@ App({
 			}
 		})
   },
-  // 全局数据,默认sportguider
+  // 全局数据
 	globalData: {
-		// netName: "sportguider", // 网络名称
-		netName: "evinf", // 网络名称
-		userInfo: null, // 用户信息
-		sg: {
-			userId: "",
-			userJWT: "",
-			userAll: null,
-			svrUrl: "https://sport.sportguider.com/",
-		},
-		ev: {
-			userId: "",
-			userJWT: "",
-			userAll: null,
-			// svrUrl: "https://sport.evinf.cn/",
-			svrUrl: "https://sport1.evinf.cn/",
-		}
+    userInfo: null, // 用户微信信息
+    svrUrl:  "https://sport1.evinf.cn/",
+    user_ouid: "",
+    userJWT: "",
+    userAll: null,
 	},
 	// 设置用户信息函数
 	setUserInfo(user) {
-		this.globalData.userInfo = user;
+    this.globalData.userInfo = user;
 		wx.setStorageSync('user_info', JSON.stringify(user));
 	},
 	// 设置用户权限信息
 	setUserAuth(user) {
     console.log("用户信息", user)
-		if(this.globalData.netName == "evinf"){
-			this.globalData.ev.userId = user.user_ouid;
-			this.globalData.ev.userJWT = user.user_jwt;
-			wx.setStorageSync('ev', JSON.stringify(this.globalData.ev));
-		} else {
-			this.globalData.sg.userId = user.user_ouid;
-			this.globalData.sg.userJWT = user.user_jwt;
-			wx.setStorageSync('sg', JSON.stringify(this.globalData.sg));
-		}
+    this.globalData.user_ouid = user.user_ouid;
+    this.globalData.userJWT = user.user_jwt;
+		wx.setStorageSync('user_ouid', user.user_ouid);
 	},
 	// 设置用户全部信息
   setUserAll(userall){
-		if(this.globalData.netName == "evinf"){
-			this.globalData.ev.userAll = userall;
-			wx.setStorageSync('ev', JSON.stringify(this.globalData.ev));
-		} else {
-			this.globalData.sg.userAll = userall;
-			wx.setStorageSync('sg', JSON.stringify(this.globalData.sg));
-		}
+    this.globalData.userAll = userall;
+    wx.setStorageSync('user_all', JSON.stringify(userall));
   },
-  setNetName(name){
-    if(name == "evinf"){
-      this.globalData.netName = "evinf";
-    } else {
-      this.globalData.netName = "sportguider";
-    }
+
+  setLogout(){
+    wx.removeStorageSync('user_info');
+    wx.removeStorageSync('user_ouid');
+    wx.removeStorageSync('user_all');
+    this.globalData.userInfo = null
+    this.globalData.user_ouid = null
+    this.globalData.userAll = null
   }
 })
