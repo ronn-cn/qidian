@@ -10,12 +10,12 @@
   </scroll-view>
   <!-- 底部切换栏部分 -->
   <van-tabbar class="tab-bar" active="{{ currPage }}" bind:change="onChange" placeholder="{{true}}" active-color="#fd5e36" inactive-color="#465677">
-    <van-tabbar-item name="home">
+    <van-tabbar-item name="home" style="background: white;">
       <image slot="icon" src="/images/tabbar/home-smile-line.png" mode="aspectFit" style="width: 30px; height: 18px;" />
       <image slot="icon-active" src="/images/tabbar/home-smile-fill.png" mode="aspectFit" style="width: 30px; height: 18px;" />
       首页
     </van-tabbar-item>
-    <van-tabbar-item name="user">
+    <van-tabbar-item name="user" style="background: white;">
       <image slot="icon" src="/images/tabbar/user-5-line.png" mode="aspectFit" style="width: 30px; height: 18px;" />
       <image slot="icon-active" src="/images/tabbar/user-5-fill.png" mode="aspectFit" style="width: 30px; height: 18px;" />
       我的
