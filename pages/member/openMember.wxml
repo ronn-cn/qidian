@@ -1,9 +1,11 @@
 <!--pages/user/plan.wxml-->
+<!-- 导航栏 -->
+<van-nav-bar transparent="{{bgColor}}" left-text="会员续费" placeholder="{{true}}" 
+  fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2"
+  custom-style="background-image: linear-gradient(-45deg,#ffffff 50%, #e0fcfc, #dbeafd); background-size: 100% 830px;">
+</van-nav-bar>
+    
 <scroll-view class="container"  scroll-y>
-    <van-nav-bar transparent="{{bgColor}}" left-text="会员续费" placeholder="{{true}}" 
-    fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2">
-  </van-nav-bar>
-
     <view class="section section-1">
       <view class="card-box">
         <view class="card-info">
@@ -71,6 +73,7 @@
         </van-row>
       </view>
     </view>
+  </scroll-view>
     <view class="main">
       <van-submit-bar
         label=" "
@@ -85,4 +88,3 @@
           </view>
       </van-submit-bar>
     </view>
-</scroll-view>

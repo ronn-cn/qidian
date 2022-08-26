@@ -23,7 +23,8 @@ Page({
 		obj: null,
 		currPage: 'home',
     active:'',
-    bgColor:'true'
+    bgColor:'true',
+    tabbarShow: 'true'
 	},
 	onLoad: function (options) {
     let query = wx.createSelectorQuery();

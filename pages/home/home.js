@@ -32,7 +32,7 @@ Component({
       })
     },
     OpenMember: function (){
-      wx.navigateTo({ url: '/pages/user/openMember' })
+      wx.navigateTo({ url: '/pages/member/openMember' })
     },
     switchstore(){
       // this.RefreshUserData()
