@@ -125,6 +125,7 @@ Component({
         "store_id":1
       };
       request({ url:"login/device", data:data, method:"POST"}).then((res) => {
+        console.log("登录结果", res)
         if (res.code == '200'){
           wx.showToast({
             title: '登录成功',
