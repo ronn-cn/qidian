@@ -1,3 +1,6 @@
+// 小程序文档
+// http://172.16.8.5:8806/swagger/index.html
+
 // app.js
 App({
 	onLaunch() {

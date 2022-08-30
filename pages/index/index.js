@@ -24,22 +24,23 @@ Page({
 		currPage: 'home',
     active:'',
     bgColor:'true',
-    tabbarShow: 'true'
+    tabbarShow: 'true',
+    navbarStyle: "background-image: linear-gradient(-45deg,#f5f5f5 50%, #e0fcfc, #dbeafd); background-size: 100% 830px;"
 	},
 	onLoad: function (options) {
-    let query = wx.createSelectorQuery();
     var screenHeight = wx.getSystemInfoSync().windowHeight
     let that = this
     // 获取navbar的高度
-    query.select('.nav-bar').boundingClientRect();
-    query.exec(function (navRect) {
-      query.select('.tab-bar').boundingClientRect();
-      query.exec(function (tabRect) {
+    let query = wx.createSelectorQuery();
+    query.select('.nav-bar').boundingClientRect(navRect=>{
+      let query2 = wx.createSelectorQuery();
+      query2.select('.tab-bar').boundingClientRect(tabRect=>{
         that.setData({
           scrollViewHeight: screenHeight - navRect.height - tabRect.height,
         })
-      })
-    });
+        console.log(that.data.scrollViewHeight)
+      }).exec();
+    }).exec();
 
 		// 判断是扫码进入
 		let url = decodeURIComponent(options.q);

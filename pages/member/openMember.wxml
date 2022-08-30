@@ -1,11 +1,12 @@
 <!--pages/user/plan.wxml-->
-<!-- 导航栏 -->
-<van-nav-bar transparent="{{bgColor}}" left-text="会员续费" placeholder="{{true}}" 
-  fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2"
-  custom-style="background-image: linear-gradient(-45deg,#ffffff 50%, #e0fcfc, #dbeafd); background-size: 100% 830px;">
-</van-nav-bar>
+<view class="main">
+  <!-- 导航栏 -->
+  <van-nav-bar class="nav-bar" transparent="{{bgColor}}" left-text="会员开通" placeholder="{{true}}" 
+    fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2"
+    custom-style="background-image: linear-gradient(-45deg,#ffffff 50%, #e0fcfc, #dbeafd); background-size: 100% 830px; font-size:1.8em;">
+  </van-nav-bar>
     
-<scroll-view class="container"  scroll-y>
+  <scroll-view class="container" scroll-y style="height: {{scrollViewHeight}}px;">
     <view class="section section-1">
       <view class="card-box">
         <view class="card-info">
@@ -27,8 +28,7 @@
         <text class="header-title">选择套餐</text>
         <button class="header-btn">仅单店使用</button>
         <view class="clear-float">
-          <swiper class="swiper_box" indicator-active-color="#fff"
-          display-multiple-items="3">
+          <swiper class="swiper_box" indicator-active-color="#fff" display-multiple-items="3">
             <swiper-item wx:for="{{goods}}" wx:key="index" bindtap="swipclick" data-index="{{index}}">
             <view class="good-box {{index == currentIndex ? 'good-box-check' : 'good-box-nocheck'}}" >
               <view class="good-tip">{{item.tag}}</view>
@@ -74,17 +74,21 @@
       </view>
     </view>
   </scroll-view>
-    <view class="main">
-      <van-submit-bar
-        label=" "
-        price="{{ price  }}"
-        button-text="立即购买"
-        bind:submit="submit"
-        tip="{{ true }}"
-      >
-        <view slot="tip">
-          <van-checkbox slot="right-icon" icon-size="30rpx" value="{{ checked }}" bind:change="onChange" checked-color="#FD5E36" >
-            同意《奇点运动会员协议》和《连续包月协议》</van-checkbox>
-          </view>
-      </van-submit-bar>
-    </view>
+  <view class="footer">
+    <van-submit-bar
+      label=" "
+      price="{{ price  }}"
+      button-text="立即购买"
+      bind:submit="submit"
+      tip="{{ true }}"
+    >
+      <view class="tip" slot="tip">
+        <van-checkbox slot="right-icon" icon-size="35rpx" value="{{ checked }}" bind:change="onChange" checked-color="#FD5E36" >
+          同意 <text style="color: #FD5E36;">《奇点运动会员协议》</text>
+          <!-- 和 <text>《连续包月协议》</text>  -->
+        </van-checkbox>
+        <view wx:if="{{showTip}}" style="position: absolute; bottom: 45rpx; left: -5rpx; width: 100px; height: 32px; background-image: url('https://www.evinf.cn/images/tipbg.svg');"></view>
+      </view>
+    </van-submit-bar>
+  </view>
+</view>

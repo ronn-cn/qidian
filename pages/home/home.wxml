@@ -11,6 +11,7 @@
         <view>
           <view class="nickname">{{nickname}}</view>
           <view class="tips">门店VIP会员未开通</view>
+          <view class="tips">点击注册/登录</view>
         </view>
       </view>
       <view class="right">

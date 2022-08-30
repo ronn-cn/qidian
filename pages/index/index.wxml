@@ -1,11 +1,16 @@
 <!-- 首页 -->
 <view class="main">
   <!-- 导航栏部分 -->
-  <van-nav-bar class="nav-bar" title="{{currPage=='home'?'奇点运动':'我的'}}" border="{{false}}" fixed="{{true}}" placeholder="{{true}}"
-    custom-style="background-image: linear-gradient(-45deg,#ffffff 50%, #e0fcfc, #dbeafd); background-size: 100% 830px;">    
+  <van-nav-bar class="nav-bar"
+    title="{{currPage=='home'?'奇点运动':'我的'}}"
+    border="{{false}}" 
+    fixed="{{true}}" 
+    placeholder="{{true}}" 
+    custom-style="{{navbarStyle}}"
+    >
   </van-nav-bar>
-  <!-- <scroll-view class="content" scroll-y="true" style="height: {{scrollViewHeight}}px; " >  -->
-  <scroll-view class="content" scroll-y="true"> 
+  <scroll-view class="content" scroll-y="true" style="height: {{scrollViewHeight}}px;" > 
+    <!-- <scroll-view class="content" scroll-y="true">  -->
     <Home wx:if="{{currPage=='home'}}"></Home>
     <user wx:else></user>
   </scroll-view>

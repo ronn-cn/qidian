@@ -2,7 +2,6 @@
 
 .container{
   width: 100%;
-  /* margin: 0 auto; */
   padding: 0 50rpx;
   box-sizing: border-box;
 }
@@ -184,7 +183,7 @@
 
 .cell-custom{
   border-radius: 24rpx !important;
-  background-image: url(cloud://taxing-7gdv3h3c6e9ef489.7461-taxing-7gdv3h3c6e9ef489-1304543143/sport-bg.png) 100% 100%;
+  background-image: url(https://www.evinf.cn/images/sport-bg.png) 100% 100%;
 }
 
 .cell-box{
@@ -196,11 +195,11 @@
   justify-content: center;
 }
 .sport-box{
-  background-image: url(https://7461-taxing-7gdv3h3c6e9ef489-1304543143.tcb.qcloud.la/sport-bg.png);
+  background-image: url(https://www.evinf.cn/images/sport-bg.png);
   background-size: 100% 100%;
 }
 .vitality-box{
-  background-image: url(https://7461-taxing-7gdv3h3c6e9ef489-1304543143.tcb.qcloud.la/vitality-bg.png);
+  background-image: url(https://www.evinf.cn/images/vitality-bg.png);
   background-size: 100% 100%;
 }
 .sport-content{
@@ -218,7 +217,7 @@
   align-items:center;
   justify-content: space-between;
   /* justify-content: center; */
-  background-image: url(https://7461-taxing-7gdv3h3c6e9ef489-1304543143.tcb.qcloud.la/plan-bg.png);
+  background-image: url(https://www.evinf.cn/images/plan-bg.png);
   background-size: 100% 100%;
   padding:0 20rpx 0 0;
 }

@@ -14,6 +14,8 @@ Page({
     currentIndex:0,
     obj:null,
     price: 0,
+    showTip: false,
+    scrollViewHeight: 0
   },
 
   returnHome(){
@@ -23,10 +25,23 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+	onLoad: function (options) {
+    var screenHeight = wx.getSystemInfoSync().windowHeight
+    let that = this
+    // 获取navbar的高度
+    let query = wx.createSelectorQuery();
+    query.select('.nav-bar').boundingClientRect(navRect=>{
+      let query2 = wx.createSelectorQuery();
+      query2.select('.footer').boundingClientRect(tabRect=>{
+        that.setData({
+          scrollViewHeight: screenHeight - navRect.height - tabRect.height,
+        })
+        console.log(that.data.scrollViewHeight)
+      }).exec();
+    }).exec();
+
     let obj = app.globalData.ev
     this.setData({obj: obj})
-    let that = this
     request({ url:"get-goods-list", method:"POST"}).then((res) => {
       if(res.code=='200'){ 
         let goods = res.data
@@ -55,15 +70,26 @@ Page({
 
   onChange(event) {
     this.setData({
-      checked: event.detail,
+      checked: event.detail
     });
+    if (this.data.checked){
+      this.setData({
+        showTip: false
+      })
+    }
   },
 
   submit(){
+    // 检测是否同意会员协议
+    if(!this.data.checked){
+      this.setData({
+        showTip: true
+      })
+      return
+    }
     console.log('提交订单')
     let goodid = this.data.goods[this.data.currentIndex].id
-    let userid = this.data.obj.userId
-
+    let userid = app.globalData.user_ouid
     let data={
       user_ouid: userid,
       goods_id: goodid,
@@ -71,8 +97,25 @@ Page({
     };
     request({ url:"add-order", data:data, method:"POST"}).then((res) => {
       if(res.code=='200'){ 
-      }
-    })
+        wx.requestPayment(
+          {
+            "timeStamp": res.data.per_pay.timeStamp,
+            "nonceStr": res.data.per_pay.nonceStr,
+            "package": res.data.per_pay.package,
+            "signType": res.data.per_pay.signType,
+            "paySign": res.data.per_pay.paySign,
+            "success":function(res){
+              console.log("调起支付成功")
+            },
+            "fail":function(res){
+              console.log("调起支付失败")
+            },
+            "complete":function(res){
+              console.log("调起支付完成")
+            }
+          })
+        }
+      })
   },
 
   swipclick(e){

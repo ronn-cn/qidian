@@ -150,6 +150,7 @@ Component({
       })
     },
     getPhoneNumber(e) {
+      console.log(e)
       console.log(e.detail.code)
       if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
         wx.showModal({

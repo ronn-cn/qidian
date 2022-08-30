@@ -1,5 +1,5 @@
 <!-- components/user/index.wxml -->
-<scroll-view scroll-y class="container">
+<view class="container">
   <van-dialog title="需要登录" message="需要登录或注册 健身Link 账号" confirmButtonText="去登录" show="{{ showLogin }}" show-cancel-button confirm-button-open-type="authorizedLoginTap" bind:close="onClose" bind:confirm="authorizedLoginTap"></van-dialog>
   <!-- 用户信息区域 -->
   <view class="user-info-box">
@@ -22,7 +22,7 @@
 
         <van-col wx:else>
           <view class="nologin">
-            <text  bindtap="authorizedLoginTap">点击注册/登录</text>
+            <text bindtap="authorizedLoginTap">点击注册/登录</text>
           </view>
         </van-col>
       </van-row>
@@ -52,7 +52,7 @@
       </view>
     </van-col>
   </van-row>
-  <view style="padding:  20rpx 0;" >
+  <view style="padding: 20rpx 0;" >
     <view class="plan-box" bindtap="jumpView" data-index="vitality" bindtap="planTap">
       <view class="sport-content">我的训练计划 </view>
       <van-image width="50rpx" height="50rpx" fit="contain" src="/images/user/arrow.svg"/>
@@ -62,5 +62,5 @@
     <van-cell title="{{item.name}}" icon="{{'/images/user/' + item.icon}}" is-link bindtap="jumpView" data-index="{{item.href}}"
     title-class="title-class" wx:for="{{menuList}}" wx:key="key" />
   </van-cell-group>
-</scroll-view>
+</view>
 <!-- <view class='cu-tabbar-height'></view> -->

@@ -47,7 +47,23 @@ Component({
       })
     },
     OpenMember: function (){
-      wx.navigateTo({ url: '/pages/member/openMember' })
+      // 检测是否用户登录
+      if(!app.globalData.user_ouid){
+        console.log("222")
+        // 没有登录需要先授权
+        wx.getUserProfile({
+          desc: '展示用户信息',
+          success: resUserProfile => {
+            app.setUserInfo(resUserProfile.userInfo);
+            wx.login({ success: resWxLogin => {              
+              this.wechatLogin(resWxLogin.code)
+              wx.navigateTo({ url: '/pages/member/openMember' })
+            }})
+          },
+        });
+      } else {
+        wx.navigateTo({ url: '/pages/member/openMember' })
+      }
     },
     switchstore(){
       // this.RefreshUserData()
@@ -78,6 +94,23 @@ Component({
           currPage: 'user'
         });
       }
+    },
+
+    wechatLogin(code){
+      if (!code) return
+      let data = {
+        code: code,
+        name: app.globalData.userInfo.nickName,
+        avatar: app.globalData.userInfo.avatarUrl,
+        phone: '17568914267',
+      }
+      request({ url:"login/wechat", data:data, method:"POST"}).then((res) => {
+        if (res.code == '200'){
+          var result = res.data;
+          app.setUserAuth(result);
+          this.RefreshUserData();
+        }
+      })
     },
 
     loginDevice(ouid) {      
