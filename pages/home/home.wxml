@@ -4,8 +4,7 @@
   <view class="section section-1">
     <view class="orange">
       <view class="left">
-        <van-image round width="120rpx" height="120rpx" fit="contain" src="{{avatar}}" />
-        <!-- <image class="avatar" src="{{avatar}}" mode="widthFix"></image> -->
+        <van-image round width="120rpx" height="120rpx" fit="contain" src="{{avatar}}" />        
       </view>
       <view class="middle">
         <view>

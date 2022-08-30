@@ -24,6 +24,9 @@ App({
     let userAll = wx.getStorageSync('user_all');
     if (userAll) 	this.globalData.userAll = JSON.parse(userAll);
 
+    let userJWT = wx.getStorageSync('user_jwt');
+    if (userAll) 	this.globalData.userJWT =userJWT;
+
 		wx.getSystemInfo({
 			success: e => {
 				this.globalData.StatusBar = e.statusBarHeight;
@@ -52,6 +55,7 @@ App({
     this.globalData.user_ouid = user.user_ouid;
     this.globalData.userJWT = user.user_jwt;
 		wx.setStorageSync('user_ouid', user.user_ouid);
+		wx.setStorageSync('user_jwt', user.user_jwt);
 	},
 	// 设置用户全部信息
   setUserAll(userall){
