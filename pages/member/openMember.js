@@ -97,6 +97,7 @@ Page({
     };
     request({ url:"add-order", data:data, method:"POST"}).then((res) => {
       if(res.code=='200'){ 
+        console.log("生成订单返回信息：", res)
         wx.requestPayment(
           {
             "timeStamp": res.data.per_pay.timeStamp,

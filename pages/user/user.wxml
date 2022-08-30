@@ -28,7 +28,7 @@
       </van-row>
     </view>
   </view>
-  <view class="card-info">
+  <view class="card-info" style="background-image: url(https://www.evinf.cn/images/vip-bg2.png);background-size: cover;">
     <van-image width="50rpx" height="50rpx" fit="contain" src="/images/user/vip.svg"/>
     <view class="card-title">VIP会员</view>
     <view class="card-text">不仅是运动，更是生活</view>

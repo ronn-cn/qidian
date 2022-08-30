@@ -1,50 +1,56 @@
 <!--pages/order/order.wxml-->
-<wxs src="../../utils/formatDate.wxs" module="util" />
-<!-- 标题栏目 -->
-<van-nav-bar class="nav-bar" left-text=" 我的订单" placeholder="{{true}}" 
-  fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2">
-</van-nav-bar>
-<van-sticky offset-top="{{ navHeight }}">
-  <van-tabs bind:change="tabClick" sticky>
-    <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
-  </van-tabs>
-</van-sticky>
-<scroll-view scroll-y="true" class="container">
-  <view class="order-card" bindtap="orderDetail" wx:for="{{showOrder}}" wx:key="index">
-    <view class="order-layout">
-      <text class="order-time">{{item.gmt_create}}</text>
-      <text class="order-state">已支付</text>
-    </view>
-    <van-row>
-      <van-col span="6">
-        <van-image width="110rpx" height="110rpx" fit="contain" src="/images/home/img-1.png" />
-      </van-col>
-      <van-col span="18">
-        <view>
-          <view class="order-layout">
-            <text class="order-title">{{item.name}}</text>
-            <text>¥ {{item.original_price}}</text>
-          </view>
-          <view class="order-layout">
-            <text class="order-time">{{item.store_name}}</text>
-            <text>×{{item.count}}</text>
+<wxs src="../../utils/format.wxs" module="util" />
+<view class="main">
+  <view class="header">
+    <!-- 标题栏目 -->
+    <van-nav-bar class="nav-bar" left-text=" 我的订单" placeholder="{{true}}" 
+      fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2">
+    </van-nav-bar>
+    <van-sticky class="nav-tab" offset-top="{{ navHeight }}">
+      <van-tabs bind:change="tabClick" sticky>
+        <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
+      </van-tabs>
+    </van-sticky>
+  </view>
+  <scroll-view scroll-y="true" style="height: {{scrollViewHeight}}px;">
+    <view class="container">
+      <view class="order-card" bindtap="orderDetail" wx:for="{{showOrder}}" wx:key="index" id="{{item.id}}">
+        <view class="order-layout">
+          <text class="order-time">{{util.formatOrderTime(item.gmt_create)}}</text>
+          <text class="order-state">{{util.formatOrderStatus(item.status)}}</text>
+        </view>
+        <van-row>
+          <van-col span="6">
+            <van-image width="110rpx" height="110rpx" fit="contain" src="/images/home/img-1.png" />
+          </van-col>
+          <van-col span="18">
+            <view>
+              <view class="order-layout">
+                <text class="order-title">{{item.name}}</text>
+                <text>¥ {{item.original_price}}</text>
+              </view>
+              <view class="order-layout">
+                <text class="order-time">{{item.store_name}}</text>
+                <text>×{{item.count}}</text>
+              </view>
+            </view>
+          </van-col>
+        </van-row>
+        <view class="order-layout">
+          <text></text>
+          <text class="order-time">共计{{item.count}}件商品丨优惠:¥ {{item.coupons + item.discount}}丨<text class="order-money">总计:¥ {{item.money}}</text></text>
+        </view>
+
+        <view class="order-layout order-btn">
+          <text></text>
+          <view wx:if="{{item.status == 'N'}}">
+            <van-button type="default" round color="#465677" size="small" custom-class="btn-custom" plain >取消订单</van-button>
+            <van-button type="default" round color="#FD5E36" size="small" custom-class="btn-custom">付款</van-button>
           </view>
         </view>
-      </van-col>
-    </van-row>
-    <view class="order-layout">
-      <text></text>
-      <text class="order-time">共计{{item.count}}件商品丨优惠:¥ {{item.coupons + item.discount}}丨<text class="order-money">总计:¥ {{item.money}}</text></text>
-    </view>
-
-    <view class="order-layout order-btn">
-      <text></text>
-      <view>
-        <van-button type="default" round color="#465677" size="small" custom-class="btn-custom" plain >取消订单</van-button>
-        <van-button type="default" round color="#FD5E36" size="small" custom-class="btn-custom">付款</van-button>
+      
       </view>
+      <van-toast id="van-toast" />
     </view>
-  
-  </view>
-<van-toast id="van-toast" />
-</scroll-view>
+  </scroll-view>
+</view>

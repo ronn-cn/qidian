@@ -96,6 +96,7 @@
   height: 50rpx;
 }
 .section-2 .icon-block .icon-text{
+  font-size: 0.9em;
   line-height: 60rpx;
 }
 .icon-1 .icon-back{

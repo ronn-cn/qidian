@@ -31,7 +31,7 @@ Component({
 
   methods: {
     // 微信退出登录
-    weixinLogout: function () {
+    weixinLogout: function() {
       app.globalData.userInfo = null;
       // 恢复本页默认数据
       this.setData({

@@ -46,6 +46,7 @@ App({
     user_ouid: "",
     userJWT: "",
     userAll: null,
+    orderList: [], // 订单列表
 	},
 	// 设置用户信息函数
 	setUserInfo(user) {

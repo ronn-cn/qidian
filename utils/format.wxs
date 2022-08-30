@@ -1,0 +1,44 @@
+var formatDate = function(date) {
+  var d = date.split('T')[0]
+  d = d.replace('-', '.').replace('-', '.')
+  return d
+};
+
+var formatOrderTime =  function(date) {
+  var timestamp = Date.parse(date);
+  var newDate =  getDate(timestamp);
+  newDate.setTime(timestamp);
+  // myDate.getYear();  //获取当前年份(2位)
+  var y = newDate.getFullYear(); //获取完整的年份(4位,1970-????)
+  var m = newDate.getMonth()+1;  //获取当前月份(0-11,0代表1月)
+  if (m < 10) { m = "0"+m }
+  var d = newDate.getDate();  //获取当前日(1-31)
+  if (d < 10) { d = "0"+d }
+  var hh = newDate.getHours();  //获取当前小时数(0-23)
+  if (hh < 10) { hh = "0"+hh }
+  var mm = newDate.getMinutes();  //获取当前分钟数(0-59)
+  if (mm < 10) { mm = "0"+mm }
+  var ss = newDate.getSeconds();  //获取当前秒数(0-59)
+  if (ss < 10) { ss = "0"+ss }
+  var output = y+"/"+m+"/"+d+" "+hh+":"+mm
+  return output
+};
+
+// 格式化订单状态
+var formatOrderStatus = function(status){
+  if(status == "C"){
+    return "未支付"
+  } else if(status == "N"){
+    return "待支付"
+  } else if(status == "Y"){
+    return "已支付"
+  } else if(status == " T"){
+    return "已关闭"
+  }
+}
+
+module.exports = {
+  formatDate: formatDate,
+  formatOrderTime: formatOrderTime,
+  formatOrderStatus: formatOrderStatus
+};

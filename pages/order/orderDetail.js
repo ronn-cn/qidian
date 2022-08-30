@@ -1,4 +1,6 @@
 // pages/user/orderDetail.js
+import { request } from "../../utils/request.js";
+const app = getApp();
 Page({
 
   /**
@@ -6,22 +8,24 @@ Page({
    */
   data: {
     show: false,
-    display:[
-      {name:'订单号', value:'202208081704151531521'},
-      {name:'下单时间', value: '2022/08/08 16:45'},
-      {name:'商品总价', value: '¥ 99'},
-      {name:'平台优惠', value: '-¥ 0.00'},
-      {name:'实付款', value: '¥ 99'},
-    ],
     list: ['a', 'b', 'c'],
     result: ['a', 'b'],
+    order: undefined,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    console.log("订单详情：", options)
+    for(let i=0;i<app.globalData.orderList.length;i++){
+      if(app.globalData.orderList[i].id == options.id){
+        console.log(app.globalData.orderList[i])
+        this.setData({
+          order: app.globalData.orderList[i]
+        })
+      }
+    }
   },
 
   /**
@@ -41,6 +45,7 @@ Page({
     wx.navigateBack({ delta: 1 })
   },
 
+  // 退款
   refund(){
     this.setData({show: true})
   },
@@ -55,4 +60,21 @@ Page({
     const checkbox = this.selectComponent(`.checkboxes-${index}`);
     checkbox.toggle();
   },
+  // 取消订单
+  cancelOrder(e) {
+    let params = {
+      "order_id": parseInt(e.currentTarget.id),
+      "user_ouid": app.globalData.user_ouid
+    }
+    request({ url:"cancel-order", data:params, method:"POST"}).then((res) => {
+      if(res.code=='200'){
+        wx.redirectTo({url:"/pages/order/order"})
+        // wx.navigateBack({ delta: 1 });
+      }
+    })
+  },
+  // 继续支付
+  continuePay(){
+
+  }
 })

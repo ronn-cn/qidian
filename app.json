@@ -12,8 +12,8 @@
     "pages/member/autorenew",
     "pages/member/openMember",
     "pages/member/exchange",
-    "pages/order/coupon",
     "pages/order/order",
+    "pages/order/coupon",
     "pages/order/orderDetail"
   ],
   "window": {
