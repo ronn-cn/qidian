@@ -35,7 +35,7 @@
 
 .section-1 .card-info .card-name{
   font-weight: 400;
-  font-size: 28rpx;
+  font-size: 1em;
   line-height: 100rpx;
   align-items: center;
   color: rgba(0, 0, 0, 0.54);
@@ -44,13 +44,13 @@
   padding-left: 20rpx;
   font-family: 'Times New Roman';
   font-style: italic;
-  font-size: 48rpx;
+  font-size: 1.5em;
   line-height: 56rpx;
   color: rgba(0, 0, 0, 0.54);
 }
 .section-1 .card-info .card-state{
   line-height: 100rpx;
-  font-size: 20rpx;
+  font-size: 0.7em;
   align-items: center;
   text-align: right;
   color: rgba(0, 0, 0, 0.54);

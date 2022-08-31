@@ -61,7 +61,7 @@ Page({
     checkbox.toggle();
   },
   // 取消订单
-  cancelOrder(e) {
+  orderCancel(e) {
     let params = {
       "order_id": parseInt(e.currentTarget.id),
       "user_ouid": app.globalData.user_ouid
@@ -74,7 +74,33 @@ Page({
     })
   },
   // 继续支付
-  continuePay(){
-
+  orderPay(){
+    let params = {
+      user_ouid: app.globalData.user_ouid,
+      goods_id: this.data.order.goods_id,
+      store_id : this.data.order.store_id  // 这个是门店ID
+    };
+    request({ url:"add-order", data:params, method:"POST"}).then((res) => {
+      if(res.code=='200'){ 
+        console.log("生成订单返回信息：", res)
+        wx.requestPayment(
+          {
+            "timeStamp": res.data.per_pay.timeStamp,
+            "nonceStr": res.data.per_pay.nonceStr,
+            "package": res.data.per_pay.package,
+            "signType": res.data.per_pay.signType,
+            "paySign": res.data.per_pay.paySign,
+            "success":function(res){
+              console.log("调起支付成功: ", res)
+            },
+            "fail":function(res){
+              console.log("调起支付失败: ", res)
+            },
+            "complete":function(res){
+              console.log("调起支付完成: ", res)
+            }
+          })
+        }
+      })
   }
 })

@@ -12,8 +12,8 @@
     <van-col span="18">
       <view>
         <view class="order-layout">
-          <text class="order-title">{{order.name}}</text>
-          <text>¥ {{order.original_price}}</text>
+          <text class="order-title">{{order.goods_name}}</text>
+          <text>¥ {{order.original_price/100}}</text>
         </view>
         <view class="order-layout">
           <text class="order-time">{{order.store_name}}</text>
@@ -36,28 +36,28 @@
   </view>
   <view class="order-layout order-list">
     <view>商品总价</view>
-    <view>{{order.original_price}}</view>
+    <view>￥{{order.original_price/100}}</view>
   </view>
   <view class="order-layout order-list">
     <view>平台优惠</view>
-    <view>{{order.discount}}</view>
+    <view>-￥{{(order.coupons + order.discount)/100}}</view>
   </view>
   <view class="order-layout order-list" style="color: tomato;">
     <view>实付款</view>
-    <view>{{order.money}}</view>
+    <view>￥{{order.money/100}}</view>
   </view>
 </view>
 
 <van-tabbar wx:if="{{order.status == 'N'}}" placeholder="{{true}}" fixed="{{true}}" border="{{false}}">
   <view class="footer">
-    <van-button round bindtap="cancelOrder" custom-style="width: 40%; margin-right:5%;" id="{{order.id}}">
+    <van-button round bindtap="orderCancel" custom-style="width: 40%; margin-right:5%;" id="{{order.id}}">
       取消订单
     </van-button>
-    <van-button round type="primary" color="#fd5e36" bindtap="continuePay" custom-style="width: 40%;margin-left:5%;">
+    <van-button round type="primary" color="#fd5e36" bindtap="orderPay" custom-style="width: 40%;margin-left:5%;">
       付 款
     </van-button>
   </view>
-</van-tabbar> 
+</van-tabbar>
 
 <!-- <van-tabbar wx:if="{{false}}" placeholder="{{true}}" fixed="{{true}}" border="{{false}}">
   <view class="footer">

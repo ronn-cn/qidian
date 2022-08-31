@@ -42,7 +42,11 @@ Page({
       if(res.code=='200'){ 
         let list = res.data;
         console.log("订单列表：", list);
-        app.globalData.orderList = list
+        app.globalData.orderList = list;
+        this.data.allOrder = [];
+        this.data.unpaidOrder = [];
+        this.data.paidOrder = [];
+        this.data.refundOrder = [];
         if(list.length > 0){
           for(let i = 0; i < list.length; i++){
             if(list[i].status == "C"){
@@ -97,4 +101,48 @@ Page({
       url: '/pages/order/orderDetail?id=' + e.currentTarget.id
     })
   },
+  // 订单支付
+  orderPay(e){
+    console.log("订单支付：", e);
+    let params = {
+      user_ouid: app.globalData.user_ouid,
+      goods_id: parseInt(e.currentTarget.dataset.goodsid),
+      store_id: parseInt(e.currentTarget.dataset.storeid)  // 这个是门店ID
+    };
+    request({ url:"add-order", data:params, method:"POST"}).then((res) => {
+      if(res.code=='200'){ 
+        console.log("生成订单返回信息：", res)
+        wx.requestPayment({
+          "timeStamp": res.data.per_pay.timeStamp,
+          "nonceStr": res.data.per_pay.nonceStr,
+          "package": res.data.per_pay.package,
+          "signType": res.data.per_pay.signType,
+          "paySign": res.data.per_pay.paySign,
+          "success":function(res){
+            console.log("调起支付成功: ", res)
+          },
+          "fail":function(res){
+            console.log("调起支付失败: ", res)
+          },
+          "complete":function(res){
+            console.log("调起支付完成: ", res)
+          }
+        })
+      }
+    })
+  },
+  // 订单取消
+  orderCancel(e){
+    console.log("订单取消：", e);
+    let that = this;
+    let params = {
+      "order_id": parseInt(e.currentTarget.id),
+      "user_ouid": app.globalData.user_ouid
+    }
+    request({ url:"cancel-order", data:params, method:"POST"}).then((res) => {
+      if(res.code=='200'){
+        that.onLoad(); // 刷新当前页面
+      }
+    })
+  }
 })

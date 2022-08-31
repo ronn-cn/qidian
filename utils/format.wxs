@@ -27,7 +27,7 @@ var formatOrderTime =  function(date) {
 // 格式化订单状态
 var formatOrderStatus = function(status){
   if(status == "C"){
-    return "未支付"
+    return "已取消"
   } else if(status == "N"){
     return "待支付"
   } else if(status == "Y"){

@@ -32,7 +32,7 @@
             <view class="good-box {{index == currentIndex ? 'good-box-check' : 'good-box-nocheck'}}" >
               <view class="good-tip">{{item.tag}}</view>
               <view>{{item.name}}</view>
-              <view class="good-money">￥<text class="good-money-big">{{item.money}}</text></view>
+              <view class="good-money">￥<text class="good-money-big">{{item.money/100}}</text></view>
               <!-- <view><text class="money-old">￥{{item.original_price}}</text>立省￥{{item.original_price - item.money}}</view> -->
               <view>{{item.describe}}</view>
             </view>
@@ -40,7 +40,7 @@
           </swiper>
         </view>
       </view>
-      <text class="tip">到期将按99元每月自动续费，可随时取消。</text>
+      <!-- <text class="tip">到期将按99元每月自动续费，可随时取消。</text> -->
       <van-divider />
       <view class="pay-box">
       <view style="display: flex;">
@@ -76,7 +76,7 @@
   <view class="footer">
     <van-submit-bar
       label=" "
-      price="{{ price  }}"
+      price="{{ price/100  }}"
       button-text="立即购买"
       bind:submit="submit"
       tip="{{ true }}"

@@ -13,42 +13,52 @@
     </van-sticky>
   </view>
   <scroll-view scroll-y="true" style="height: {{scrollViewHeight}}px;">
-    <view class="container">
-      <view class="order-card" bindtap="orderDetail" wx:for="{{showOrder}}" wx:key="index" id="{{item.id}}">
-        <view class="order-layout">
-          <text class="order-time">{{util.formatOrderTime(item.gmt_create)}}</text>
-          <text class="order-state">{{util.formatOrderStatus(item.status)}}</text>
-        </view>
-        <van-row>
-          <van-col span="6">
-            <van-image width="110rpx" height="110rpx" fit="contain" src="/images/home/img-1.png" />
-          </van-col>
-          <van-col span="18">
-            <view>
-              <view class="order-layout">
-                <text class="order-title">{{item.name}}</text>
-                <text>¥ {{item.original_price}}</text>
+    <!-- 没有订单显示的缺省页面 -->
+    <view class="no-order" wx:if="{{showOrder.length==0}}">
+      <image src="https://www.evinf.cn/images/order-bg.svg"></image>
+    </view>
+    <!-- 有订单显示的订单列表 -->
+    <view class="container" wx:else>
+      <view class="order-card" wx:for="{{showOrder}}" wx:key="index">
+        <view bindtap="orderDetail" id="{{item.id}}">        
+          <view class="order-layout">
+            <text class="order-time">{{util.formatOrderTime(item.gmt_create)}}</text>
+            <text class="order-state">{{util.formatOrderStatus(item.status)}}</text>
+          </view>
+          <van-row>
+            <van-col span="6">
+              <van-image width="110rpx" height="110rpx" fit="contain" src="/images/home/img-1.png" />
+            </van-col>
+            <van-col span="18">
+              <view>
+                <view class="order-layout">
+                  <text class="order-title">{{item.goods_name}}</text>
+                  <text>¥ {{item.original_price/100}}</text>
+                </view>
+                <view class="order-layout">
+                  <text class="order-time">{{item.store_name}}</text>
+                  <text>×{{item.count}}</text>
+                </view>
               </view>
-              <view class="order-layout">
-                <text class="order-time">{{item.store_name}}</text>
-                <text>×{{item.count}}</text>
-              </view>
-            </view>
-          </van-col>
-        </van-row>
-        <view class="order-layout">
-          <text></text>
-          <text class="order-time">共计{{item.count}}件商品丨优惠:¥ {{item.coupons + item.discount}}丨<text class="order-money">总计:¥ {{item.money}}</text></text>
-        </view>
+            </van-col>
+          </van-row>
+          <view class="order-layout">
+            <text></text>
+            <text class="order-time">共计{{item.count}}件商品丨优惠:¥ {{(item.coupons + item.discount)/100}}丨<text class="order-money">总计:¥ {{item.money/100}}</text></text>
+          </view>
 
-        <view class="order-layout order-btn">
-          <text></text>
-          <view wx:if="{{item.status == 'N'}}">
+        </view>
+        <!-- 订单底部按钮 -->
+        <view class="order-layout order-btn" wx:if="{{item.status == 'N'}}">
+          <view class="order-btn-cancel" bindtap="orderCancel" id="{{item.id}}">
             <van-button type="default" round color="#465677" size="small" custom-class="btn-custom" plain >取消订单</van-button>
-            <van-button type="default" round color="#FD5E36" size="small" custom-class="btn-custom">付款</van-button>
+          </view>
+          <view class="order-btn-pay" bindtap="orderPay" data-goodsid="{{item.goods_id}}" data-storeid="{{item.store_id}}">
+            <van-button type="default" round color="#FD5E36" size="small" custom-class="btn-custom" >付 款</van-button>
           </view>
         </view>
-      
+        <view class="clear-float"></view>
+
       </view>
       <van-toast id="van-toast" />
     </view>

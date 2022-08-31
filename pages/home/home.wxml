@@ -47,8 +47,8 @@
         <view class="card-body-info" style="position: relative;">
           <view>
             <text class="card-body-info-text">7*24h自助健身</text>
-            <van-tag color="#ffcca1" text-color="#FD8342" size ="large">￥</van-tag>
-            <van-tag color="#ffece6" text-color="#FD8342" size ="large">{{store.type}}</van-tag>
+            <van-tag color="#ffcca1" text-color="#FD8342" size ="large" custom-class="card-body-info-tag">￥</van-tag>
+            <van-tag color="#ffece6" text-color="#FD8342" size ="large" custom-class="card-body-info-tag">{{store.type}}</van-tag>
           </view>
           <view>
             <van-tag color="#F2F2F2" text-color="#576B95" wx:for="{{tag}}" wx:key="key" size ="medium" custom-class="card-body-tag">{{item}}</van-tag>

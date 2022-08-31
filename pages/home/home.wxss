@@ -24,6 +24,7 @@
   align-items: center;
 
   filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.1));
+  position: relative;
 }
 .section-1 .middle{
   width: 55%;
@@ -154,9 +155,10 @@
 .card-body-text{
   float: left;
   color: #576b95;
-  font-size: 28rpx;
-  margin-top: 30rpx;
+  font-size: 1em;
+  margin-top: 20rpx;
   margin-left: 50rpx;
+  width: 70%;
 }
 .small-text{
   font-size: 0.8em;
@@ -168,13 +170,18 @@
 }
 
 .card-body-info .card-body-info-text{
-  font-size: 26rpx;
+  font-size: 1em;
   line-height: 26rpx;
   padding-right: 30rpx;
 }
 
+.card-body-info-tag{
+  font-size: 0.8em;
+}
+
 .card-body-tag{
   margin: 20rpx 20rpx 0 0;
+  padding: 10rpx 20rpx;
 }
 
 .card-address{
