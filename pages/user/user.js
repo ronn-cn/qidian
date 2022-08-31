@@ -21,7 +21,7 @@ Component({
     menuList:[
       {name:'个人信息', icon:'user-icon.svg', href:'/pages/user/userinfo'},
       {name:'我的订单', icon:'order-icon.svg', href:'/pages/order/order'},
-      {name:'会员卡兑换', icon:'exchange-icon.svg', href:'/pages/member/exchange'},
+      // {name:'会员卡兑换', icon:'exchange-icon.svg', href:'/pages/member/exchange'},
       {name:'我的优惠券', icon:'coupon-icon.svg', href:'/pages/order/coupon'},
       // {name:'自动续费管理', icon:'money-icon.svg', href:'/pages/member/autorenew'},
       {name:'意见反馈', icon:'money-icon.svg', href:'/pages/user/opinion'},

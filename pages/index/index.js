@@ -95,7 +95,8 @@ Page({
     }
   },
   // 授权登录
-  authorizedLoginTap (event) {
+  authorizedLoginTap (param) {
+    if (param) this.data.compID = param.detail
     wx.getUserProfile({
       desc: '展示用户信息',
       success: resUserProfile => {
@@ -116,7 +117,7 @@ Page({
       if (res.code == '200'){
         var result = res.data;
         app.setUserAuth(result);
-        if (result.phone == ''){
+        if (result.user_phone == ''){
           this.setData({showPhone: true})
         }
         this.getUserAll()
