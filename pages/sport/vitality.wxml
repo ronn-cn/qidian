@@ -19,8 +19,7 @@
       </view>
 
       <view class="sport-data-b">
-          <view class="card-title">运动总计
-          </view>
+          <view class="card-title">运动总计</view>
 
           <view class="sport-info">
             <van-row gutter="20">

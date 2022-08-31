@@ -15,7 +15,6 @@ Page({
     this.setData({
       userAll: app.globalData.userAll
     })
-    console.log('数据信息', this.data.userAll)
   },
 
   logout () {

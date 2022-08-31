@@ -3,8 +3,8 @@
   <!-- 导航栏部分 -->
   <van-nav-bar class="nav-bar"
     title="{{currPage=='home'?'奇点运动':'我的'}}"
-    border="{{false}}" 
     fixed="{{true}}" 
+    border="{{false}}" 
     placeholder="{{true}}" 
     custom-style="{{navbarStyle}}"
     >

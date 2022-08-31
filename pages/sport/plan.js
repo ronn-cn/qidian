@@ -1,5 +1,7 @@
 // pages/user/plan.js
 const app = getApp();
+import { request } from "../../utils/request.js";
+
 const positionJSON = {
     "endurance": "耐力",
     "power": "力量",
@@ -59,50 +61,6 @@ Page({
         this.requestUserData();
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    },
-
     // 开启课程按钮
     startLessonTap: function () {
         wx.showToast({
@@ -111,79 +69,61 @@ Page({
         })
     },
     requestUserData: function () {
-        let that = this;
-        let userId = that.data.obj.userId;
-        if (userId) {
-            wx.request({
-                url: that.data.obj.svrUrl + 'get-user-all?user_ouid=' + userId+"&time="+new Date().getTime(),
-                success: function (res) {
-                    if (res.data.code == "200") {
-                        let userAll = res.data.data.user
-                        let plan = userAll.plan_describe
-                        let planDes = JSON.parse(userAll.plan).desc
-                        let stepsTmp = []
-                        let count = plan.stage_count
+      let userAll = app.globalData.userAll
+      let plan = userAll.plan_describe
+      let planDes = JSON.parse(userAll.plan).desc
+      let stepsTmp = []
+      let count = plan.stage_count
 
-                        for (let i = 0; i<count; i++){
-                          let item = {
-                            inactiveIcon: 'star',
-                            activeIcon: 'star',
-                          }
-                          stepsTmp.push(item)
-                        }
-
-                        console.log("计划",plan);
-                        that.setData({
-                            userInfoAll: userAll,
-                            planName: plan.plan_name,
-                            stageName:plan.stage_name,
-                            factor:plan.factor,
-                            condition:plan.condition,
-                            steps: stepsTmp,
-                            active:plan.stage_index,
-                            planDes:planDes
-                        });
-                        
-                    }
-                }
-            })
-
-            wx.request({
-              url: that.data.obj.svrUrl + 'get-sport-log',
-              method: "POST",
-              data: {
-                  "user_ouid": userId
-                  // "user_ouid": "a3bbbc4d009df04ad843af4c8421466ecf3e8926a4b72c92db384e3b948bf2a8"
-              },
-              success: function (res) {
-                let spotArr = [];
-                let recordList =[];
-                // spotArkr
-                  if (res.data.code == "200" && res.data.data != null) {
-                    let arr = res.data.data;
-                    let i = 0;
-                    for (const key in arr) {
-                      let record = arr[key];
-                      if (new Date(record.date).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0)){
-                        let m = parseInt(record.time / 60);
-                        let s = parseInt(record.time % 60);
-                        let item = {
-                          title: record.name,
-                          duration: addZero(m, 2) + "′" + addZero(s, 2) + "″",
-                        }
-                        recordList.push(item)
-                      }
-                      spotArr.push(record.date)
-                    }
-
-                    that.setData({
-                      spotArr : spotArr,
-                      recordList: recordList
-                    })
-                  }
-                }
-              });
+      for (let i = 0; i<count; i++){
+        let item = {
+          inactiveIcon: 'star',
+          activeIcon: 'star',
         }
+        stepsTmp.push(item)
+      }
+
+      console.log("计划",plan);
+      this.setData({
+          userInfoAll: userAll,
+          planName: plan.plan_name,
+          stageName:plan.stage_name,
+          factor:plan.factor,
+          condition:plan.condition,
+          steps: stepsTmp,
+          active:plan.stage_index,
+          planDes:planDes
+      });
+      
+      let requestData = {
+        "user_ouid": app.globalData.user_ouid
+      }
+      request({ url:"get-sport-log", data:requestData, method:"POST"}).then((res) => {
+        let spotArr = [];
+        let recordList =[];
+        if (res.code == "200"){
+          let arr = res.data;
+          let i = 0;
+          for (const key in arr) {
+            let record = arr[key];
+            if (new Date(record.date).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0)){
+              let m = parseInt(record.time / 60);
+              let s = parseInt(record.time % 60);
+              let item = {
+                title: record.name,
+                duration: addZero(m, 2) + "′" + addZero(s, 2) + "″",
+              }
+              recordList.push(item)
+            }
+            spotArr.push(record.date)
+          }
+
+          this.setData({
+            spotArr : spotArr,
+            recordList: recordList
+          })
+        }
+      })
     },
 
     /**

@@ -1,6 +1,6 @@
 <!-- components/user/index.wxml -->
 <view class="container">
-  <van-dialog title="需要登录" message="需要登录或注册 健身Link 账号" confirmButtonText="去登录" show="{{ showLogin }}" show-cancel-button confirm-button-open-type="authorizedLoginTap" bind:close="onClose" bind:confirm="authorizedLoginTap"></van-dialog>
+  <van-dialog title="需要登录" message="需要登录或注册 健身Link 账号" confirmButtonText="去登录" show="{{ showLogin }}" show-cancel-button bind:close="onClose" bind:confirm="authorizedLoginTap"></van-dialog>
   <!-- 用户信息区域 -->
   <view class="user-info-box">
     <view class="has-user">
@@ -21,8 +21,8 @@
         </van-col>
 
         <van-col wx:else>
-          <view class="nologin">
-            <text bindtap="authorizedLoginTap">点击注册/登录</text>
+          <view class="nologin" bindtap="authorizedLoginTap">
+            <text >点击注册/登录</text>
           </view>
         </van-col>
       </van-row>
@@ -33,19 +33,19 @@
     <view class="card-title">VIP会员</view>
     <view class="card-text">不仅是运动，更是生活</view>
     <van-button type="default" round color="#FD5E36" size="small" 
-    open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">开通</van-button>
+    >开通</van-button>
   </view>
   <van-divider></van-divider>
   <van-row gutter="20">
     <van-col span="12">
-        <view class="cell-box sport-box" bindtap="jumpView" data-index="/page/sport/sport">
+        <view class="cell-box sport-box" bindtap="jumpView" data-index="/pages/sport/sport">
           <van-image width="70rpx" height="70rpx" fit="contain" src="/images/user/fire.svg"/>
           <view class="sport-content">运动力 \n{{sport}} / 100 </view>
           <van-image width="50rpx" height="50rpx" fit="contain" src="/images/user/arrow.svg"/>
         </view>
     </van-col>
     <van-col span="12">
-      <view class="cell-box vitality-box" bindtap="jumpView" data-index="/page/sport/vitality">
+      <view class="cell-box vitality-box" bindtap="jumpView" data-index="/pages/sport/vitality">
         <van-image width="70rpx" height="70rpx" fit="contain" src="/images/user/tree.svg"/>
         <view class="sport-content">活力 \n{{vitality}} / 100 </view>
         <van-image width="50rpx" height="50rpx" fit="contain" src="/images/user/arrow.svg" />
@@ -64,3 +64,15 @@
   </van-cell-group>
 </view>
 <!-- <view class='cu-tabbar-height'></view> -->
+
+<van-dialog
+  title="授权绑定手机号"
+  show="{{ showPhone }}"
+  show-cancel-button
+  bindgetphonenumber="getPhoneNumber"
+  confirm-button-open-type="getPhoneNumber"
+  bind:close="onClose"
+  message="为了更好的为您提供服务，\n需要授权获取您的手机号进行绑定"
+>
+
+</van-dialog>

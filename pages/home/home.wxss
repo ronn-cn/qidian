@@ -16,35 +16,27 @@
 .section-1 .orange{
   margin-top: 30rpx;
   padding: 30rpx 20rpx;
-  background-image: linear-gradient(145deg,#fdad4c 20%, #fe5a35);
   border-radius: 40rpx 40rpx 0 0;
-  position: relative;
+  background-image: linear-gradient(145deg,#fdad4c 20%, #fe5a35);
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.1));
 }
-.section-1 .left{
-  width: 20%;
-  float: left;
-}
 .section-1 .middle{
-  width: 50%;
-  height: 120rpx;
-  float: left;
+  width: 55%;
   display: flex;
   align-items: center;
-  padding-left: 15rpx;
+  padding-left: 20rpx;
   box-sizing: border-box;
-}
-.section-1 .right{
-  width: 30%;
-  height: 120rpx;
-  float: left;
-  display: flex;
-  align-items: center;
 }
 
 .section-1 .nickname{
   color: #ffffff;
   line-height: 40rpx;
+  padding-bottom: 15rpx;
 }
 .section-1 .tips{
   color: #ffffff;
@@ -53,18 +45,24 @@
   line-height: 40rpx;
 }
 .section-1 .open-btn{
-  width: 150rpx;
+  width: 140rpx;
   height: 60rpx;
-  line-height: 60rpx;
-  font-size: 1em;
-  background-color: #fff;
-  opacity: 0.9;
-  border: 0;
+  color: #fd6b3a !important;
+}
+
+.section-1 .sign{
+  width: 140rpx;
+  height: 40rpx;
+  line-height: 40rpx;
   text-align: center;
-  color: #fd6b3a;
-  border-radius: 30rpx;
   position: absolute;
-  right: 20rpx;
+  top: 0;
+  right: 0;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 18rpx;
+  background-color: #e6c978;
+  filter: drop-shadow(0px 10px 15px rgba(255, 255, 255, 0.1));
+  border-radius: 0px 20px;
 }
 
 /* 段落2 */
@@ -97,6 +95,7 @@
 }
 .section-2 .icon-block .icon-text{
   line-height: 60rpx;
+  font-size: 24rpx;
 }
 .icon-1 .icon-back{
   background-image: linear-gradient(180deg, #FF7B18 0%, #FBC610 100%)
@@ -186,4 +185,17 @@
   align-items: center;
   justify-content: space-between;
   font-size: 20rpx;
+}
+
+.wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  /* text-align: center;
+  justify-content: center; */
+}
+
+.wrapper .qrimg{
+  width: 200px; height: 200px;
 }

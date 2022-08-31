@@ -1,5 +1,7 @@
 // pages/user/sport.js
 var wxCharts = require('../../utils/wxcharts.js');
+import { request } from "../../utils/request.js";
+
 var lineChart = null;
 const app = getApp();
 
@@ -10,14 +12,18 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		obj: null,
-		bodyData: null,
-
     bgColor: true,
+    userAll:{},
     sportValue: 0,    //运动力
     height: 0,        //身高
     weight: 0,        //体重
     bmi:0,            //bmi
+
+    title: '体重',
+    showDlg: false,
+    columns:[],
+    defaultIndex:0,
+    selectValue:0,
 
     bodyComponent:[
       {name:"脂肪率", value:0, tag:"标准", icon:"/images/user/ico_body_02.png"},
@@ -28,8 +34,18 @@ Page({
   },
 	// 显示用户数据
 	showUserData: function () {
-    let userAll = this.data.obj.userAll;
+    request({ url:"get-user-all?user_ouid="+app.globalData.user_ouid, method:"GET"}).then((res) => {
+      if (res.code == '200'){ 
+        let userInfo = res.data.user;
+        this.setSportData(userInfo)
+        app.setUserAll(userInfo)
+      }
+    })
+  },
+  
+  setSportData(userAll){
     if (!userAll.physique) return;
+
     let physique = JSON.parse(userAll.physique);
 		//上次更新的日期
 		let date = new Date(physique.gmt_update)
@@ -98,22 +114,12 @@ Page({
           color:"#fba5a6",
         }]
     })
-	},
+  },
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		//直接获取到app.globalData的数据
-		if (app.globalData.netName == "evinf") {
-			this.setData({
-				obj: app.globalData.ev,
-			});
-		} else {
-			this.setData({
-				obj: app.globalData.sg,
-			});
-		}
     var windowWidth = 320;
     try {
         var res = wx.getSystemInfoSync();
@@ -165,51 +171,10 @@ Page({
             width: 8
           }
       },
-  });
-  this.showUserData();
+    });
+    this.showUserData();
   },
 
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {
-	},
-
-	/**
-	 * 生命周期函数--监听页面显示
-	 */
-	onShow: function () {
-	},
-
-	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide: function () {
-	},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload: function () {
-	},
-
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh: function () {
-	},
-
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom: function () {
-	},
-
-	/**
-	 * 用户点击右上角分享
-	 */
-	onShareAppMessage: function () {
-	},
 	/**
 	 * 页面滚动
 	 */
@@ -219,14 +184,64 @@ Page({
       bgColor: flag
     })
 	},
-	toBodyTap(e) {
-		wx.navigateTo({
-			url: '/pages/user/body'
-		})
-  },
+	// toBodyTap(e) {
+	// 	wx.navigateTo({ url: '/pages/user/body' })
+  // },
   returnHome(){
     wx.navigateBack({
       delta: 1
     });
+  },
+
+  onChange(event) {
+    const {  value } = event.detail;
+    this.setData({
+      selectValue : value.replace('kg', '').replace('cm', '')
+    })
+    console.log(this.data.selectValue)
+  },
+
+  editInfo(e){
+    let index = e.currentTarget.dataset['index'];
+    let columns= []
+    let defaultIndex = 0
+
+    if (index == "身高"){
+      for (let i = 40; i < 250; i++){
+        columns.push(i + 'cm')
+        if (i == this.data.height)
+          defaultIndex = i - 40
+      }
+    }
+    else if (index == "体重"){
+      for (let i = 20; i < 350; i++){
+        columns.push(i + 'kg')
+        if (i == this.data.weight)
+          defaultIndex = i - 20
+      }
+    }
+    if (defaultIndex == 0) defaultIndex = 80
+
+    this.setData({
+      showDlg: true,
+      title: index,
+      columns : columns,
+      defaultIndex : defaultIndex
+    })
+  },
+
+  modifyInfo(){
+    if (this.data.title == '身高'){
+      this.setData({height: Number(this.data.selectValue)})
+    }
+    else if (this.data.title == '体重'){
+      this.setData({weight: Number(this.data.selectValue)})
+    }
+    let requstData = {
+      user_ouid : app.globalData.user_ouid,
+      height : this.data.height,
+      weight : this.data.weight
+    }
+    request({ url:"update-height-weight", data:requstData, method:"POST"})
   }
 })

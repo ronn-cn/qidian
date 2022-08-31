@@ -10,11 +10,18 @@ const formatTime = date => {
   return `${[year, month, day].map(formatNumber).join('/')} ${[hour, minute, second].map(formatNumber).join(':')}`
 }
 
+var formatDate = function(date) {
+  var d = date.split('T')[0]
+  // d = d.replace('-', '.').replace('-', '.')
+  return d
+};
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : `0${n}`
 }
 
 module.exports = {
-  formatTime
+  formatTime,
+  formatDate
 }

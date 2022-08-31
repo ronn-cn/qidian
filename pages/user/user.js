@@ -18,6 +18,7 @@ Component({
     age: 0,
 
     showLogin: false,
+    showPhone: false,
     plan_describe: '',
     menuList:[
       {name:'个人信息', icon:'user-icon.svg', href:'/pages/user/userinfo'},
@@ -126,7 +127,8 @@ Component({
         desc: '展示用户信息',
         success: resUserProfile => {
           app.setUserInfo(resUserProfile.userInfo);
-          wx.login({ success: resWxLogin => {              
+          wx.login({ success: resWxLogin => {
+            this.setData({showPhone: true})
             this.wechatLogin(resWxLogin.code)
           }})
         },
@@ -139,7 +141,7 @@ Component({
         code: code,
         name: app.globalData.userInfo.nickName,
         avatar: app.globalData.userInfo.avatarUrl,
-        phone: '17568914267',
+        phone: app.globalData.userInfo.phone,
       }
       request({ url:"login/wechat", data:data, method:"POST"}).then((res) => {
         if (res.code == '200'){
@@ -150,8 +152,8 @@ Component({
       })
     },
     getPhoneNumber(e) {
-      console.log(e)
-      console.log(e.detail.code)
+      console.log(e.detail)
+
       if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
         wx.showModal({
           title: '提示',
@@ -161,7 +163,6 @@ Component({
         return;
       }
     }
-    
   },
   lifetimes: {
     ready () {

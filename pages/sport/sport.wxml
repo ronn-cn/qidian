@@ -25,9 +25,13 @@
             <van-col span="7">身高(cm)</van-col>
           </van-row>
           <van-row class="row-content content-bold">
-            <van-col span="7" offset="1">{{weight}}</van-col>
+            <van-col span="7" offset="1">{{weight}}
+              <van-icon name="edit" bindtap="editInfo" data-index="体重"/>
+            </van-col>
             <van-col span="7">{{bmi}}</van-col>
-            <van-col span="7">{{height}}</van-col>
+            <van-col span="7">{{height}}
+              <van-icon name="edit" bindtap="editInfo" data-index="身高"/>
+            </van-col>
           </van-row>
       </view>
       <view class="sport-data-b">
@@ -53,3 +57,19 @@
     </view>
   <view class='cu-tabbar-height'></view>
 </view>
+
+<van-dialog
+  use-slot
+  title="{{title}}"
+  show="{{ showDlg }}"
+  show-cancel-button
+  bind:close="onClose"
+  bind:confirm="modifyInfo"
+>
+  <van-picker
+    columns="{{ columns }}"
+    bind:change="onChange"
+    visible-item-count="{{3}}"
+    default-index ="{{defaultIndex}}"
+  />
+</van-dialog>

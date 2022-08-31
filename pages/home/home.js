@@ -1,6 +1,7 @@
 // pages/home/home.js
 const app = getApp();
 import { request } from "../../utils/request.js";
+import {formatDate} from "../../utils/util.js"
 
 // 私有自定义函数
 function getQueryVariable(query, variable) {
@@ -24,6 +25,9 @@ Component({
     store:{},
     tag:{},
     showInfo:['扫一扫', '训练计划', '体质检测', '意见反馈'],
+    memberType:'',
+    endTime:'',
+    qrShow: false,
   },
   methods:{
     onLoad(options) {
@@ -43,6 +47,23 @@ Component({
             store: res.data,
             tag: JSON.parse(res.data.tag)
           }) 
+        }
+      })
+      let data ={
+        user_ouid:app.globalData.user_ouid,
+        store_id:1
+      }
+      request({ url:"get-member", data:data,method:"POST"}).then((res) => {
+        if(res.code=='200'){
+          this.setData({
+            memberType: res.data.member_type + "会员",
+            endTime:formatDate(res.data.member_end_time)
+          })
+        }else{
+          this.setData({
+            memberType: '',
+            endTime:''
+          })
         }
       })
     },
@@ -68,8 +89,26 @@ Component({
     switchstore(){
       // this.RefreshUserData()
     },
-    menuClick(){
-      this.scanCodeTapHandle();
+    menuClick(e){
+      let index = e.currentTarget.dataset['index'];
+      switch (index){
+        case 0:
+          this.scanCodeTapHandle();
+          break;
+        case 1:
+          wx.navigateTo({ url: '/pages/sport/plan' })
+          break;
+        case 2:
+          wx.showToast({
+            title: '请前往体测仪',
+            icon: 'error',
+            duration: 1000,
+          });
+          break;
+        case 3:
+          wx.navigateTo({ url: '/pages/user/opinion' })
+          break;
+      }
     },
 
     // 点击扫码按钮的处理函数
@@ -147,6 +186,26 @@ Component({
         }
       })
     },
+
+    showQR(){
+      this.setData({qrShow: true})
+    },
+
+    onClickHide(){
+      this.setData({qrShow: false})
+    },
+
+    showPhone(){
+      wx.makePhoneCall({
+        phoneNumber: this.data.store.phone,
+        success: function () {        
+          console.log("拨打电话成功")      
+        },      
+        fail: function () {        
+          console.log("拨打电话失败")
+        }    
+      })
+    }
   },
   lifetimes: {
     ready () {
