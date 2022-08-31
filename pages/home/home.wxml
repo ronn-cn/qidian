@@ -56,9 +56,10 @@
           <view>
             <van-tag color="#F2F2F2" text-color="#576B95" wx:for="{{tag}}" wx:key="key" size ="medium" custom-class="card-body-tag">{{item}}</van-tag>
           </view>
-          <view style="position: absolute; right: 30rpx; top: 40rpx;">
+          <!-- 向右图标 -->
+          <!-- <view style="position: absolute; right: 30rpx; top: 40rpx;">
             <van-icon name="arrow" />
-          </view>
+          </view> -->
           <van-divider />
 
           <view class="card-contact">

@@ -42,7 +42,7 @@
     <view>平台优惠</view>
     <view>{{order.discount}}</view>
   </view>
-  <view class="order-layout order-list">
+  <view class="order-layout order-list" style="color: tomato;">
     <view>实付款</view>
     <view>{{order.money}}</view>
   </view>
