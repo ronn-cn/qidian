@@ -1,5 +1,5 @@
 <!--pages/user/coupon.wxml-->
-<wxs src="../../utils/formatDate.wxs" module="util" />
+<wxs src="../../utils/format.wxs" module="util" />
   <van-nav-bar transparent="{{bgColor}}" left-text="我的优惠券" placeholder="{{true}}" 
     fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2">
   </van-nav-bar>

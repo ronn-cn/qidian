@@ -1,8 +1,9 @@
 <!--pages/user/orderDetail.wxml-->
+<wxs src="../../utils/format.wxs" module="util" />
 <van-nav-bar transparent="{{bgColor}}" left-text="订单详情" placeholder="{{true}}" 
     fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="return" z-index="2">
 </van-nav-bar>
-<van-notice-bar text="已支付" color="#fff" background="#524D63" />
+<van-notice-bar text="{{util.formatOrderStatus(order.status)}}" color="#fff" background="#524D63" />
 <view class="order-card">
   <van-row>
     <van-col span="6">
@@ -11,12 +12,12 @@
     <van-col span="18">
       <view>
         <view class="order-layout">
-          <text class="order-title">奇点运动门店专属月卡</text>
-          <text>¥ {{item.original_price}}</text>
+          <text class="order-title">{{order.name}}</text>
+          <text>¥ {{order.original_price}}</text>
         </view>
         <view class="order-layout">
-          <text class="order-time">{{item.store_name}}</text>
-          <text>×{{item.count}}</text>
+          <text class="order-time">{{order.store_name}}</text>
+          <text>×{{order.count}}</text>
         </view>
       </view>
     </van-col>
@@ -25,19 +26,46 @@
 
 <view class="order-card order-time">
   <text class="order-title">订单信息</text>
-  <view class="order-layout order-list" wx:for="{{display}}">
-    <view>{{item.name}}</view>
-    <view>{{item.value}}</view>
+  <view class="order-layout order-list">
+    <view>订单号</view>
+    <view>{{order.order_no}}</view>
+  </view>
+  <view class="order-layout order-list">
+    <view>下单时间</view>
+    <view>{{util.formatOrderTime(order.gmt_create)}}</view>
+  </view>
+  <view class="order-layout order-list">
+    <view>商品总价</view>
+    <view>{{order.original_price}}</view>
+  </view>
+  <view class="order-layout order-list">
+    <view>平台优惠</view>
+    <view>{{order.discount}}</view>
+  </view>
+  <view class="order-layout order-list" style="color: tomato;">
+    <view>实付款</view>
+    <view>{{order.money}}</view>
   </view>
 </view>
 
-<van-tabbar placeholder="{{true}}" fixed="{{true}}" border="{{false}}">
+<van-tabbar wx:if="{{order.status == 'N'}}" placeholder="{{true}}" fixed="{{true}}" border="{{false}}">
+  <view class="footer">
+    <van-button round bindtap="cancelOrder" custom-style="width: 40%; margin-right:5%;" id="{{order.id}}">
+      取消订单
+    </van-button>
+    <van-button round type="primary" color="#fd5e36" bindtap="continuePay" custom-style="width: 40%;margin-left:5%;">
+      付 款
+    </van-button>
+  </view>
+</van-tabbar> 
+
+<!-- <van-tabbar wx:if="{{false}}" placeholder="{{true}}" fixed="{{true}}" border="{{false}}">
   <view class="footer">
     <van-button round type="primary" block color="#fd5e36" bindtap="refund">
-    {{ isAuto ? '关闭自动续费' : '申请退款'}}</van-button>
+      {{ isAuto ? '关闭自动续费' : '申请退款'}}
+    </van-button>
   </view>
-  
-</van-tabbar> 
+</van-tabbar>  -->
 
 <van-action-sheet show="{{ show }}" title="申请退款">
   <view>
