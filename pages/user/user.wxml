@@ -1,6 +1,7 @@
 <!-- components/user/index.wxml -->
+<wxs src="../../utils/format.wxs" module="util" />
+
 <view class="container">
-  <van-dialog title="需要登录" message="需要登录或注册 健身Link 账号" confirmButtonText="去登录" show="{{ showLogin }}" show-cancel-button bind:close="onClose" bind:confirm="authorizedLoginTap"></van-dialog>
   <!-- 用户信息区域 -->
   <view class="user-info-box">
     <view class="has-user">
@@ -21,20 +22,34 @@
         </van-col>
 
         <van-col wx:else>
-          <view class="nologin" bindtap="authorizedLoginTap">
+          <view class="nologin" bindtap="wechatLogin">
             <text >点击注册/登录</text>
           </view>
         </van-col>
       </van-row>
     </view>
   </view>
-  <view class="card-info" style="background-image: url(https://www.evinf.cn/images/vip-bg2.png);background-size: cover;">
+
+  <view class="card-info" wx:if="{{member}}">
+    <view class="card-index">1</view>
+    <view>
+      <view class="card-store">会员门店：{{member.store_name}}</view>
+      <view>NO:{{member.member_no}}</view>
+    </view>
+    <view class="card-right">
+      <view bindtap="OpenMember">去续费 ></view>
+      <view>{{util.formatDate(member.member_end_time)}}到期</view>
+    </view>
+  </view>
+
+  <view class="card-info" wx:else>
     <van-image width="50rpx" height="50rpx" fit="contain" src="/images/user/vip.svg"/>
     <view class="card-title">VIP会员</view>
     <view class="card-text">不仅是运动，更是生活</view>
-    <van-button type="default" round color="#FD5E36" size="small" 
+    <van-button type="default" round color="#FD5E36" size="small" bindtap="OpenMember"
     >开通</van-button>
   </view>
+ 
   <van-divider></van-divider>
   <van-row gutter="20">
     <van-col span="12">
@@ -64,15 +79,12 @@
   </van-cell-group>
 </view>
 <!-- <view class='cu-tabbar-height'></view> -->
-
-<van-dialog
-  title="授权绑定手机号"
-  show="{{ showPhone }}"
-  show-cancel-button
-  bindgetphonenumber="getPhoneNumber"
-  confirm-button-open-type="getPhoneNumber"
-  bind:close="onClose"
-  message="为了更好的为您提供服务，\n需要授权获取您的手机号进行绑定"
->
-
+<van-dialog 
+  title="需要登录" 
+  message="需要登录或注册 健身Link 账号" 
+  confirmButtonText="去登录" 
+  show="{{ showLogin }}" 
+  show-cancel-button 
+  bind:close="onClose" 
+  bind:confirm="wechatLogin">
 </van-dialog>

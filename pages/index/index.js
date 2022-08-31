@@ -1,6 +1,6 @@
 // index.js
 const app = getApp(); // 获取应用实例
-var authMark = true; // 避免重复授权的标记
+import { request } from "../../utils/request.js";
 
 Page({
 	data: {
@@ -10,7 +10,10 @@ Page({
     active:'',
     bgColor:'true',
     tabbarShow: 'true',
-    navbarStyle: "background-image: linear-gradient(-45deg,#f5f5f5 50%, #e0fcfc, #dbeafd); background-size: 100% 830px;"
+    navbarStyle: "background-image: linear-gradient(-45deg,#f5f5f5 50%, #e0fcfc, #dbeafd); background-size: 100% 830px;",
+    showPhone: false,
+
+    compID:'',
 	},
 	onLoad: function (options) {
     var screenHeight = wx.getSystemInfoSync().windowHeight
@@ -66,9 +69,7 @@ Page({
   },
 
 	weixinLoginTapHandle: function () {
-		wx.navigateTo({
-			url: '/pages/home/index'
-		})
+		wx.navigateTo({ url: '/pages/home/index' })
 	},
 
 	// 刷新主页数据
@@ -76,14 +77,89 @@ Page({
 		let userComponent = this.selectComponent('#user-component');
 		userComponent.RefreshUserData();
 	},
-
-	/**
-	 * 页面滚动
-	 */
+	
 	onPageScroll: function (e) {
     let flag = e.scrollTop <= 0;
       this.setData({
         bgColor: flag
       })
-	}
+  },
+
+  OpenMember(param){
+    // 检测是否用户登录
+    this.data.compID = param.detail
+    if(!app.globalData.user_ouid){
+      this.authorizedLoginTap()
+    } else {
+      wx.navigateTo({ url: '/pages/member/openMember' })
+    }
+  },
+  // 授权登录
+  authorizedLoginTap (event) {
+    wx.getUserProfile({
+      desc: '展示用户信息',
+      success: resUserProfile => {
+        wx.login({ success: resWxLogin => {
+          this.wechatLogin(resWxLogin.code, resUserProfile.userInfo)
+        }})
+      },
+    });
+  },
+  wechatLogin(code, userInfo){
+    if (!code) return
+    let data = {
+      code: code,
+      name: userInfo.nickName,
+      avatar: userInfo.avatarUrl,
+    }
+    request({ url:"login/wechat", data:data, method:"POST"}).then((res) => {
+      if (res.code == '200'){
+        var result = res.data;
+        app.setUserAuth(result);
+        if (result.phone == ''){
+          this.setData({showPhone: true})
+        }
+        this.getUserAll()
+      }
+    })
+  },
+
+  //获取电话号
+  getPhoneNumber(e) {
+    console.log(e.detail.code)
+    if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
+      wx.showModal({
+        title: '提示',
+        content: "授权失败",
+        showCancel: false
+      })
+      return;
+    }
+    else{
+      let requestData = {
+        user_ouid: app.globalData.user_ouid,
+        phone_code: e.detail.code
+      }
+      request({ url:"get-phone", data:requestData, method:"POST"}).then((res) => {
+        if (res.code == '200'){
+          let phone = res.data.phone
+          app.setUserPhone(phone)
+        }
+      })
+    }
+  },
+
+  getUserAll(){
+    let user_ouid = app.globalData.user_ouid
+    if (user_ouid) {
+      request({ url:"get-user-all?user_ouid="+user_ouid, method:"GET"}).then((res) => {
+        if (res.code == '200') 
+          app.setUserAll(res.data.user);
+
+          let comp = this.selectComponent("#"+this.data.compID);
+          console.log('comp', comp)
+          comp.RefreshUserData(); 
+      })
+    }
+  }
 })
