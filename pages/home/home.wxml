@@ -7,12 +7,13 @@
       <view class="middle">
         <view>
           <view class="nickname">{{nickname}}</view>
-          <view class="tips">{{!nickname? '点击注册/登录':
+          <view class="tips">{{!nickname? '未登录':
             endTime? endTime+'到期':'门店VIP会员未开通' }}</view>
         </view>
       </view>
       <van-button round block color="#ffece6"
-      size="small" bindtap="OpenMember" custom-class="open-btn">开通</van-button>
+      size="small" bindtap="OpenMember" custom-class="open-btn">
+      {{ !nickname? '登录': memberType ? '续费' : '开通'}}</van-button>
       <view class="sign" wx:if="{{memberType}}">{{memberType}}</view>
     </view>
   </view>

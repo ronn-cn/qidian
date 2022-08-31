@@ -17,8 +17,6 @@ App({
         this.globalData.svrUrl= 'https://sport.sportguider.com/'
         break;
     }
-		let user_info = wx.getStorageSync('user_info');
-    if (user_info)  this.globalData.userInfo = JSON.parse(user_info);
     
     let user_ouid = wx.getStorageSync('user_ouid');
     if (user_ouid) 	this.globalData.user_ouid = user_ouid;
@@ -28,6 +26,9 @@ App({
 
     let userJWT = wx.getStorageSync('user_jwt');
     if (userAll) 	this.globalData.userJWT =userJWT;
+
+    let member = wx.getStorageSync('member');
+    if (member) 	this.globalData.member = JSON.parse(member);
 
 		wx.getSystemInfo({
 			success: e => {
@@ -40,38 +41,50 @@ App({
   },
   // 全局数据
 	globalData: {
-    userInfo: null, // 用户微信信息
     svrUrl:  "https://sport1.evinf.cn/",
+    userAll: null,  // 用户信息
     user_ouid: "",
     userJWT: "",
-    userAll: null,
-    orderList: [], // 订单列表
+    user_phone:"",
+    member:null,    // 会员信息
+    orderList: [],  // 订单列表
 	},
-	// 设置用户信息函数
-	setUserInfo(user) {
-    this.globalData.userInfo = user;
-		wx.setStorageSync('user_info', JSON.stringify(user));
-	},
+
 	// 设置用户权限信息
 	setUserAuth(user) {
     console.log("用户信息", user)
+
     this.globalData.user_ouid = user.user_ouid;
     this.globalData.userJWT = user.user_jwt;
+    this.globalData.user_phone = user.user_phone;
 		wx.setStorageSync('user_ouid', user.user_ouid);
 		wx.setStorageSync('user_jwt', user.user_jwt);
-	},
+		wx.setStorageSync('user_phone', user.user_phone);
+  },
+  
+  setUserPhone(phone){
+    this.globalData.user_phone = phone;
+		wx.setStorageSync('user_phone', phone);
+  },
 	// 设置用户全部信息
   setUserAll(userall){
     this.globalData.userAll = userall;
     wx.setStorageSync('user_all', JSON.stringify(userall));
   },
 
+  setMember(member){
+    this.globalData.member = member
+    wx.setStorageSync('member', JSON.stringify(member));
+  },
+
   setLogout(){
-    wx.removeStorageSync('user_info');
     wx.removeStorageSync('user_ouid');
     wx.removeStorageSync('user_all');
-    this.globalData.userInfo = null
+    wx.removeStorageSync('user_jwt')
+    wx.removeStorageSync('member')
     this.globalData.user_ouid = null
     this.globalData.userAll = null
+    this.globalData.userJWT = null
+    this.globalData.member = null
   },
 })

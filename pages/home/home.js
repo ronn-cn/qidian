@@ -34,11 +34,29 @@ Component({
       this.RefreshUserData()
     },
     RefreshUserData(){
-      let userInfo = app.globalData.userInfo
+      let userInfo = app.globalData.userAll
       if (userInfo){
         this.setData({
-          nickname: userInfo.nickName,
-          avatar: userInfo.avatarUrl
+          nickname: userInfo.name,
+          avatar: userInfo.avatar
+        })
+        let data ={
+          user_ouid:app.globalData.user_ouid,
+          store_id:1
+        }
+        request({ url:"get-member", data:data,method:"POST"}).then((res) => {
+          if(res.code=='200'){
+            app.setMember(res.data)
+            this.setData({
+              memberType: res.data.member_type + "会员",
+              endTime:formatDate(res.data.member_end_time)
+            })
+          }else{
+            this.setData({
+              memberType: '',
+              endTime:''
+            })
+          }
         })
       }
       request({ url:"get-store", method:"POST"}).then((res) => {
@@ -49,47 +67,14 @@ Component({
           }) 
         }
       })
-      let data ={
-        user_ouid:app.globalData.user_ouid,
-        store_id:1
-      }
-      request({ url:"get-member", data:data,method:"POST"}).then((res) => {
-        if(res.code=='200'){
-          this.setData({
-            memberType: res.data.member_type + "会员",
-            endTime:formatDate(res.data.member_end_time)
-          })
-        }else{
-          this.setData({
-            memberType: '',
-            endTime:''
-          })
-        }
-      })
+      
     },
-    OpenMember: function (){
-      // 检测是否用户登录
-      if(!app.globalData.user_ouid){
-        console.log("222")
-        // 没有登录需要先授权
-        wx.getUserProfile({
-          desc: '展示用户信息',
-          success: resUserProfile => {
-            app.setUserInfo(resUserProfile.userInfo);
-            wx.login({ success: resWxLogin => {              
-              this.wechatLogin(resWxLogin.code)
-              wx.navigateTo({ url: '/pages/member/openMember' })
-            }})
-          },
-        });
-      } else {
-        wx.navigateTo({ url: '/pages/member/openMember' })
-      }
+    OpenMember(){
+      this.triggerEvent("OpenMember", 'home');
     },
-    switchstore(){
-      // this.RefreshUserData()
-    },
+    switchstore(){ },
     menuClick(e){
+      if (!this.checkLogin()) return
       let index = e.currentTarget.dataset['index'];
       switch (index){
         case 0:
@@ -110,46 +95,32 @@ Component({
           break;
       }
     },
-
+    checkLogin(){
+      if (!app.globalData.user_ouid){
+        wx.showToast({
+          title: '请先登录账号',
+          icon: 'error',
+        });
+        return false
+      }
+      return true
+    },
     // 点击扫码按钮的处理函数
 	  scanCodeTapHandle: function () {
       let that = this
-      if (app.globalData.userInfo != null) {
-        // 判断用户信息存在，直接开启扫码
-        wx.scanCode({
-          onlyFromCamera: true,
-          success: function (sc_res) {
-            let url = sc_res.result; 
-            var ouid = getQueryVariable(url, "ouid");
-            // 登录到设备
-            that.loginDevice(ouid);
-          },
-          fail: (res) => {//扫码失败后
-            console.log("扫码失败",res)
-         },
-        });
-      } else {
-        this.setData({
-          currPage: 'user'
-        });
-      }
-    },
-
-    wechatLogin(code){
-      if (!code) return
-      let data = {
-        code: code,
-        name: app.globalData.userInfo.nickName,
-        avatar: app.globalData.userInfo.avatarUrl,
-        phone: '17568914267',
-      }
-      request({ url:"login/wechat", data:data, method:"POST"}).then((res) => {
-        if (res.code == '200'){
-          var result = res.data;
-          app.setUserAuth(result);
-          this.RefreshUserData();
-        }
-      })
+      // 判断用户信息存在，直接开启扫码
+      wx.scanCode({
+        onlyFromCamera: true,
+        success: function (sc_res) {
+          let url = sc_res.result; 
+          var ouid = getQueryVariable(url, "ouid");
+          // 登录到设备
+          that.loginDevice(ouid);
+        },
+        fail: (res) => {//扫码失败后
+          console.log("扫码失败",res)
+        },
+      });
     },
 
     loginDevice(ouid) {      
@@ -159,8 +130,8 @@ Component({
         "device_id": ouid,
         "user_ouid": app.globalData.user_ouid,
         "user_jwt": app.globalData.userJWT,
-        "user_name": app.globalData.userInfo.nickName,
-        "user_avatar": app.globalData.userInfo.avatarUrl,
+        "user_name": app.globalData.userAll.name,
+        "user_avatar": app.globalData.userAll.avatar,
         "store_id":1
       };
       request({ url:"login/device", data:data, method:"POST"}).then((res) => {
@@ -206,6 +177,7 @@ Component({
         }    
       })
     }
+  
   },
   lifetimes: {
     ready () {

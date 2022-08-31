@@ -11,8 +11,13 @@
   </van-nav-bar>
   <scroll-view class="content" scroll-y="true" style="height: {{scrollViewHeight}}px;" > 
     <!-- <scroll-view class="content" scroll-y="true">  -->
-    <Home wx:if="{{currPage=='home'}}"></Home>
-    <user wx:else></user>
+    <Home id="home" wx:if="{{currPage=='home'}}"  
+      bind:authorizedLoginTap="authorizedLoginTap"
+      bind:OpenMember="OpenMember"></Home>
+    <user id="user" wx:else 
+      bind:authorizedLoginTap="authorizedLoginTap"
+      bind:OpenMember="OpenMember"
+      ></user>
   </scroll-view>
   <!-- 底部切换栏部分 -->
   <van-tabbar wx:if="{{tabbarShow}}" class="tab-bar" active="{{ currPage }}" bind:change="onChange" placeholder="{{true}}" active-color="#fd5e36" inactive-color="#465677">
@@ -28,3 +33,14 @@
     </van-tabbar-item>
   </van-tabbar>
 </view>
+
+
+<van-dialog
+  title="授权绑定手机号"
+  show="{{ showPhone }}"
+  show-cancel-button
+  bindgetphonenumber="getPhoneNumber"
+  confirm-button-open-type="getPhoneNumber"
+  bind:close="onClose"
+  message="为了更好的为您提供服务，\n需要授权获取您的手机号进行绑定"
+/>
