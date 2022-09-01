@@ -40,24 +40,18 @@ Component({
           nickname: userInfo.name,
           avatar: userInfo.avatar
         })
-        let data ={
-          user_ouid:app.globalData.user_ouid,
-          store_id:1
+        if (userInfo.member_detail){
+          this.setData({
+            memberType: userInfo.member_detail.member_type + "会员",
+            endTime:formatDate(userInfo.member_detail.member_end_time)
+          })
         }
-        request({ url:"get-member", data:data,method:"POST"}).then((res) => {
-          if(res.code=='200'){
-            app.setMember(res.data)
-            this.setData({
-              memberType: res.data.member_type + "会员",
-              endTime:formatDate(res.data.member_end_time)
-            })
-          }else{
-            this.setData({
-              memberType: '',
-              endTime:''
-            })
-          }
-        })
+        else{
+          this.setData({
+            memberType: '',
+            endTime:''
+          })
+        }
       }
       request({ url:"get-store", method:"POST"}).then((res) => {
         if(res.code=='200'){
@@ -81,13 +75,19 @@ Component({
           this.scanCodeTapHandle();
           break;
         case 1:
-          wx.navigateTo({ url: '/pages/sport/plan' })
+          if (app.globalData.userAll.plan)
+            wx.navigateTo({ url: '/pages/sport/plan' })
+          else{
+            wx.showToast({
+              title: '暂无训练计划',
+              icon: 'none'
+            });
+          }
           break;
         case 2:
           wx.showToast({
             title: '请前往体测仪',
-            icon: 'error',
-            duration: 1000,
+            icon: 'none'
           });
           break;
         case 3:

@@ -4,11 +4,9 @@
   <van-cell-group>
     <van-field value="{{ userAll.name }}" label="用户昵称" input-align="right" disabled/>
     <van-field value="{{ userAll.phone }}" clearable label="手机号码" input-align="right" disabled/>
-      <van-field value="{{ userAll.sex == 1? '男' :userAll.sex == 2? '女':'未知'}}" clearable label="性别" input-align="right" disabled/>
-    <!-- <picker bindchange="bindPickerChange" value="{{ genderIndex }}" range="{{genderArray}}">
-    </picker> -->
-    <van-field value="{{ userAll.birthday }}" clearable label="出生日期" input-align="right" disabled/>
-    <van-field value="{{ username }}" clearable label="微信" input-align="right" />
+    <van-cell value="{{ userAll.sex == 1? '男' :userAll.sex == 2? '女':'未知'}}" title="性别" url="/pages/user/profile" is-link/>
+    <van-cell title="出生日期" value="{{ userAll.birthday }}"  url="/pages/user/profile" is-link/>
+    <van-field value="{{ userAll.name }}" clearable label="微信" input-align="right" disabled/>
     <van-field clearable label="平台协议" input-align="right" is-link/>
   </van-cell-group>
   <van-toast id="van-toast" />

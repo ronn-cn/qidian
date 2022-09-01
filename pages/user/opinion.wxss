@@ -2,7 +2,10 @@
 .container{
   width: 100%;
   padding: 0 50rpx;
+  height: 900px;
   box-sizing: border-box;
+  background-image: linear-gradient(-45deg,#f5f5f5 50%, #e0fcfc, #dbeafd); 
+  background-size: 100% 830px;
 }
 
 .footer{
@@ -22,10 +25,12 @@
   border: 2rpx solid;
   border-radius: 10rpx;
 } 
-/* .van-cell-group{
-  background-color: transparent !important;
+
+.van-nav-bar{
+  background-image: linear-gradient(-45deg,#f5f5f5 50%, #e0fcfc, #dbeafd) !important;
+  background-size: 100% 830px;
 }
 
-.van-cell{
+.van-tabbar{
   background-color: transparent !important;
-} */
+}

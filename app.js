@@ -27,9 +27,6 @@ App({
     let userJWT = wx.getStorageSync('user_jwt');
     if (userAll) 	this.globalData.userJWT =userJWT;
 
-    let member = wx.getStorageSync('member');
-    if (member) 	this.globalData.member = JSON.parse(member);
-
 		wx.getSystemInfo({
 			success: e => {
 				this.globalData.StatusBar = e.statusBarHeight;
@@ -46,7 +43,6 @@ App({
     user_ouid: "",
     userJWT: "",
     user_phone:"",
-    member:null,    // 会员信息
     orderList: [],  // 订单列表
 	},
 
@@ -72,19 +68,12 @@ App({
     wx.setStorageSync('user_all', JSON.stringify(userall));
   },
 
-  setMember(member){
-    this.globalData.member = member
-    wx.setStorageSync('member', JSON.stringify(member));
-  },
-
   setLogout(){
     wx.removeStorageSync('user_ouid');
     wx.removeStorageSync('user_all');
     wx.removeStorageSync('user_jwt')
-    wx.removeStorageSync('member')
     this.globalData.user_ouid = null
     this.globalData.userAll = null
     this.globalData.userJWT = null
-    this.globalData.member = null
   },
 })

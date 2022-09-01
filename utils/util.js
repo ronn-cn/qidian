@@ -1,4 +1,3 @@
-
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -16,6 +15,15 @@ var formatDate = function(date) {
   return d
 };
 
+const formatBirthday = function(date){
+  date = String(date)
+  let year = date.slice(0, 4)
+  let month = date.slice(4, 6)
+  let day = date.slice(6, 8)
+  let birthday= new Date(year + "-" + (month) + "-" + day).getTime();
+  return birthday
+}
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : `0${n}`
@@ -23,5 +31,6 @@ const formatNumber = n => {
 
 module.exports = {
   formatTime,
-  formatDate
+  formatDate,
+  formatBirthday
 }

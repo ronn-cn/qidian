@@ -92,7 +92,7 @@
   width: 200rpx;
   height: 50rpx;
   line-height: 45rpx;
-  font-size: 1em;
+  font-size: 0.8em;
   background-color: transparent;
   border-radius: 30rpx;
   border: 1px solid #576b95;

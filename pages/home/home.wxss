@@ -196,6 +196,7 @@
 }
 
 .wrapper{
+  background-color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -203,7 +204,24 @@
   /* text-align: center;
   justify-content: center; */
 }
+.wrapper .wrapper-content{
+  color: #000;
+  height: 630rpx;
+  width: 100%;
+  background-color: #fff;
+  text-align: center;
+  line-height: 80rpx;
+}
+
+.wrapper .wrapper-btn{
+  background-color: #fd684a;
+  margin: 0 auto;
+  width: 400rpx;
+  color: #fff;
+  border-radius: 40rpx;
+}
 
 .wrapper .qrimg{
-  width: 200px; height: 200px;
+  width: 200px; 
+  height: 200px;
 }

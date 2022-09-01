@@ -11,10 +11,20 @@ Page({
     userAll: {},
   },
 
-  onLoad (options) {
-    this.setData({
-      userAll: app.globalData.userAll
+  onShow(){
+    console.log("显示")
+    let user_ouid = app.globalData.user_ouid
+    request({ url:"get-user-all?user_ouid="+user_ouid, method:"GET"}).then((res) => {
+      if (res.code == '200') 
+        app.setUserAll(res.data.user);
+        this.setData({
+          userAll: app.globalData.userAll,
+        })
     })
+  },
+
+  onLoad (options) {
+    
   },
 
   logout () {

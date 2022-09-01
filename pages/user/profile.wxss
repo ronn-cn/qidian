@@ -86,18 +86,6 @@
     /* margin: 40rpx; */
 }
 
-.tips-box{
-  position:fixed;
-  bottom : 80px;
-  left:0;
-  right:0;
-  height:44px;
-}
-
-.tips-green{
-  color:#28cd41;
-}
-
 .van-pick{
   background-color: transparent;
 }

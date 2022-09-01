@@ -1,0 +1,24 @@
+<!--pages/user/coupon.wxml-->
+<wxs src="../../utils/format.wxs" module="util" />
+  <van-nav-bar transparent="{{bgColor}}" left-text="选择门店" placeholder="{{true}}" 
+    fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2">
+  </van-nav-bar>
+  <van-dropdown-menu>
+    <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" />
+    <van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" />
+  </van-dropdown-menu>
+<view class="container">
+  <view class="store-box" >
+    <view >
+    <view class="store-left">
+      <van-image width="40rpx" height="40rpx" fit="contain" src="/images/home/logo.svg"/>
+      <text class="store-name">奇点运动黄岛一店</text>
+    </view>
+      <view class="store-address">经济技术开发区井冈山路157号A座3楼</view>
+    </view>
+    <view>
+     1.35KM
+    </view>
+    </view>
+</view>
+

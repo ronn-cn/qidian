@@ -82,8 +82,12 @@
 
   <van-overlay show="{{ qrShow }}" bind:click="onClickHide">
   <view class="wrapper">
-    <image class="qrimg" show-menu-by-longpress="{{true}}"
-    mode="scaleToFill" src="{{store.photos}}"></image>
+    <view class="wrapper-content">
+      <view>添加店长微信</view> 
+      <image class="qrimg" show-menu-by-longpress="{{true}}"
+      mode="scaleToFill" src="{{store.wx}}"></image>
+      <view class="wrapper-btn">长按识别二维码</view> 
+    </view>
   </view>
   </van-overlay>
 </view>

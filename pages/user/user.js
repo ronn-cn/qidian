@@ -21,10 +21,11 @@ Component({
     menuList:[
       {name:'个人信息', icon:'user-icon.svg', href:'/pages/user/userinfo'},
       {name:'我的订单', icon:'order-icon.svg', href:'/pages/order/order'},
-      {name:'会员卡兑换', icon:'exchange-icon.svg', href:'/pages/member/exchange'},
+      // {name:'会员卡兑换', icon:'exchange-icon.svg', href:'/pages/member/exchange'},
       {name:'我的优惠券', icon:'coupon-icon.svg', href:'/pages/order/coupon'},
       // {name:'自动续费管理', icon:'money-icon.svg', href:'/pages/member/autorenew'},
       {name:'意见反馈', icon:'money-icon.svg', href:'/pages/user/opinion'},
+      // {name:'选择门店', icon:'money-icon.svg', href:'/pages/store/store'},
     ],
   },
 
@@ -36,8 +37,12 @@ Component({
         let age = 0
         if (userInfo.birthday != "") {
           age = new Date().getFullYear() - parseInt(userInfo.birthday / 10000)
+        }else {
+          wx.navigateTo({
+            url: '/pages/user/profile?first=true'
+          })
         }
-        let member = app.globalData.member
+        let member = userInfo.member_detail
         this.setData({
           sport: userInfo.athletic_ability_v,
           vitality: userInfo.vitality_v,
@@ -50,7 +55,7 @@ Component({
           nickName : userInfo.name,
           member: member
         });
-      }else 
+      } else
         this.clearShowInfo()
     },
     clearShowInfo(){
@@ -71,13 +76,12 @@ Component({
     },
    
     planTap() {
-      console.log(this.data.plan_describe)
-      if (this.data.plan_describe && this.data.plan_describe.plan_name != "") {
+      if (this.data.plan) {
         wx.navigateTo({ url: '/pages/sport/plan' })
       }
       else {
         wx.showToast({
-          title: '当前没有开启任何计划',
+          title: '暂无训练计划',
           icon: 'none'
         });
       }
@@ -91,14 +95,7 @@ Component({
       else {
         this.setData({ showLogin: true });
       }
-    },
-
-    editTap() {
-      let s = this.data.sex == 1 ? 1 : this.data.sex == 2 ? 2 : 1;
-      wx.navigateTo({
-        url: '/pages/user/profile?first=0&sex=' + s + '&birthday=' + this.data.birthday
-      })
-    },
+    },    
     showTips() {
       this.setData({ showLogin: true });
     },

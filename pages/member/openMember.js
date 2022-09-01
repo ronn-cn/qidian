@@ -12,7 +12,6 @@ Page({
     ],
     goods: [],
     currentIndex:0,
-    obj:null,
     price: 0,
     showTip: false,
     scrollViewHeight: 0
@@ -40,8 +39,6 @@ Page({
       }).exec();
     }).exec();
 
-    let obj = app.globalData.ev
-    this.setData({obj: obj})
     request({ url:"get-goods-list", method:"POST"}).then((res) => {
       if(res.code=='200'){ 
         let goods = res.data

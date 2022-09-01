@@ -1,36 +1,39 @@
 // pages/user/opinion.js
-Page({
+const app = getApp();
+import { request } from "../../utils/request.js";
 
-  /**
-   * 页面的初始数据
-   */
+Page({
   data: {
     autosize: {
-      minHeight: 100
+      minHeight: 100,
+      content:''
     }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
   returnHome(){
     wx.navigateBack({ delta: 1 });
+  },
+
+  submit(){
+    if (this.data.content){
+      let data ={
+        user_ouid:app.globalData.user_ouid,
+        text: this.data.content
+      }
+      request({ url:"feedback", data:data,method:"POST"}).then((res) => {
+        if (res.code == '200'){
+          wx.showToast({
+            title: '提交反馈成功',
+            icon: 'error',
+          });
+        }
+      })
+    }
+    else{
+      wx.showToast({
+        title: '请输入反馈内容',
+        icon: 'error',
+      });
+    }
   }
 })
