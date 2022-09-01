@@ -4,18 +4,20 @@ const app = getApp();
 
 Page({
   data: {
-    tabs: ['全部', '待支付', '已支付', '售后'],
+    tabs: ['全部', '待支付', '已支付'], //去掉了售后
     activeIndex: 0,
     showOrder:[],
-    allOrder:[],      // 全部订单
-    unpaidOrder:[],   // 未支付的订单
-    paidOrder:[],     // 已支付的订单
-    refundOrder:[],   // 退款的订单
+    order:[],      // 全部订单
     navHeight: 0,      // 导航栏的高度
     scrollViewHeight: 0, 
   },
   // 页面加载时候
   onLoad(options) { 
+    this.calculatePageHeight() // 计算页面高度
+    this.requestOrderList(); // 请求订单列表
+  },
+  // 计算页面高度
+  calculatePageHeight(){
     var screenHeight = wx.getSystemInfoSync().windowHeight
     let that = this
     // 获取导航栏高度
@@ -31,7 +33,6 @@ Page({
         })
       }).exec();
     }).exec();
-    this.requestOrderList(); // 请求订单列表
   },
   returnHome () {
     wx.navigateBack({ delta: 1 });
@@ -42,30 +43,11 @@ Page({
       if(res.code=='200'){ 
         let list = res.data;
         console.log("订单列表：", list);
-        app.globalData.orderList = list;
-        this.data.allOrder = [];
-        this.data.unpaidOrder = [];
-        this.data.paidOrder = [];
-        this.data.refundOrder = [];
-        if(list.length > 0){
-          for(let i = 0; i < list.length; i++){
-            if(list[i].status == "C"){
-              // 取消了，不能支付了
-            } else if(list[i].status == "N"){
-              this.data.unpaidOrder.push(list[i])
-            } else if(list[i].status == "Y"){
-              this.data.paidOrder.push(list[i])
-            } else if(list[i].status == "T"){
-              this.data.refundOrder.push(list[i])
-            }
-          }
-          this.setData({
-            allOrder: list, 
-            showOrder: list
-          })
-        } else {
-          // 没有订单
-        }
+        app.globalData.orderList = list.all;
+        this.data.order = list;
+        this.setData({
+          showOrder: this.data.order.all
+        })
       }
     })
   },
@@ -75,22 +57,22 @@ Page({
     if(index == 0){
       // 全部订单
       this.setData({
-        showOrder: this.data.allOrder
+        showOrder: this.data.order.all
       })
     } else if(index == 1){
       // 待支付
       this.setData({
-        showOrder: this.data.unpaidOrder
+        showOrder: this.data.order.pay_wait
       })
     } else if(index == 2){
       // 已支付
       this.setData({
-        showOrder: this.data.paidOrder
+        showOrder: this.data.order.pay_success
       })
     } else if(index == 3){
       // 售后
       this.setData({
-        showOrder: this.data.refundOrder
+        showOrder: this.data.order.pay_refund
       })
     }
   },

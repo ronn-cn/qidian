@@ -9,10 +9,13 @@ Page({
     activeIndex: 0,
     coupons:[],
     showCoupons:[],
+    scrollViewHeight: 0, 
   },
   onLoad(options) {
+    this.calculatePageHeight();
     request({ url:"get-user-coupons",data:{"user_ouid":app.globalData.user_ouid}, method:"POST"}).then((res) => {
       if (res.code == '200'){
+        console.log("获取优惠券：", res.data)
         this.setData({
           coupons: res.data,
           showCoupons: res.data.unused
@@ -26,6 +29,24 @@ Page({
    */
   onReady() {
 
+  },
+  // 计算页面高度
+  calculatePageHeight(){
+    var screenHeight = wx.getSystemInfoSync().windowHeight
+    let that = this
+    // 获取导航栏高度
+    let query = wx.createSelectorQuery();
+    query.select('.nav-bar').boundingClientRect(navRect=>{
+      that.setData({
+        navHeight: navRect.height,
+      })
+      let query2 = wx.createSelectorQuery();
+      query2.select('.nav-tab').boundingClientRect(navtabRect=>{
+        that.setData({
+          scrollViewHeight: screenHeight - navRect.height - navtabRect.height,
+        })
+      }).exec();
+    }).exec();
   },
   returnHome () {
     wx.navigateBack({ delta: 1 });
@@ -48,6 +69,5 @@ Page({
       showCoupons:tmp,
       activeIndex: e.detail.index
     })
-    console.log("111", this.data.showCoupons)
   },
 })

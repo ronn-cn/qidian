@@ -1,27 +1,41 @@
 <!--pages/user/coupon.wxml-->
 <wxs src="../../utils/format.wxs" module="util" />
-  <van-nav-bar transparent="{{bgColor}}" left-text="我的优惠券" placeholder="{{true}}" 
-    fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2">
-  </van-nav-bar>
-  <van-sticky>
-    <van-tabs bind:change="tabClick">
-      <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
-    </van-tabs>
-  </van-sticky>
-<view class="container">
-  <view class="coupon-box" wx:for="{{showCoupons}}" wx:key="key">
-    <view>
-      <view class="coupon-number">￥<text>{{item.money}}</text></view>
-      <view class="coupon-tip">满{{item.condition}}可用</view>
-    </view>
-    <view>
-      <view class="coupon-title">{{item.name}}</view>
-      <view class="coupon-date">有效期：{{util.formatDate(item.start_time)}}-{{util.formatDate(item.end_time)}}</view>
-    </view>
-    <view>
-      <van-button custom-class="btn-custom" round size="small" plain color="{{activeIndex > 0? '#465677': '#FD5E36'}}" 
-      disabled="{{activeIndex == 2}}">{{activeIndex ==  0 ? '立即使用' : 
-        activeIndex ==  1? '已使用' : '已过期'}} </van-button></view>
+<view class="main">
+  <view class="header">
+    <van-nav-bar class="nav-bar" left-text="我的优惠券" placeholder="{{true}}" 
+      fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2">
+    </van-nav-bar>
+    <van-sticky class="nav-tab">
+      <van-tabs bind:change="tabClick">
+        <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
+      </van-tabs>
+    </van-sticky>
   </view>
-<van-toast id="van-toast" />
+  <scroll-view scroll-y="true" style="height: {{scrollViewHeight}}px;">
+    <!-- 没有优惠券显示的缺省页面 -->
+    <view class="no-coupon" wx:if="{{showCoupons.length==0}}">
+      <image src="https://www.evinf.cn/images/coupon-bg.svg"></image>
+    </view>
+    <view class="container" wx:else>
+      <view class="coupon-box" wx:for="{{showCoupons}}" wx:key="key">
+        <view>
+          <view class="coupon-number roboto-font">￥<text>{{item.money/100}}</text></view>
+          <view class="coupon-tip">满{{item.condition/100}}可用</view>
+        </view>
+        <view>
+          <view class="coupon-title">{{item.name}}</view>
+          <view class="coupon-use">使用范围：
+            <text class="coupon-use-text" wx:if="{{item.store_id == 0}}">所有门店通用</text>
+            <text class="coupon-use-text" wx:else>仅限{{item.store_name}}使用</text>
+          </view>
+          <view class="coupon-date">有效期：{{util.formatDate(item.start_time)}}-{{util.formatDate(item.end_time)}}</view>
+        </view>
+        <view>
+          <van-button custom-class="btn-custom" round size="small" plain color="{{activeIndex > 0? '#465677': '#FD5E36'}}" 
+          disabled="{{activeIndex == 2}}">{{activeIndex ==  0 ? '立即使用' : 
+            activeIndex ==  1? '已使用' : '已过期'}} </van-button></view>
+      </view>
+      <van-toast id="van-toast" />
+    </view>
+  </scroll-view>
 </view>
