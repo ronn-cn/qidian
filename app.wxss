@@ -18,5 +18,9 @@
 
 .van-icon .van-nav-bar__arrow {
   color: #000 !important;
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> master
