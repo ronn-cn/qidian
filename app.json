@@ -14,7 +14,8 @@
     "pages/member/exchange",
     "pages/order/order",
     "pages/order/coupon",
-    "pages/order/orderDetail"
+    "pages/order/orderDetail",
+    "pages/store/store"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -55,6 +56,9 @@
     "van-tab": "@vant/weapp/tab/index",
     "van-tabs": "@vant/weapp/tabs/index",
     "van-notice-bar": "@vant/weapp/notice-bar/index",
-    "van-overlay": "@vant/weapp/overlay/index"
+    "van-overlay": "@vant/weapp/overlay/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "@vant/weapp/dropdown-item/index"
   }
 }

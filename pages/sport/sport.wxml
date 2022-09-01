@@ -1,8 +1,8 @@
 <!--pages/user/sport.wxml-->
-<view>
+<view class="main">
     <van-nav-bar transparent="{{bgColor}}" title="我的"  placeholder="{{true}}" fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2"> 
     </van-nav-bar>
-    <view class="main">
+    <view>
       <view class="sprot-header">
         <van-row>
           <van-col span="5">
@@ -55,7 +55,6 @@
         </van-cell-group>
       </view>
     </view>
-  <view class='cu-tabbar-height'></view>
 </view>
 
 <van-dialog

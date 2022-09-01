@@ -156,7 +156,6 @@ Page({
       request({ url:"get-user-all?user_ouid="+user_ouid, method:"GET"}).then((res) => {
         if (res.code == '200') 
           app.setUserAll(res.data.user);
-
           let comp = this.selectComponent("#"+this.data.compID);
           console.log('comp', comp)
           comp.RefreshUserData(); 
