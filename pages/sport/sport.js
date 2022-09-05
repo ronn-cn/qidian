@@ -21,8 +21,10 @@ Page({
 
     title: '体重',
     showDlg: false,
-    columns:[],
-    defaultIndex:0,
+    Hcols:[],
+    Wcols:[],
+    WdefaultIndex:0,
+    HdefaultIndex:0,
     selectValue:0,
 
     bodyComponent:[
@@ -116,9 +118,6 @@ Page({
     })
   },
 
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
 	onLoad: function (options) {
     var windowWidth = 320;
     try {
@@ -127,6 +126,19 @@ Page({
     } catch (e) {
         console.error('getSystemInfoSync failed!');
     }
+
+    let hcol = []
+    for (let i = 40; i < 250; i++){
+      hcol.push(i + 'cm')
+    }
+    let wcol = []
+    for (let i = 20; i < 350; i++){
+      wcol.push(i + 'kg')
+    }
+    this.setData({
+      Hcols: hcol,
+      Wcols: wcol,
+    })
     
     lineChart = new wxCharts({
       canvasId: 'lineCanvas',
@@ -158,6 +170,7 @@ Page({
               return val.toFixed(0);
           },
           min: 0,
+          max: 100,
           disableGrid:false,
           // gridColor: "#ffffff",
       },
@@ -175,26 +188,19 @@ Page({
     this.showUserData();
   },
 
-	/**
-	 * 页面滚动
-	 */
 	onPageScroll: function (e) {
 		let flag = e.scrollTop <= 0;
     this.setData({
       bgColor: flag
     })
 	},
-	// toBodyTap(e) {
-	// 	wx.navigateTo({ url: '/pages/user/body' })
-  // },
+
   returnHome(){
-    wx.navigateBack({
-      delta: 1
-    });
+    wx.navigateBack({ delta: 1 });
   },
 
   onChange(event) {
-    const {  value } = event.detail;
+    const { value } = event.detail;
     this.setData({
       selectValue : value.replace('kg', '').replace('cm', '')
     })
@@ -203,30 +209,15 @@ Page({
 
   editInfo(e){
     let index = e.currentTarget.dataset['index'];
-    let columns= []
-    let defaultIndex = 0
-
-    if (index == "身高"){
-      for (let i = 40; i < 250; i++){
-        columns.push(i + 'cm')
-        if (i == this.data.height)
-          defaultIndex = i - 40
-      }
-    }
-    else if (index == "体重"){
-      for (let i = 20; i < 350; i++){
-        columns.push(i + 'kg')
-        if (i == this.data.weight)
-          defaultIndex = i - 20
-      }
-    }
-    if (defaultIndex == 0) defaultIndex = 80
-
+    let value = 0
+    if (index == "身高") value = this.data.height
+    if (index == "体重") value = this.data.weight
     this.setData({
       showDlg: true,
       title: index,
-      columns : columns,
-      defaultIndex : defaultIndex
+      WdefaultIndex : this.data.weight - 20,
+      HdefaultIndex : this.data.height - 40,
+      selectValue: value
     })
   },
 
