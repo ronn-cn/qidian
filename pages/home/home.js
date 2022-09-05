@@ -1,7 +1,7 @@
 // pages/home/home.js
 const app = getApp();
 import { request } from "../../utils/request.js";
-import {formatDate} from "../../utils/util.js"
+import {formatDate, getDistance} from "../../utils/util.js"
 
 // 私有自定义函数
 function getQueryVariable(query, variable) {
@@ -28,11 +28,9 @@ Component({
     memberType:'',
     endTime:'',
     qrShow: false,
+    distance:0,
   },
   methods:{
-    onLoad(options) {
-      this.RefreshUserData()
-    },
     RefreshUserData(){
       let userInfo = app.globalData.userAll
       if (userInfo){
@@ -53,17 +51,35 @@ Component({
           })
         }
       }
+      this.getStore()
+    },
+
+    getStore(){
       request({ url:"get-store", method:"POST"}).then((res) => {
-        if(res.code=='200'){
+        if (res.code == '200'){
           this.setData({
             store: res.data,
             tag: JSON.parse(res.data.tag)
-          }) 
+          })
+          this.getDis(res.data.latitude,res.data.longitude) 
         }
       })
-      
     },
-    OpenMember(){
+
+    getDis(x, y){
+      let that = this
+      wx.getFuzzyLocation({  
+        type: 'wgs84',
+        success (res) {
+          const latitude = res.latitude
+          const longitude = res.longitude
+          let a = getDistance(latitude,longitude,x,y)
+          that.setData({distance:a})
+        }
+       })
+    },
+
+    OpenMember(){      
       this.triggerEvent("OpenMember", 'home');
     },
     switchstore(){ },
@@ -182,6 +198,6 @@ Component({
   lifetimes: {
     ready () {
       this.RefreshUserData();
-    }
+    },
   },
 })
