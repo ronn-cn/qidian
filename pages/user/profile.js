@@ -68,7 +68,11 @@ Page({
     }
     request({ url:"update-sex-birthday", data:requestData, method:"POST"}).then((res) => {
       if (res.code == "200") {
+<<<<<<< HEAD
         request({ url:"get-user-all?user_ouid="+app.globalData.user_ouid, method:"GET"}).then((res) => {
+=======
+        request({ url:"get-user-all?user_ouid="+user_ouid, method:"GET"}).then((res) => {
+>>>>>>> master
           if (res.code == '200') 
             app.setUserAll(res.data.user);
             wx.navigateBack({ delta: 1 });
