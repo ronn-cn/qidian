@@ -14,7 +14,7 @@ Page({
     showPhone: false,
 
     compID:'',
-	},
+  },
 	onLoad: function (options) {
     var screenHeight = wx.getSystemInfoSync().windowHeight
     let that = this
