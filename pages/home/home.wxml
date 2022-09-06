@@ -8,14 +8,14 @@
         <view>
           <view class="nickname">{{nickname}}</view>
           <view class="tips">{{!nickname? '未登录':
-            endTime? endTime+'到期':'门店VIP会员未开通' }}</view>
+            memberStatus ? endTime+'到期':'门店VIP会员未开通' }}</view>
         </view>
       </view>
       <van-button round block color="#ffece6"
         size="small" bindtap="openMember" custom-class="open-btn">
-        {{ !nickname? '登录': memberType ? '续费' : '开通'}}
+        {{ !nickname? '登录': memberStatus ? '续费' : '开通'}}
       </van-button>
-      <view class="sign" wx:if="{{memberType}}">{{memberType}}</view>
+      <view class="sign" wx:if="{{memberStatus}}">{{memberType}}</view>
     </view>
   </view>
   <!-- 段落2 -->
@@ -32,13 +32,13 @@
   <!-- 段落3 -->
   <view class="section section-3">
     <view class="header">
-      <text class="header-title">{{ memberType ? '我的门店' : '附近门店'}}</text>
+      <text class="header-title">{{ memberStatus ? '我的门店' : '附近门店'}}</text>
       <button class="header-btn" bindtap="switchstore" wx:if="{{false}}">切换门店</button>
       <view class="clear-float"></view>
     </view>
     <view class="card">
       <view class="card-header">
-        <view class="sign" wx:if="{{ memberType }}">已开通</view>
+        <view class="sign" wx:if="{{ memberStatus }}">已开通</view>
         <image class="card-image" src="/images/home/门店封面.png" mode="widthFix"></image>
       </view>
       <view class="card-body">

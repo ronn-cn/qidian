@@ -46,7 +46,7 @@ Page({
         app.globalData.orderList = list.all;
         this.data.order = list;
         this.setData({
-          showOrder: this.data.order.all
+          showOrder: this.data.order.all?this.data.order.all:[]
         })
       }
     })
@@ -57,22 +57,22 @@ Page({
     if(index == 0){
       // 全部订单
       this.setData({
-        showOrder: this.data.order.all
+        showOrder: this.data.order.all?this.data.order.all:[]
       })
     } else if(index == 1){
       // 待支付
       this.setData({
-        showOrder: this.data.order.pay_wait
+        showOrder: this.data.order.pay_wait?this.data.order.pay_wait:[]
       })
     } else if(index == 2){
       // 已支付
       this.setData({
-        showOrder: this.data.order.pay_success
+        showOrder: this.data.order.pay_success?this.data.order.pay_success:[]
       })
     } else if(index == 3){
       // 售后
       this.setData({
-        showOrder: this.data.order.pay_refund
+        showOrder: this.data.order.pay_refund?this.data.order.pay_refund:[]
       })
     }
   },

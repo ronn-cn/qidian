@@ -18,7 +18,7 @@ Page({
         console.log("获取优惠券：", res.data)
         this.setData({
           coupons: res.data,
-          showCoupons: res.data.unused
+          showCoupons: res.data.unused?res.data.unused:[]
         })
       }
     })

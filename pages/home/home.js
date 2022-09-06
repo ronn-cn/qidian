@@ -25,6 +25,7 @@ Component({
     store:{},
     tag:{},
     showInfo:['扫一扫', '训练计划', '体质检测', '意见反馈'],
+    memberStatus: false,
     memberType:'',
     endTime:'',
     qrShow: false,
@@ -37,14 +38,16 @@ Component({
           nickname: userInfo.name,
           avatar: userInfo.avatar
         })
-        if (userInfo.member_detail){
+        console.log('userInfo.member_detail',userInfo.member_detail)
+        if (userInfo.member_detail.status){
           this.setData({
+            memberStatus: true,
             memberType: userInfo.member_detail.member_type + "会员",
             endTime:formatDate(userInfo.member_detail.member_end_time)
           })
-        }
-        else{
+        } else {
           this.setData({
+            memberStatus: false,
             memberType: '',
             endTime:''
           })
@@ -53,6 +56,7 @@ Component({
       this.getStore()
     },
 
+    // 获取门店
     getStore(){
       request({ url:"get-store", method:"POST"}).then((res) => {
         if (res.code == '200'){
