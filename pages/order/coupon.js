@@ -70,4 +70,12 @@ Page({
       activeIndex: e.detail.index
     })
   },
+  // 使用优惠券
+  clipCoupon: function(){
+    if (this.data.activeIndex != 0){ return; }
+    // 可以使用,带着优惠券的参数
+    wx.navigateTo({
+      url: '/pages/member/openMember?coupon_id=1',
+    })
+  }
 })

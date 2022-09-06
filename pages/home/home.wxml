@@ -12,8 +12,9 @@
         </view>
       </view>
       <van-button round block color="#ffece6"
-      size="small" bindtap="OpenMember" custom-class="open-btn">
-      {{ !nickname? '登录': memberType ? '续费' : '开通'}}</van-button>
+        size="small" bindtap="openMember" custom-class="open-btn">
+        {{ !nickname? '登录': memberType ? '续费' : '开通'}}
+      </van-button>
       <view class="sign" wx:if="{{memberType}}">{{memberType}}</view>
     </view>
   </view>
@@ -31,7 +32,7 @@
   <!-- 段落3 -->
   <view class="section section-3">
     <view class="header">
-      <text class="header-title">附近门店</text>
+      <text class="header-title">{{ memberType ? '我的门店' : '附近门店'}}</text>
       <button class="header-btn" bindtap="switchstore" wx:if="{{false}}">切换门店</button>
       <view class="clear-float"></view>
     </view>

@@ -2,6 +2,17 @@
 // http://172.16.8.5:8806/swagger/index.html
 // app.js
 App({
+  // 全局数据
+	globalData: {
+    svrUrl:  "https://sport1.evinf.cn/",
+    userAll: null,  // 用户信息
+    user_ouid: "",
+    userJWT: "",
+    user_phone:"",
+    orderList: [],  // 订单列表
+    store:{}        // 门店信息
+  },
+  // 首次启动
 	onLaunch() {
     // 当小程序启动的时候，先判断是否存储sg
     const version = __wxConfig.envVersion;
@@ -36,16 +47,6 @@ App({
 			}
 		})
   },
-  // 全局数据
-	globalData: {
-    svrUrl:  "https://sport1.evinf.cn/",
-    userAll: null,  // 用户信息
-    user_ouid: "",
-    userJWT: "",
-    user_phone:"",
-    orderList: [],  // 订单列表
-	},
-
 	// 设置用户权限信息
 	setUserAuth(user) {
     console.log("用户信息", user)

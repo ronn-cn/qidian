@@ -85,18 +85,19 @@ Page({
       })
   },
 
-  OpenMember(param){
+  OpenMember(e){
+    console.log("param:",e)
     // 检测是否用户登录
-    this.data.compID = param.detail
+    // this.data.compID = e.detail
     if(!app.globalData.user_ouid){
       this.authorizedLoginTap()
     } else {
-      wx.navigateTo({ url: '/pages/member/openMember' })
+      wx.navigateTo({ url: '/pages/member/openMember?store_id=1' })
     }
   },
   // 授权登录
-  authorizedLoginTap (param) {
-    if (param) this.data.compID = param.detail
+  authorizedLoginTap () {
+    // if (param) this.data.compID = param.detail
     wx.getUserProfile({
       desc: '展示用户信息',
       success: resUserProfile => {

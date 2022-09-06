@@ -1,6 +1,7 @@
 // pages/user/openMember.js
 const app = getApp();
 import { request } from "../../utils/request.js";
+import { formatDate } from "../../utils/util.js"
 Page({
   data: {
     checked: false,
@@ -14,7 +15,10 @@ Page({
     currentIndex:0,
     price: 0,
     showTip: false,
-    scrollViewHeight: 0
+    scrollViewHeight: 0,
+    memberType:'',
+    endTime:'',
+    store:{},   // 门店
   },
 
   returnHome(){
@@ -40,7 +44,8 @@ Page({
     }).exec();
 
     request({ url:"get-goods-list", method:"POST"}).then((res) => {
-      if(res.code=='200'){ 
+      if(res.code=='200'){
+        console.log("商品列表", res.data)
         let goods = res.data
         let price = goods.length > 0 ? goods[0].money : 0
         that.setData({
@@ -48,6 +53,25 @@ Page({
           price: price * 100
         })
       }
+    })
+
+    let userInfo = app.globalData.userAll
+    if (userInfo){
+      if (userInfo.member_detail){
+        this.setData({
+          memberType: userInfo.member_detail.member_type + "会员",
+          endTime:formatDate(userInfo.member_detail.member_end_time)
+        })
+      } else {
+        this.setData({
+          memberType: '',
+          endTime:''
+        })
+      }
+    }
+
+    this.setData({
+      store: app.globalData.store
     })
   },
 
@@ -107,6 +131,9 @@ Page({
             },
             "fail":function(res){
               console.log("调起支付失败")
+              wx.navigateTo({
+                url: '/pages/order/order',
+              })
             },
             "complete":function(res){
               console.log("调起支付完成")

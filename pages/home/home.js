@@ -55,6 +55,8 @@ Component({
       }
       request({ url:"get-store", method:"POST"}).then((res) => {
         if(res.code=='200'){
+          console.log(res.data)
+          app.globalData.store = res.data; // 设置全局变量
           this.setData({
             store: res.data,
             tag: JSON.parse(res.data.tag)
@@ -63,8 +65,13 @@ Component({
       })
       
     },
-    OpenMember(){
-      this.triggerEvent("OpenMember", 'home');
+    // 开通会员
+    openMember(){
+      // 触发开通会员
+      this.triggerEvent("OpenMember", this.data.store.id);
+      // wx.navigateTo({
+      //   url: '/pages/member/openMember',
+      // })
     },
     switchstore(){ },
     menuClick(e){
