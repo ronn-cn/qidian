@@ -57,7 +57,7 @@ Page({
 
     let userInfo = app.globalData.userAll
     if (userInfo){
-      if (userInfo.member_detail){
+      if (userInfo.member_detail.status=='Y'){
         this.setData({
           memberType: userInfo.member_detail.member_type + "会员",
           endTime:formatDate(userInfo.member_detail.member_end_time)
