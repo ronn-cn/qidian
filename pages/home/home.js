@@ -1,7 +1,7 @@
 // pages/home/home.js
 const app = getApp();
 import { request } from "../../utils/request.js";
-import {formatDate} from "../../utils/util.js"
+import {formatDate, getDistance} from "../../utils/util.js"
 
 // 私有自定义函数
 function getQueryVariable(query, variable) {
@@ -30,9 +30,6 @@ Component({
     qrShow: false,
   },
   methods:{
-    onLoad(options) {
-      this.RefreshUserData()
-    },
     RefreshUserData(){
       let userInfo = app.globalData.userAll
       if (userInfo){
@@ -53,25 +50,39 @@ Component({
           })
         }
       }
+      this.getStore()
+    },
+
+    getStore(){
       request({ url:"get-store", method:"POST"}).then((res) => {
-        if(res.code=='200'){
-          console.log(res.data)
-          app.globalData.store = res.data; // 设置全局变量
+        if (res.code == '200'){
           this.setData({
             store: res.data,
             tag: JSON.parse(res.data.tag)
-          }) 
+          })
+          this.getDis(res.data.latitude,res.data.longitude) 
         }
       })
-      
+    },
+    getDis(x, y){
+      let that = this
+      wx.getFuzzyLocation({  
+        type: 'wgs84',
+        success (res) {
+          const latitude = res.latitude
+          const longitude = res.longitude
+          let a = getDistance(latitude,longitude,x,y)
+          that.setData({distance:a})
+        }
+       })
     },
     // 开通会员
     openMember(){
       // 触发开通会员
-      this.triggerEvent("OpenMember", this.data.store.id);
-      // wx.navigateTo({
-      //   url: '/pages/member/openMember',
-      // })
+      if (this.data.nickname)
+        wx.navigateTo({ url: '/pages/member/openMember'})
+      else
+        this.triggerEvent("authorizedLoginTap", "home");
     },
     switchstore(){ },
     menuClick(e){

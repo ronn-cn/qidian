@@ -71,7 +71,7 @@ Page({
     }
 
     this.setData({
-      store: app.globalData.store
+      store: app.globalData.userAll.store
     })
   },
 

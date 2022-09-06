@@ -14,6 +14,7 @@ Page({
     showPhone: false,
 
     compID:'',
+    isLink: false,
   },
 	onLoad: function (options) {
     var screenHeight = wx.getSystemInfoSync().windowHeight
@@ -87,17 +88,18 @@ Page({
 
   OpenMember(e){
     console.log("param:",e)
+    this.data.compID = e.detail
+    this.data.isLink = true
     // 检测是否用户登录
-    // this.data.compID = e.detail
     if(!app.globalData.user_ouid){
-      this.authorizedLoginTap()
+      this.authorizedLoginTap(e)
     } else {
-      wx.navigateTo({ url: '/pages/member/openMember?store_id=1' })
+      this.toOpenMember()
     }
   },
   // 授权登录
-  authorizedLoginTap () {
-    // if (param) this.data.compID = param.detail
+  authorizedLoginTap (e) {
+    this.data.compID = e.detail
     wx.getUserProfile({
       desc: '展示用户信息',
       success: resUserProfile => {
@@ -153,14 +155,17 @@ Page({
 
   getUserAll(){
     let user_ouid = app.globalData.user_ouid
-    if (user_ouid) {
-      request({ url:"get-user-all?user_ouid="+user_ouid, method:"GET"}).then((res) => {
-        if (res.code == '200') 
-          app.setUserAll(res.data.user);
-          let comp = this.selectComponent("#"+this.data.compID);
-          console.log('comp', comp)
-          comp.RefreshUserData(); 
-      })
-    }
-  }
+    request({ url:"get-user-all?user_ouid="+user_ouid, method:"GET"}).then((res) => {
+      if (res.code == '200') 
+        app.setUserAll(res.data.user);
+        let comp = this.selectComponent("#"+this.data.compID);          
+        comp.RefreshUserData(); 
+        this.toOpenMember()
+    })
+  },
+
+  toOpenMember(){
+    if (this.data.isLink)
+      wx.navigateTo({ url: '/pages/member/openMember?store_id=1' })
+  },
 })

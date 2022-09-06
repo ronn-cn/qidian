@@ -10,7 +10,6 @@ App({
     userJWT: "",
     user_phone:"",
     orderList: [],  // 订单列表
-    store:{}        // 门店信息
   },
   // 首次启动
 	onLaunch() {
