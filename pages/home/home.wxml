@@ -38,6 +38,7 @@
     </view>
     <view class="card">
       <view class="card-header">
+        <view class="sign" wx:if="{{ memberType }}">已开通</view>
         <image class="card-image" src="/images/home/门店封面.png" mode="widthFix"></image>
       </view>
       <view class="card-body">
