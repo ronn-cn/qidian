@@ -38,6 +38,7 @@
           <view class="card-title">身体能力值</view>
           <view class="card-content">
             <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas"></canvas>
+            <!-- <canvas id="lineCanvas" type="2d" class="canvas"></canvas> -->
           </view>
       </view>
 
@@ -46,7 +47,7 @@
             <text class="tip">{{updateDate}}</text>
         </view>
         <van-cell-group inset wx:for="{{bodyComponent}}" wx:key="item">
-          <van-cell title="{{item.name}}" icon="{{item.icon}}" is-link="{{true}}">
+          <van-cell title="{{item.name}}" icon="{{item.icon}}" is-link="{{false}}">
             {{item.value}}
             <van-tag type="primary" size="large" wx:if="{{item.tag == '标准'}}">{{item.tag}}</van-tag>
             <van-tag type="success" size="large" wx:elif="{{item.tag == '偏低'}}">{{item.tag}}</van-tag>
@@ -62,13 +63,23 @@
   title="{{title}}"
   show="{{ showDlg }}"
   show-cancel-button
-  bind:close="onClose"
   bind:confirm="modifyInfo"
 >
   <van-picker
-    columns="{{ columns }}"
+    wx:if="{{title == '身高'}}"
+    columns="{{ Hcols }}"
     bind:change="onChange"
     visible-item-count="{{3}}"
-    default-index ="{{defaultIndex}}"
+    default-index ="{{HdefaultIndex}}"
   />
+
+  <van-picker
+    wx:if="{{title == '体重'}}"
+    columns="{{ Wcols }}"
+    bind:change="onChange"
+    visible-item-count="{{3}}"
+    default-index ="{{WdefaultIndex}}"
+  />
+
+
 </van-dialog>

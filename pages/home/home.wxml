@@ -65,7 +65,7 @@
             <van-icon name="location-o"  size="20px"/>
             <view class="card-address">
               <view>{{store.address}}</view>
-              <view>距您1.6 km</view>
+              <view>距您{{distance}}</view>
             </view>
             <view bindtap="showQR">
               <van-icon name="wechat" size="20px"/>

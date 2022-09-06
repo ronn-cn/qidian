@@ -27,6 +27,14 @@
     "enablePullDownRefresh": false
   },
   "sitemapLocation": "sitemap.json",
+  "requiredPrivateInfos":[
+    "getFuzzyLocation"
+  ],
+  "permission": {
+    "scope.userFuzzyLocation": {
+      "desc": "你的位置信息将用于门店距离的效果展示" 
+    }
+  },
   "usingComponents": {
     "calendar": "/components/calendar/index",
     "van-tabbar": "@vant/weapp/tabbar/index",
