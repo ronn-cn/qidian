@@ -71,11 +71,19 @@ Page({
     })
   },
   // 使用优惠券
-  clipCoupon: function(){
+  clipCoupon: function(e){
+    console.log(e)
     if (this.data.activeIndex != 0){ return; }
-    // 可以使用,带着优惠券的参数
+    
+    if (e.currentTarget.dataset.id){
+      // 可以使用,带着优惠券的参数
+      wx.navigateTo({
+        url: '/pages/member/openMember?coupons_id='+e.currentTarget.dataset.id,
+      })
+    } else {
     wx.navigateTo({
-      url: '/pages/member/openMember?coupon_id=1',
+      url: '/pages/member/openMember',
     })
+    }
   }
 })

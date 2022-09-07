@@ -9,7 +9,7 @@
 
 .main{
   background-image: linear-gradient(-45deg,#ffffff 50%, #e0fcfc, #dbeafd); 
-  background-size: 100% 830px;
+  background-size: 100% 1200px;
 }
 
 .container .section{
@@ -229,7 +229,61 @@
   text-align: left !important;
 }
 
-.footer .tip{
+.footer{
+  position:fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer .block-tip{
   padding-left: 22rpx;
   position: relative;
+  width: 100%;
+  font-size: 0.9em;
+  background-color: #feefea;
+}
+
+.tip-label-class{
+  height: 90rpx;
+  line-height: 90rpx;
+}
+
+.footer .block-submit{
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color: white;
+  padding-left: 22rpx;
+  padding-bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+  padding-bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
+  position: relative;
+}
+
+.footer .block-submit{
+  color: #ea5419;
+}
+.footer .block-submit .money{
+  font-size: 1.5rem;
+}
+
+.footer .block-submit .coupon{
+  font-size: 0.8rem;
+}
+
+.footer .block-submit .buy{
+  width: 260rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-radius: 35rpx;
+  border: 0;
+  font-size: 0.9rem;
+  color: white;
+  /* background-color: #e8cb9c; */
+  
+  background: linear-gradient(to bottom, #e7cb9c 0%, #d6a977 100%);
+  position: absolute;
+  right: 40rpx;
+  top: 15rpx;
+}
+.buy::after{
+    border: none;
 }

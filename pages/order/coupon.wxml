@@ -34,7 +34,8 @@
           <van-button custom-class="btn-custom" round size="small" plain 
             color="{{activeIndex > 0? '#465677': '#FD5E36'}}" 
             disabled="{{activeIndex == 2}}"
-            bindtap="clipCoupon">
+            bindtap="clipCoupon"
+            data-id="{{item.id}}">
             {{activeIndex ==  0 ? '立即使用' : activeIndex ==  1? '已使用' : '已过期'}}
           </van-button>
         </view>

@@ -1,6 +1,6 @@
 page{
   background-image: linear-gradient(-45deg,#f5f5f5 50%, #e0fcfc, #dbeafd); 
-  background-size: 100% 830px;
+  background-size: 100% 1200px;
 }
 
 .container{
@@ -41,5 +41,5 @@ page{
 
 .van-nav-bar{
   background-image: linear-gradient(-45deg,#f5f5f5 50%, #e0fcfc, #dbeafd) !important;
-  background-size: 100% 830px;
+  background-size: 100% 1200px;
 }

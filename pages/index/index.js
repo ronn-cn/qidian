@@ -10,7 +10,7 @@ Page({
     active:'',
     bgColor:'true',
     tabbarShow: 'true',
-    navbarStyle: "background-image: linear-gradient(-45deg,#f5f5f5 50%, #e0fcfc, #dbeafd); background-size: 100% 830px;",
+    navbarStyle: "background-image: linear-gradient(-45deg,#f5f5f5 50%, #e0fcfc, #dbeafd); background-size: 100% 1200px;",
     showPhone: false,
 
     compID:'',

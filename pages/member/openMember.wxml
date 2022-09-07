@@ -3,7 +3,7 @@
   <!-- 导航栏 -->
   <van-nav-bar class="nav-bar" transparent="{{bgColor}}" left-text=" {{memberType?'会员续费':'会员开通'}}" placeholder="{{true}}" 
     fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2"
-    custom-style="background-image: linear-gradient(-45deg,#ffffff 50%, #e0fcfc, #dbeafd); background-size: 100% 830px; font-size:1.8em;">
+    custom-style="background-image: linear-gradient(-45deg,#ffffff 50%, #e0fcfc, #dbeafd); background-size: 100% 1200px; font-size:1.8em;">
   </van-nav-bar>
   <scroll-view class="container" scroll-y style="height: {{scrollViewHeight}}px;">
     <view class="section section-1">
@@ -74,20 +74,26 @@
     </view>
   </scroll-view>
   <view class="footer">
-    <van-submit-bar
+    <!-- <van-submit-bar
       label=" "
-      price="{{ price/100  }}"
+      price="{{ price/100 }}"
       button-text="立即购买"
       bind:submit="submit"
       tip="{{ true }}"
     >
-      <view class="tip" slot="tip">
-        <van-checkbox slot="right-icon" icon-size="35rpx" value="{{ checked }}" bind:change="onChange" checked-color="#FD5E36" >
-          同意 <text style="color: #FD5E36;">《奇点运动会员协议》</text>
-          <!-- 和 <text>《连续包月协议》</text>  -->
-        </van-checkbox>
-        <view wx:if="{{showTip}}" style="position: absolute; bottom: 45rpx; left: -5rpx; width: 100px; height: 32px; background-image: url('https://www.evinf.cn/images/tipbg.svg');"></view>
-      </view>
-    </van-submit-bar>
+    </van-submit-bar> -->
+
+    <view class="block-tip">
+      <van-checkbox custom-class="tip-label-class" icon-size="32rpx" value="{{ checked }}" bind:change="onChange" checked-color="#FD5E36" >
+        同意 <text style="color: #FD5E36;">《奇点运动会员协议》</text>
+      </van-checkbox>
+      <view wx:if="{{showTip}}" style="position: absolute; bottom: 60rpx; left: -5rpx; width: 100px; height: 32px; background-image: url('https://www.evinf.cn/images/tipbg.svg');"></view>
+    </view>
+    <view class="block-submit">
+      <text class="amount">￥<text class="money">{{ price / 100 }}</text></text>
+      <text class="coupon" wx:if="{{coupons_money}}">  已减 -{{coupons_money/100}}</text>
+      <button class="buy" bindtap="submit">立即购买</button>
+    </view>
+    
   </view>
 </view>

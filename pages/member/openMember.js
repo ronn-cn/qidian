@@ -14,6 +14,8 @@ Page({
     goods: [],
     currentIndex:0,
     price: 0,
+    coupons_id:0,
+    coupons_money:0,
     showTip: false,
     scrollViewHeight: 0,
     memberType:'',
@@ -43,6 +45,13 @@ Page({
       }).exec();
     }).exec();
 
+    if (options.coupons_id){
+      console.log("传递过来的优惠券id:", options.coupons_id)
+      this.setData({
+        coupons_id: parseInt(options.coupons_id)
+      })
+    }
+
     request({ url:"get-goods-list", method:"POST"}).then((res) => {
       if(res.code=='200'){
         console.log("商品列表", res.data)
@@ -50,8 +59,9 @@ Page({
         let price = goods.length > 0 ? goods[0].money : 0
         that.setData({
           goods: res.data,
-          price: price * 100
+          price: price
         })
+        this.queryGoodsCoupon();
       }
     })
 
@@ -145,7 +155,29 @@ Page({
 
   swipclick(e){
     let index = e.currentTarget.dataset['index'];
-    let price = this.data.goods[index].money
-    this.setData({ currentIndex : index, price:price*100})
+    let price = this.data.goods[index].money;
+    this.setData({ currentIndex: index, price: price, coupons_money:0});
+    this.queryGoodsCoupon();
+  },
+  // 查询商品最大优惠
+  queryGoodsCoupon(){
+    let that = this
+    let goodid = this.data.goods[this.data.currentIndex].id
+    let userid = app.globalData.user_ouid
+    let coupons_id = this.data.coupons_id?this.data.coupons_id:0
+    let params = {
+      "coupons_id": coupons_id,
+      "goods_id": goodid,
+      "user_ouid": userid
+    }
+    request({ url:"get-coupons-from-goods", data:params, method:"POST"}).then((res) => {
+      console.log(res)
+      if(res.code=='200'){
+        that.setData({
+          coupons_money: res.data.coupons_money,
+          price: res.data.money
+        })   
+      }
+    })
   }
 })
