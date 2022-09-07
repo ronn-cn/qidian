@@ -17,6 +17,7 @@ Component({
     member:null,
 
     showLogin: false,
+    plan:{},
     plan_describe: '',
     menuList:[
       {name:'个人信息', icon:'user-icon.svg', href:'/pages/user/userinfo'},
@@ -49,6 +50,7 @@ Component({
           sex: userInfo.sex,
           age: age,
           birthday: userInfo.birthday,
+          plan:userInfo.plan,
           plan_describe: userInfo.plan_describe,
           hasUserInfo: true,
           avatarUrl: userInfo.avatar,
@@ -68,7 +70,8 @@ Component({
         vitality: 0,
         sex: 0,
         age: 0,
-        member:null
+        member:null,
+        plan:null,
       });
     },
     OpenMember(){
