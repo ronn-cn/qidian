@@ -37,7 +37,9 @@
       <view class="sport-data-b">
           <view class="card-title">身体能力值</view>
           <view class="card-content">
-            <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas"></canvas>
+            <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas"
+            wx:if="{{!canvasImg}}"></canvas>
+            <image wx:else src="{{canvasImg}}" class="canvas" />
             <!-- <canvas id="lineCanvas" type="2d" class="canvas"></canvas> -->
           </view>
       </view>
@@ -58,28 +60,28 @@
     </view>
 </view>
 
-<van-dialog
-  use-slot
-  title="{{title}}"
-  show="{{ showDlg }}"
-  show-cancel-button
-  bind:confirm="modifyInfo"
->
-  <van-picker
-    wx:if="{{title == '身高'}}"
-    columns="{{ Hcols }}"
-    bind:change="onChange"
-    visible-item-count="{{3}}"
-    default-index ="{{HdefaultIndex}}"
-  />
 
-  <van-picker
-    wx:if="{{title == '体重'}}"
-    columns="{{ Wcols }}"
-    bind:change="onChange"
-    visible-item-count="{{3}}"
-    default-index ="{{WdefaultIndex}}"
-  />
+  <van-dialog
+    use-slot
+    title="{{title}}"
+    show="{{ showDlg }}"
+    show-cancel-button
+    bind:confirm="modifyInfo"
+    zIndex="{{150000}}"
+  >
+    <van-picker
+      wx:if="{{title == '身高'}}"
+      columns="{{ Hcols }}"
+      bind:change="onChange"
+      visible-item-count="{{3}}"
+      default-index ="{{HdefaultIndex}}"
+    />
 
-
-</van-dialog>
+    <van-picker
+      wx:if="{{title == '体重'}}"
+      columns="{{ Wcols }}"
+      bind:change="onChange"
+      visible-item-count="{{3}}"
+      default-index ="{{WdefaultIndex}}"
+    />
+  </van-dialog>

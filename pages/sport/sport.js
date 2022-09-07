@@ -18,6 +18,7 @@ Page({
     height: 0,        //身高
     weight: 0,        //体重
     bmi:0,            //bmi
+    canvasImg:null,
 
     title: '体重',
     showDlg: false,
@@ -119,14 +120,6 @@ Page({
   },
 
 	onLoad: function (options) {
-    var windowWidth = 320;
-    try {
-        var res = wx.getSystemInfoSync();
-        windowWidth = res.windowWidth * 0.85;
-    } catch (e) {
-        console.error('getSystemInfoSync failed!');
-    }
-
     let hcol = []
     for (let i = 40; i < 250; i++){
       hcol.push(i + 'cm')
@@ -174,7 +167,7 @@ Page({
           disableGrid:false,
           // gridColor: "#ffffff",
       },
-      width: windowWidth,
+      width: this.getWindowsWidth(),
       height: 150,
       dataLabel: false,
       dataPointShape: true,
@@ -208,6 +201,7 @@ Page({
   },
 
   editInfo(e){
+    if (!this.data.canvasImg) this.handleCanvarToImg()
     let index = e.currentTarget.dataset['index'];
     let value = 0
     if (index == "身高") value = this.data.height
@@ -234,5 +228,30 @@ Page({
       weight : this.data.weight
     }
     request({ url:"update-height-weight", data:requstData, method:"POST"})
+  },
+
+  handleCanvarToImg() {
+    var that=this;
+    wx.canvasToTempFilePath({
+      x: 0,
+      y: 0,
+      width: this.getWindowsWidth(),
+      height: 150,
+      canvasId: 'lineCanvas',
+      success: function(res) {
+        that.setData({ canvasImg: res.tempFilePath});
+      }
+    });
+  },
+
+  getWindowsWidth(){
+    var windowWidth = 320;
+    try {
+      var res = wx.getSystemInfoSync();
+      windowWidth = res.windowWidth * 0.85;
+    } catch (e) {
+      console.error('getSystemInfoSync failed!');
+    }
+    return windowWidth
   }
 })
