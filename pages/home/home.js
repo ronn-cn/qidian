@@ -38,7 +38,7 @@ Component({
           nickname: userInfo.name,
           avatar: userInfo.avatar
         })
-        console.log('userInfo.member_detail',userInfo.member_detail)
+        // console.log('userInfo.member_detail',userInfo.member_detail)
         if (userInfo.member_detail.status){
           this.setData({
             memberStatus: true,
@@ -83,10 +83,12 @@ Component({
     // 开通会员
     openMember(){
       // 触发开通会员
-      if (this.data.nickname)
+      if (this.data.nickname){
+        console.log("11来了")
         wx.navigateTo({ url: '/pages/member/openMember'})
-      else
+      } else {
         this.triggerEvent("authorizedLoginTap", "home");
+      }
     },
     switchstore(){ },
     menuClick(e){

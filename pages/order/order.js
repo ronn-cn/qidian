@@ -102,6 +102,7 @@ Page({
           "paySign": res.data.per_pay.paySign,
           "success":function(res){
             console.log("调起支付成功: ", res)
+            // 支付成功刷新
           },
           "fail":function(res){
             console.log("调起支付失败: ", res)

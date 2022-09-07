@@ -138,6 +138,9 @@ Page({
             "paySign": res.data.per_pay.paySign,
             "success":function(res){
               console.log("调起支付成功")
+              wx.redirectTo({
+                url: '/pages/index/index?refresh=1',
+              })
             },
             "fail":function(res){
               console.log("调起支付失败")
@@ -155,14 +158,14 @@ Page({
 
   swipclick(e){
     let index = e.currentTarget.dataset['index'];
-    let price = this.data.goods[index].money;
-    this.setData({ currentIndex: index, price: price, coupons_money:0});
+    this.setData({ currentIndex: index});
     this.queryGoodsCoupon();
   },
   // 查询商品最大优惠
   queryGoodsCoupon(){
     let that = this
     let goodid = this.data.goods[this.data.currentIndex].id
+    let goodmoney = this.data.goods[this.data.currentIndex].money
     let userid = app.globalData.user_ouid
     let coupons_id = this.data.coupons_id?this.data.coupons_id:0
     let params = {
@@ -171,13 +174,23 @@ Page({
       "user_ouid": userid
     }
     request({ url:"get-coupons-from-goods", data:params, method:"POST"}).then((res) => {
-      console.log(res)
+      // console.log(res)
       if(res.code=='200'){
         that.setData({
           coupons_money: res.data.coupons_money,
           price: res.data.money
-        })   
+        })
+      } else {
+        that.setData({
+          coupons_money: 0,
+          price: goodmoney
+        })
       }
+    })
+  },
+  toMemberAgreement(e){
+    wx.navigateTo({
+      url: '/pages/user/agreement?page=member',
     })
   }
 })

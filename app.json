@@ -9,6 +9,7 @@
     "pages/user/profile",
     "pages/user/userinfo",
     "pages/user/opinion",
+    "pages/user/agreement",
     "pages/member/autorenew",
     "pages/member/openMember",
     "pages/member/exchange",
@@ -27,12 +28,12 @@
     "enablePullDownRefresh": false
   },
   "sitemapLocation": "sitemap.json",
-  "requiredPrivateInfos":[
+  "requiredPrivateInfos": [
     "getFuzzyLocation"
   ],
   "permission": {
     "scope.userFuzzyLocation": {
-      "desc": "你的位置信息将用于门店距离的效果展示" 
+      "desc": "你的位置信息将用于门店距离的效果展示"
     }
   },
   "usingComponents": {

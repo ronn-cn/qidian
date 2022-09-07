@@ -85,7 +85,7 @@
 
     <view class="block-tip">
       <van-checkbox custom-class="tip-label-class" icon-size="32rpx" value="{{ checked }}" bind:change="onChange" checked-color="#FD5E36" >
-        同意 <text style="color: #FD5E36;">《奇点运动会员协议》</text>
+        同意 <text style="color: #FD5E36;" bindtap="toMemberAgreement">《奇点运动会员协议》</text>
       </van-checkbox>
       <view wx:if="{{showTip}}" style="position: absolute; bottom: 60rpx; left: -5rpx; width: 100px; height: 32px; background-image: url('https://www.evinf.cn/images/tipbg.svg');"></view>
     </view>

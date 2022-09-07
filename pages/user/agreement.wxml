@@ -1,0 +1,13 @@
+<!--pages/user/agreement.wxml-->
+<view class="main">
+  <view class="header">
+    <van-nav-bar class="nav-bar" custom-class="main" left-text="平台协议" placeholder="{{true}}" 
+      fixed="{{true}}" border="{{false}}" left-arrow bind:click-left="returnHome" z-index="2">
+    </van-nav-bar>
+  </view>
+  <scroll-view scroll-y="true" style="height: {{scrollViewHeight}}px;">
+    <view class="content">
+      <rich-text nodes="{{nodes}}"></rich-text>
+    </view>
+  </scroll-view>
+</view>

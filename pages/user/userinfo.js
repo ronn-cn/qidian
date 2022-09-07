@@ -49,4 +49,9 @@ Page({
       gender: this.data.genderArray[e.detail.value]
     })
   },
+  toPlatformAgreement(){
+    wx.navigateTo({
+      url: '/pages/user/agreement',
+    })
+  }
 })

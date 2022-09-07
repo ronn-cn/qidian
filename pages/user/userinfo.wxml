@@ -7,7 +7,7 @@
     <van-cell value="{{ userAll.sex == 1? '男' :userAll.sex == 2? '女':'未知'}}" title="性别" url="/pages/user/profile" is-link/>
     <van-cell title="出生日期" value="{{ userAll.birthday }}"  url="/pages/user/profile" is-link/>
     <van-field value="{{ userAll.name }}" clearable label="微信" input-align="right" disabled/>
-    <van-field clearable label="平台协议" input-align="right" is-link/>
+    <van-field clearable label="平台协议" input-align="right" is-link bindtap="toPlatformAgreement"/>
   </van-cell-group>
   <van-toast id="van-toast" />
   <van-dialog id="van-dialog" />

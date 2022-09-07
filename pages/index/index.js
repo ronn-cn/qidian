@@ -62,11 +62,21 @@ Page({
 			} else {
 				this.data.obj = app.globalData.sg;
 			}
-		}
+    }
+    
+    // 判断刷新
+    if(options.refresh){
+      this.RefreshUserData()
+    }
   },
+
   onChange(event) {
     // event.detail 的值为当前选中项的索引
     this.setData({ currPage: event.detail});
+  },
+
+  onShow() {
+    this.RefreshUserData()
   },
 
 	weixinLoginTapHandle: function () {
@@ -75,8 +85,14 @@ Page({
 
 	// 刷新主页数据
 	RefreshUserData: function(){
-		let userComponent = this.selectComponent('#user-component');
-		userComponent.RefreshUserData();
+    let homeComponent = this.selectComponent('#home');
+    if (homeComponent){
+      homeComponent.RefreshUserData();
+    }
+    let userComponent = this.selectComponent('#user');
+    if (userComponent){
+      userComponent.RefreshUserData();
+    }
 	},
 	
 	onPageScroll: function (e) {
@@ -86,8 +102,7 @@ Page({
       })
   },
 
-  OpenMember(e){
-    console.log("param:",e)
+  OpenMember(e) {
     this.data.compID = e.detail
     this.data.isLink = true
     // 检测是否用户登录
@@ -165,7 +180,9 @@ Page({
   },
 
   toOpenMember(){
-    if (this.data.isLink)
+    if (this.data.isLink){
       wx.navigateTo({ url: '/pages/member/openMember?store_id=1' })
+      this.data.isLink = false
+    }
   },
 })

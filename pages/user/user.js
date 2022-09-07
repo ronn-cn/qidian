@@ -43,6 +43,7 @@ Component({
           })
         }
         let member = userInfo.member_detail
+        console.log("member:",member)
         this.setData({
           sport: userInfo.athletic_ability_v,
           vitality: userInfo.vitality_v,
@@ -108,7 +109,8 @@ Component({
       this.setData({ showExit: true });
     },
 
-    wechatLogin(){
+    // 微信登录
+    wechatLogin(e){
       this.triggerEvent("authorizedLoginTap", 'user');
     }
   },
