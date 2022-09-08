@@ -47,6 +47,9 @@ Page({
   },
   
   setSportData(userAll){
+    this.setData({
+      sportValue: userAll.athletic_ability_v,
+    })
     if (!userAll.physique) return;
 
     let physique = JSON.parse(userAll.physique);
@@ -148,7 +151,7 @@ Page({
           color:"#94e6b0",
       }, {
           name: '力量',
-          data:  [10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          data:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           format: function (val, name) {
               return val.toFixed(0);
           },

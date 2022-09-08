@@ -49,7 +49,6 @@ App({
 	// 设置用户权限信息
 	setUserAuth(user) {
     console.log("用户信息", user)
-
     this.globalData.user_ouid = user.user_ouid;
     this.globalData.userJWT = user.user_jwt;
     this.globalData.user_phone = user.user_phone;
