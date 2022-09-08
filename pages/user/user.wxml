@@ -29,12 +29,7 @@
       </van-row>
     </view>
   </view>
-
-<<<<<<< HEAD
   <view class="card-info" wx:if="{{member.status}}">
-=======
-  <view class="card-info" wx:if="{{hasUserInfo && member.status!=''}}">
->>>>>>> master
     <view class="card-index">1</view>
     <view>
       <view class="card-store">会员门店：{{member.store_name}}</view>
