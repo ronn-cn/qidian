@@ -66,6 +66,7 @@ Page({
     
     // 判断刷新
     if(options.refresh){
+      this.getUserAll()
       this.RefreshUserData()
     }
   },
@@ -76,6 +77,7 @@ Page({
   },
 
   onShow() {
+    this.getUserAll()
     this.RefreshUserData()
   },
 

@@ -86,23 +86,22 @@ Page({
   // 订单支付
   orderPay(e){
     console.log("订单支付：", e);
-    let params = {
-      user_ouid: app.globalData.user_ouid,
-      goods_id: parseInt(e.currentTarget.dataset.goodsid),
-      store_id: parseInt(e.currentTarget.dataset.storeid)  // 这个是门店ID
-    };
-    request({ url:"add-order", data:params, method:"POST"}).then((res) => {
-      if(res.code=='200'){ 
-        console.log("生成订单返回信息：", res)
+    let that = this;
+    let orders = app.globalData.orderList
+    orders.forEach(function(order) {
+      console.log(order);
+      if(order.id == e.currentTarget.dataset.id){
+        let payInfo = JSON.parse(order.per_pay) // 支付信息
         wx.requestPayment({
-          "timeStamp": res.data.per_pay.timeStamp,
-          "nonceStr": res.data.per_pay.nonceStr,
-          "package": res.data.per_pay.package,
-          "signType": res.data.per_pay.signType,
-          "paySign": res.data.per_pay.paySign,
+          "timeStamp": payInfo.timeStamp,
+          "nonceStr": payInfo.nonceStr,
+          "package": payInfo.package,
+          "signType": payInfo.signType,
+          "paySign": payInfo.paySign,
           "success":function(res){
             console.log("调起支付成功: ", res)
             // 支付成功刷新
+            that.onLoad()
           },
           "fail":function(res){
             console.log("调起支付失败: ", res)
@@ -112,7 +111,7 @@ Page({
           }
         })
       }
-    })
+    });
   },
   // 订单取消
   orderCancel(e){
