@@ -64,7 +64,7 @@ Page({
   orderCancel(e) {
     let params = {
       "order_id": parseInt(e.currentTarget.id),
-      "user_ouid": app.globalData.user_ouid
+      "user_ouid": app.globalData.userAuth.user_ouid
     }
     request({ url:"cancel-order", data:params, method:"POST"}).then((res) => {
       if(res.code=='200'){
@@ -76,7 +76,7 @@ Page({
   // 继续支付
   orderPay(){
     let params = {
-      user_ouid: app.globalData.user_ouid,
+      user_ouid: app.globalData.userAuth.user_ouid,
       goods_id: this.data.order.goods_id,
       store_id : this.data.order.store_id  // 这个是门店ID
     };

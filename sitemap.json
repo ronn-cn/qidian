@@ -1,5 +1,5 @@
 {
-    "desc": "自助健身空间站点地图",
+    "desc": "奇点运动站点地图",
     "rules": [{
         "action": "allow",
         "page": "pages/index/index"

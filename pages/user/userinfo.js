@@ -12,15 +12,12 @@ Page({
   },
 
   onShow(){
-    console.log("显示")
-    let user_ouid = app.globalData.user_ouid
-    request({ url:"get-user-all?user_ouid="+user_ouid, method:"GET"}).then((res) => {
-      if (res.code == '200') 
-        app.setUserAll(res.data.user);
-        this.setData({
-          userAll: app.globalData.userAll,
-        })
-    })
+    console.log("个人页面 显示")
+    app.getUserAll().then((res)=>{
+      this.setData({
+        userAll: app.globalData.userAll,
+      })
+    });
   },
 
   onLoad (options) {
@@ -31,16 +28,15 @@ Page({
     Dialog.confirm({
       message: '确认退出账号吗？',
     }).then(() => {
-      app.setLogout();
-      wx.navigateBack({ delta: 1 });
+      app.setUserLogout();
+      wx.navigateBack();
     }).catch(() => {
+
     });
   },
 
   returnHome () {
-    wx.navigateBack({
-      delta: 1
-    });
+    wx.navigateBack();
   },
 
   bindPickerChange: function(e) {
@@ -49,6 +45,7 @@ Page({
       gender: this.data.genderArray[e.detail.value]
     })
   },
+  
   toPlatformAgreement(){
     wx.navigateTo({
       url: '/pages/user/agreement',

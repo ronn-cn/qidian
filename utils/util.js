@@ -45,8 +45,24 @@ const getDistance= function(lat1, lng1, lat2, lng2){
     return s
   }
 }
+
 var Rad = function(d) {
   return d * Math.PI / 180.0;
+}
+
+// 获取请求变量
+var getQueryVariable = function(query, variable) {
+	var params = query.split("?");
+	if (params.length > 1) {
+		var vars = params[1].split("&");
+		for (var i = 0; i < vars.length; i++) {
+			var pair = vars[i].split("=");
+			if (pair[0] == variable) {
+				return pair[1];
+			}
+		}
+	}
+	return (false);
 }
 
 
@@ -54,5 +70,6 @@ module.exports = {
   formatTime,
   formatDate,
   formatBirthday,
-  getDistance
+  getDistance,
+  getQueryVariable
 }

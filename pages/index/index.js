@@ -1,50 +1,20 @@
 // index.js
 const app = getApp(); // 获取应用实例
 import { request } from "../../utils/request.js";
+import { getQueryVariable } from "../../utils/util.js"
 
 Page({
 	data: {
-    scrollViewHeight: 0,
-		obj: null,
-		currPage: 'home',
-    active:'',
-    bgColor:'true',
-    tabbarShow: 'true',
-    navbarStyle: "background-image: linear-gradient(-45deg,#f5f5f5 50%, #e0fcfc, #dbeafd); background-size: 100% 1200px;",
+    scrollViewHeight: 0,  // 滚动视图的高度
+		currPage: 'home',     // 当前显示页面。home/user
     showPhone: false,
-
-    compID:'',
-    isLink: false,
+    isToOpenMember: false,  // 是否前往开通会员页面
   },
 	onLoad: function (options) {
-    var screenHeight = wx.getSystemInfoSync().windowHeight
-    let that = this
-    // 获取navbar的高度
-    let query = wx.createSelectorQuery();
-    query.select('.nav-bar').boundingClientRect(navRect=>{
-      let query2 = wx.createSelectorQuery();
-      query2.select('.tab-bar').boundingClientRect(tabRect=>{
-        that.setData({
-          scrollViewHeight: screenHeight - navRect.height - tabRect.height,
-        })
-        console.log(that.data.scrollViewHeight)
-      }).exec();
-    }).exec();
-
+    this.calculatePageHeight();
 		// 判断是扫码进入
 		let url = decodeURIComponent(options.q);
     if (url != "undefined") { // url有定义，说明是微信扫码打开的小程序
-      if (url.includes("evinf")) { // 判断二维码的信息来自evinf
-        if(app.globalData.netName != "evinf"){
-          app.globalData.userInfo = null
-        }
-				this.data.obj = app.globalData.ev;
-      } else {  //只要不是包含evinf都属于sportguider
-        if(app.globalData.netName != "sportguider"){
-          app.globalData.userInfo = null
-        }
-				this.data.obj = app.globalData.sg ;
-			}
 			if (url.includes("device")) {
 				let ouid = getQueryVariable(url, "ouid");
 				// 判断授权
@@ -56,34 +26,37 @@ Page({
 					});
 				}
 			}
-		} else {
-			if (app.globalData.netName == "evinf") {
-				this.data.obj = app.globalData.ev;
-			} else {
-				this.data.obj = app.globalData.sg;
-			}
-    }
-    
+		}
     // 判断刷新
     if(options.refresh){
       this.getUserAll()
-      this.RefreshUserData()
     }
   },
 
-  onChange(event) {
+  onTabChange(event) {
     // event.detail 的值为当前选中项的索引
     this.setData({ currPage: event.detail});
   },
 
   onShow() {
     this.getUserAll()
-    this.RefreshUserData()
   },
 
-	weixinLoginTapHandle: function () {
-		wx.navigateTo({ url: '/pages/home/index' })
-	},
+  // 计算页面高度
+  calculatePageHeight(){
+    var screenHeight = wx.getSystemInfoSync().windowHeight
+    let that = this
+    // 获取navbar的高度
+    let query = wx.createSelectorQuery();
+    query.select('.nav-bar').boundingClientRect(navRect=>{
+      let query2 = wx.createSelectorQuery();
+      query2.select('.tab-bar').boundingClientRect(tabRect=>{
+        that.setData({
+          scrollViewHeight: screenHeight - navRect.height - tabRect.height,
+        })
+      }).exec();
+    }).exec();
+  },
 
 	// 刷新主页数据
 	RefreshUserData: function(){
@@ -96,51 +69,58 @@ Page({
       userComponent.RefreshUserData();
     }
 	},
-	
-	onPageScroll: function (e) {
-    let flag = e.scrollTop <= 0;
-      this.setData({
-        bgColor: flag
-      })
-  },
 
-  OpenMember(e) {
-    this.data.compID = e.detail
-    this.data.isLink = true
+  openMember(e) {
+    this.data.isToOpenMember = true
     // 检测是否用户登录
-    if(!app.globalData.user_ouid){
-      this.authorizedLoginTap(e)
+    if(!app.globalData.hasUser){
+      this.getWechatAuthorization(e)
     } else {
       this.toOpenMember()
     }
   },
-  // 授权登录
-  authorizedLoginTap (e) {
-    this.data.compID = e.detail
+  // 获取微信授权并获取数据
+  getWechatAuthorization(e) {
     wx.getUserProfile({
       desc: '展示用户信息',
       success: resUserProfile => {
         wx.login({ success: resWxLogin => {
-          this.wechatLogin(resWxLogin.code, resUserProfile.userInfo)
+          let data = {
+            code: resWxLogin.code,
+            name: resUserProfile.userInfo.nickName,
+            avatar: resUserProfile.userInfo.avatarUrl,
+          }
+          this.getUserAuth(data)
         }})
       },
     });
   },
-  wechatLogin(code, userInfo){
-    if (!code) return
-    let data = {
-      code: code,
-      name: userInfo.nickName,
-      avatar: userInfo.avatarUrl,
-    }
-    request({ url:"login/wechat", data:data, method:"POST"}).then((res) => {
-      if (res.code == '200'){
-        var result = res.data;
-        app.setUserAuth(result);
-        if (result.user_phone == ''){
-          this.setData({showPhone: true})
-        }
+  
+  // 获取用户授权信息
+  getUserAuth(data){
+    request({ url:"login/wechat", method:"POST",data: data,}).then((res) => {
+      if (res.code == '200') 
+        app.setUserAuth(res.data);
         this.getUserAll()
+        if(!app.globalData.userAuth.user_phone){
+          this.setData({
+            showPhone: true,
+          })
+        }
+    })
+  },
+  // 获取用户全部数据
+  getUserAll(){
+    let user_ouid = app.globalData.userAuth?app.globalData.userAuth.user_ouid:'';
+    if(!user_ouid) return
+    request({ url:"get-user-all?user_ouid="+user_ouid, method:"GET"}).then((res) => {
+      if (res.code == '200') {
+        app.setUserAll(res.data.user);
+        let comp = this.selectComponent("#"+this.data.currPage);
+        if(comp){
+          comp.RefreshUserData(); 
+        }
+        this.toOpenMember()
       }
     })
   },
@@ -155,36 +135,24 @@ Page({
         showCancel: false
       })
       return;
-    }
-    else{
+    } else {
       let requestData = {
-        user_ouid: app.globalData.user_ouid,
+        user_ouid: app.globalData.userAuth?app.globalData.userAuth.user_ouid:'',
         phone_code: e.detail.code
       }
       request({ url:"get-phone", data:requestData, method:"POST"}).then((res) => {
         if (res.code == '200'){
           let phone = res.data.phone
-          app.setUserPhone(phone)
+          app.globalData.userAuth.user_phone = phone;
         }
       })
     }
   },
 
-  getUserAll(){
-    let user_ouid = app.globalData.user_ouid
-    request({ url:"get-user-all?user_ouid="+user_ouid, method:"GET"}).then((res) => {
-      if (res.code == '200') 
-        app.setUserAll(res.data.user);
-        let comp = this.selectComponent("#"+this.data.compID);          
-        comp.RefreshUserData(); 
-        this.toOpenMember()
-    })
-  },
-
   toOpenMember(){
-    if (this.data.isLink){
+    if (this.data.isToOpenMember){
       wx.navigateTo({ url: '/pages/member/openMember?store_id=1' })
-      this.data.isLink = false
+      this.data.isToOpenMember = false
     }
   },
 })

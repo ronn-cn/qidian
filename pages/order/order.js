@@ -39,7 +39,9 @@ Page({
   },
   // 请求订单列表
   requestOrderList(){
-    request({ url:"get-order-list",data:{"user_ouid":app.globalData.user_ouid}, method:"POST"}).then((res) => {
+    let user_ouid = app.globalData.userAuth?app.globalData.userAuth.user_ouid:'';
+    if (!user_ouid) return
+    request({ url:"get-order-list",data:{"user_ouid":user_ouid}, method:"POST"}).then((res) => {
       if(res.code=='200'){ 
         let list = res.data;
         console.log("订单列表：", list);
@@ -119,7 +121,7 @@ Page({
     let that = this;
     let params = {
       "order_id": parseInt(e.currentTarget.id),
-      "user_ouid": app.globalData.user_ouid
+      "user_ouid": app.globalData.userAuth.user_ouid
     }
     request({ url:"cancel-order", data:params, method:"POST"}).then((res) => {
       if(res.code=='200'){

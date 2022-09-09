@@ -1,14 +1,13 @@
 // 小程序文档
 // http://172.16.8.5:8806/swagger/index.html
-// app.js
+
 App({
   // 全局数据
 	globalData: {
     svrUrl:  "https://sport1.evinf.cn/",
-    userAll: null,  // 用户信息
-    user_ouid: "",
-    userJWT: "",
-    user_phone:"",
+    hasUser: false, // 有无用户
+    userAll: null,  // 用户全部信息
+    userAuth: null, // 用户授权信息
     orderList: [],  // 订单列表
   },
   // 首次启动
@@ -27,52 +26,69 @@ App({
         this.globalData.svrUrl= 'https://sport.sportguider.com/'
         break;
     }
-    
-    let user_ouid = wx.getStorageSync('user_ouid');
-    if (user_ouid) 	this.globalData.user_ouid = user_ouid;
 
+    let userAuth = wx.getStorageSync('user_auth');
+    if (userAuth){
+      this.setUserAuth(JSON.parse(userAuth))
+    }
     let userAll = wx.getStorageSync('user_all');
-    if (userAll) 	this.globalData.userAll = JSON.parse(userAll);
-
-    let userJWT = wx.getStorageSync('user_jwt');
-    if (userAll) 	this.globalData.userJWT =userJWT;
-
-		wx.getSystemInfo({
-			success: e => {
-				this.globalData.StatusBar = e.statusBarHeight;
-				let custom = wx.getMenuButtonBoundingClientRect();
-				this.globalData.Custom = custom;
-				this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
-			}
-		})
+    if (userAll){
+      this.setUserAll(JSON.parse(userAll))
+    }
   },
 	// 设置用户权限信息
-	setUserAuth(user) {
-    console.log("用户信息", user)
-    this.globalData.user_ouid = user.user_ouid;
-    this.globalData.userJWT = user.user_jwt;
-    this.globalData.user_phone = user.user_phone;
-		wx.setStorageSync('user_ouid', user.user_ouid);
-		wx.setStorageSync('user_jwt', user.user_jwt);
-		wx.setStorageSync('user_phone', user.user_phone);
-  },
-  
-  setUserPhone(phone){
-    this.globalData.user_phone = phone;
-		wx.setStorageSync('user_phone', phone);
-  },
-	// 设置用户全部信息
-  setUserAll(userall){
-    this.globalData.userAll = userall;
-    wx.setStorageSync('user_all', JSON.stringify(userall));
+	setUserAuth(userauth) {
+    console.log("用户授权信息", userauth)
+    if(userauth&&userauth.user_ouid) {
+      this.globalData.userAuth = userauth
+      wx.setStorageSync('user_auth', JSON.stringify(userauth));
+    } else {
+      this.setUserLogout();
+    }
   },
 
-  setLogout(){
-    wx.removeStorageSync('user_ouid');
+	// 设置用户全部信息
+  setUserAll(userall){
+    console.log("用户所有数据：",userall);
+    if(userall&&userall.ouid){
+      this.globalData.hasUser = true;
+      this.globalData.userAll = userall;
+      wx.setStorageSync('user_all', JSON.stringify(userall));
+    } else {
+      this.setUserLogout();
+    }
+  },
+
+  // 设置用户退出
+  setUserLogout(){
     wx.removeStorageSync('user_all');
-    wx.removeStorageSync('user_jwt')
-    this.globalData.user_ouid = null
-    this.globalData.userAll = null
-    this.globalData.userJWT = null
+    wx.removeStorageSync('user_auth');
+    this.globalData.hasUser = false;
+    this.globalData.userAll = null;
+    this.globalData.userAuth = null;
+  },
+
+  //获取用户全部数据
+  getUserAll(){
+    let that = this;
+    let user_ouid = this.globalData.userAuth.user_ouid?this.globalData.userAuth.user_ouid:'';
+    if (!user_ouid) return
+    return new Promise(function(resolve,reject){
+      wx.request({
+        url: that.globalData.svrUrl + 'get-user-all?user_ouid='+user_ouid,
+        method:"GET",
+        success: function(res) {
+          let resUserAll = res.data
+          console.log(resUserAll)
+          if (resUserAll.code == '200') {
+            that.setUserAll(resUserAll.data.user);
+          }
+          resolve(resUserAll)
+        },
+        fail: function(err){
+          reject(err)
+        }
+      })
+    })
   },
 })

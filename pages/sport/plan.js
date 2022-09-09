@@ -96,7 +96,7 @@ Page({
       });
       
       let requestData = {
-        "user_ouid": app.globalData.user_ouid
+        "user_ouid": app.globalData.userAuth?app.globalData.userAuth.user_ouid:'',
       }
       request({ url:"get-sport-log", data:requestData, method:"POST"}).then((res) => {
         let spotArr = [];

@@ -16,8 +16,8 @@ Page({
     price: 0,
     coupons_id:0,
     coupons_money:0,
-    showTip: false,
-    scrollViewHeight: 0,
+    showTip: false,      // 提示同意会员的标志
+    scrollViewHeight: 0, // 滚动视图的高度
     memberType:'',
     endTime:'',
     store:{},   // 门店
@@ -31,20 +31,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
 	onLoad: function (options) {
-    var screenHeight = wx.getSystemInfoSync().windowHeight
-    let that = this
-    // 获取navbar的高度
-    let query = wx.createSelectorQuery();
-    query.select('.nav-bar').boundingClientRect(navRect=>{
-      let query2 = wx.createSelectorQuery();
-      query2.select('.footer').boundingClientRect(tabRect=>{
-        that.setData({
-          scrollViewHeight: screenHeight - navRect.height - tabRect.height,
-        })
-        console.log(that.data.scrollViewHeight)
-      }).exec();
-    }).exec();
-
+    this.calculatePageHeight();
     if (options.coupons_id){
       console.log("传递过来的优惠券id:", options.coupons_id)
       this.setData({
@@ -52,18 +39,7 @@ Page({
       })
     }
 
-    request({ url:"get-goods-list", method:"POST"}).then((res) => {
-      if(res.code=='200'){
-        console.log("商品列表", res.data)
-        let goods = res.data
-        let price = goods.length > 0 ? goods[0].money : 0
-        that.setData({
-          goods: res.data,
-          price: price
-        })
-        this.queryGoodsCoupon();
-      }
-    })
+    this.getGoodsList();
 
     let userInfo = app.globalData.userAll
     if (userInfo){
@@ -110,6 +86,38 @@ Page({
     }
   },
 
+  
+  // 计算页面高度
+  calculatePageHeight(){
+    var screenHeight = wx.getSystemInfoSync().windowHeight
+    let that = this
+    // 获取navbar的高度
+    let query = wx.createSelectorQuery();
+    query.select('.nav-bar').boundingClientRect(navRect=>{
+      let query2 = wx.createSelectorQuery();
+      query2.select('.footer').boundingClientRect(tabRect=>{
+        that.setData({
+          scrollViewHeight: screenHeight - navRect.height - tabRect.height,
+        })
+      }).exec();
+    }).exec();
+  },
+  // 获取商品列表
+  getGoodsList(){
+    request({ url:"get-goods-list", method:"POST"}).then((res) => {
+      if(res.code=='200'){
+        console.log("商品列表", res.data)
+        let goods = res.data
+        let price = goods.length > 0 ? goods[0].money : 0
+        this.setData({
+          goods: res.data,
+          price: price
+        })
+        this.queryGoodsCoupon();
+      }
+    })
+  },
+
   submit(){
     // 检测是否同意会员协议
     if(!this.data.checked){
@@ -120,7 +128,7 @@ Page({
     }
     console.log('提交订单')
     let goodid = this.data.goods[this.data.currentIndex].id
-    let userid = app.globalData.user_ouid
+    let userid = app.globalData.userAuth?app.globalData.userAuth.user_ouid:'';
     let data={
       user_ouid: userid,
       goods_id: goodid,
@@ -166,7 +174,7 @@ Page({
     let that = this
     let goodid = this.data.goods[this.data.currentIndex].id
     let goodmoney = this.data.goods[this.data.currentIndex].money
-    let userid = app.globalData.user_ouid
+    let userid = app.globalData.userAuth?app.globalData.userAuth.user_ouid:'';
     let coupons_id = this.data.coupons_id?this.data.coupons_id:0
     let params = {
       "coupons_id": coupons_id,
@@ -188,6 +196,7 @@ Page({
       }
     })
   },
+  // 前往会员协议页面
   toMemberAgreement(e){
     wx.navigateTo({
       url: '/pages/user/agreement?page=member',

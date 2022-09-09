@@ -6,21 +6,19 @@
     fixed="{{true}}" 
     border="{{false}}" 
     placeholder="{{true}}" 
-    custom-style="{{navbarStyle}}"
+    custom-class="nav-bar"
     >
   </van-nav-bar>
-  <scroll-view class="content" scroll-y="true" style="height: {{scrollViewHeight}}px;" > 
-    <!-- <scroll-view class="content" scroll-y="true">  -->
+  <scroll-view class="content" scroll-y="true" style="height: {{scrollViewHeight}}px;" >
     <Home id="home" wx:if="{{currPage=='home'}}"  
-      bind:authorizedLoginTap="authorizedLoginTap"
-      bind:OpenMember="OpenMember"></Home>
+      bind:authorization="getWechatAuthorization"
+      bind:member="openMember"></Home>
     <user id="user" wx:else 
-      bind:authorizedLoginTap="authorizedLoginTap"
-      bind:OpenMember="OpenMember"
-      ></user>
+      bind:authorization="getWechatAuthorization"
+      bind:member="openMember"></user>
   </scroll-view>
   <!-- 底部切换栏部分 -->
-  <van-tabbar wx:if="{{tabbarShow}}" class="tab-bar" active="{{ currPage }}" bind:change="onChange" placeholder="{{true}}" active-color="#fd5e36" inactive-color="#465677">
+  <van-tabbar class="tab-bar" active="{{ currPage }}" bind:change="onTabChange" placeholder="{{true}}" active-color="#fd5e36" inactive-color="#465677">
     <van-tabbar-item name="home">
       <image slot="icon" src="/images/tabbar/home-smile-line.png" mode="aspectFit" style="width: 30px; height: 18px;" />
       <image slot="icon-active" src="/images/tabbar/home-smile-fill.png" mode="aspectFit" style="width: 30px; height: 18px;" />

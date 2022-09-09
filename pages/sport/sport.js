@@ -37,7 +37,9 @@ Page({
   },
 	// 显示用户数据
 	showUserData: function () {
-    request({ url:"get-user-all?user_ouid="+app.globalData.user_ouid, method:"GET"}).then((res) => {
+    let user_ouid = app.globalData.userAuth?app.globalData.userAuth.user_ouid:'';
+    if (!user_ouid) return
+    request({ url:"get-user-all?user_ouid="+user_ouid, method:"GET"}).then((res) => {
       if (res.code == '200'){ 
         let userInfo = res.data.user;
         this.setSportData(userInfo)
@@ -226,7 +228,7 @@ Page({
       this.setData({weight: Number(this.data.selectValue)})
     }
     let requstData = {
-      user_ouid : app.globalData.user_ouid,
+      user_ouid : app.globalData.userAuth?app.globalData.userAuth.user_ouid:'',
       height : this.data.height,
       weight : this.data.weight
     }

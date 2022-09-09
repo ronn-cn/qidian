@@ -75,8 +75,8 @@ Component({
         plan:null,
       });
     },
-    OpenMember(){
-      this.triggerEvent("OpenMember", 'user');
+    openMember(){
+      this.triggerEvent("member", 'user');
     },
    
     planTap() {
@@ -114,7 +114,7 @@ Component({
 
     // 微信登录
     wechatLogin(e){
-      this.triggerEvent("authorizedLoginTap", 'user');
+      this.triggerEvent("authorization", 'user');
     }
   },
   lifetimes: {

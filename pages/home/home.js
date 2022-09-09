@@ -1,30 +1,15 @@
 // pages/home/home.js
 const app = getApp();
 import { request } from "../../utils/request.js";
-import {formatDate, getDistance} from "../../utils/util.js"
-
-// 私有自定义函数
-function getQueryVariable(query, variable) {
-	var params = query.split("?");
-	if (params.length > 1) {
-		var vars = params[1].split("&");
-		for (var i = 0; i < vars.length; i++) {
-			var pair = vars[i].split("=");
-			if (pair[0] == variable) {
-				return pair[1];
-			}
-		}
-	}
-	return (false);
-}
+import {formatDate, getDistance,getQueryVariable} from "../../utils/util.js"
 
 Component({
   data: {
+    showInfo:['扫一扫', '训练计划', '体质检测', '意见反馈'],
     nickname:'',
-    avatar:'/images/home/avatar.svg',    
+    avatar:'/images/home/avatar.svg',
     store:{},
     tag:{},
-    showInfo:['扫一扫', '训练计划', '体质检测', '意见反馈'],
     memberStatus: false,
     memberType:'',
     endTime:'',
@@ -32,13 +17,13 @@ Component({
   },
   methods:{
     RefreshUserData(){
+      console.log('刷新Home页面数据')
       let userInfo = app.globalData.userAll
       if (userInfo){
         this.setData({
           nickname: userInfo.name,
           avatar: userInfo.avatar
         })
-        // console.log('userInfo.member_detail',userInfo.member_detail)
         if (userInfo.member_detail.status){
           this.setData({
             memberStatus: true,
@@ -82,12 +67,11 @@ Component({
     },
     // 开通会员
     openMember(){
-      // 触发开通会员
-      if (this.data.nickname){
-        console.log("11来了")
+      if(app.globalData.hasUser){
         wx.navigateTo({ url: '/pages/member/openMember'})
       } else {
-        this.triggerEvent("authorizedLoginTap", "home");
+        console.log("获取用户授权")
+        this.triggerEvent("authorization", "home");
       }
     },
     switchstore(){ },
@@ -120,7 +104,7 @@ Component({
       }
     },
     checkLogin(){
-      if (!app.globalData.user_ouid){
+      if (!app.globalData.userAuth){
         wx.showToast({
           title: '请先登录账号',
           icon: 'error',
@@ -152,8 +136,8 @@ Component({
       console.log(ouid)
       let data = {
         "device_id": ouid,
-        "user_ouid": app.globalData.user_ouid,
-        "user_jwt": app.globalData.userJWT,
+        "user_ouid": app.globalData.userAuth.user_ouid,
+        "user_jwt": app.globalData.userAuth.user_jwt,
         "user_name": app.globalData.userAll.name,
         "user_avatar": app.globalData.userAll.avatar,
         "store_id":1

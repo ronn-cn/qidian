@@ -50,7 +50,7 @@ Page({
           sportDay: userAll.sport_day,
           sportCount: userAll.sport_count,
       });
-      let requestData = { "user_ouid": app.globalData.user_ouid }
+      let requestData = { "user_ouid": app.globalData.userAuth?app.globalData.userAuth.user_ouid:'' }
       request({ url:"get-sport-log", data:requestData, method:"POST"}).then((res) => {
         if (res.code == '200'){
           let recordList = [];

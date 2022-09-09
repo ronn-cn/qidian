@@ -17,7 +17,7 @@ Page({
   submit(){
     if (this.data.content){
       let data ={
-        user_ouid:app.globalData.user_ouid,
+        user_ouid:app.globalData.userAuth.user_ouid,
         text: this.data.content
       }
       request({ url:"feedback", data:data,method:"POST"}).then((res) => {

@@ -36,7 +36,7 @@
       <view>NO:{{member.member_no}}</view>
     </view>
     <view class="card-right">
-      <view bindtap="OpenMember">去续费 ></view>
+      <view bindtap="openMember">去续费 ></view>
       <view>{{util.formatDate(member.member_end_time)}}到期</view>
     </view>
   </view>
@@ -45,8 +45,7 @@
     <van-image width="50rpx" height="50rpx" fit="contain" src="/images/user/vip.svg"/>
     <view class="card-title">VIP会员</view>
     <view class="card-text">不仅是运动，更是生活</view>
-    <van-button type="default" round color="#FD5E36" size="small" bindtap="OpenMember"
-    >开通</van-button>
+    <van-button type="default" round color="#FD5E36" size="small" bindtap="openMember">开通</van-button>
   </view>
  
   <van-divider></van-divider>

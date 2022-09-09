@@ -13,15 +13,7 @@ Page({
   },
   onLoad(options) {
     this.calculatePageHeight();
-    request({ url:"get-user-coupons",data:{"user_ouid":app.globalData.user_ouid}, method:"POST"}).then((res) => {
-      if (res.code == '200'){
-        console.log("获取优惠券：", res.data)
-        this.setData({
-          coupons: res.data,
-          showCoupons: res.data.unused?res.data.unused:[]
-        })
-      }
-    })
+    this.getUserCoupons();
   },
 
   /**
@@ -48,8 +40,22 @@ Page({
       }).exec();
     }).exec();
   },
+  getUserCoupons(){
+    let user_ouid = app.globalData.userAuth?app.globalData.userAuth.user_ouid:'';
+    if (!user_ouid) return
+    request({ url:"get-user-coupons",data:{"user_ouid":user_ouid}, method:"POST"}).then((res) => {
+      if (res.code == '200'){
+        console.log("获取优惠券：", res.data)
+        this.setData({
+          coupons: res.data,
+          showCoupons: res.data.unused?res.data.unused:[]
+        })
+      }
+    })
+  },
+
   returnHome () {
-    wx.navigateBack({ delta: 1 });
+    wx.navigateBack();
   },
 
   tabClick: function (e) {
