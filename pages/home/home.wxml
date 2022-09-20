@@ -22,9 +22,9 @@
   <view class="section section-2">
     <view class="icon-block icon-{{index+1}}" wx:for="{{showInfo}}" wx:key="index" bindtap="menuClick" data-index="{{index}}">
       <view class="icon-back">
-        <image class="icon-image" src="/images/home/{{item}}.svg"></image>
+        <image class="icon-image" src="{{item.image}}"></image>
       </view>
-      <text class="icon-text">{{item}}</text>
+      <text class="icon-text">{{item.name}}</text>
     </view>
     <!-- 清除浮动 -->
     <view class="clear-float"></view> 
@@ -39,11 +39,11 @@
     <view class="card">
       <view class="card-header">
         <view class="sign" wx:if="{{ memberStatus }}">已开通</view>
-        <image class="card-image" src="/images/home/门店封面.png" mode="widthFix"></image>
+        <image class="card-image" src="/images/home/store_cover.png" mode="widthFix"></image>
       </view>
       <view class="card-body">
         <view class="card-body-title">
-          <image class="card-body-logo" src="/images/home/奇点运动logo.png" mode="widthFix"></image>
+          <image class="card-body-logo" src="/images/home/qidian_logo.png" mode="widthFix"></image>
           <text class="card-body-text">{{store.name}} <text class="small-text">[营业中]</text></text>
           <view class="clear-float"></view>
         </view>
@@ -86,8 +86,7 @@
   <view class="wrapper">
     <view class="wrapper-content">
       <view>添加店长微信</view> 
-      <image class="qrimg" show-menu-by-longpress="{{true}}"
-      mode="scaleToFill" src="{{store.wx}}"></image>
+      <image class="qrimg" show-menu-by-longpress="{{true}}" mode="scaleToFill" src="{{store.wx}}"></image>
       <view class="wrapper-btn">长按识别二维码</view> 
     </view>
   </view>

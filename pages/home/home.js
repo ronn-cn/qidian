@@ -5,7 +5,23 @@ import {formatDate, getDistance,getQueryVariable} from "../../utils/util.js"
 
 Component({
   data: {
-    showInfo:['扫一扫', '训练计划', '体质检测', '意见反馈'],
+    showInfo:[
+      {
+        "image":"/images/home/scan_scan.svg",
+        "name":"扫一扫"
+      },
+      {
+        "image":"/images/home/training.svg",
+        "name":"训练计划"
+      },
+      {
+        "image":"/images/home/examination.svg",
+        "name":"体质检测"
+      },
+      {
+        "image":"/images/home/feedback.svg",
+        "name":"意见反馈"
+      }],
     nickname:'',
     avatar:'/images/home/avatar.svg',
     store:{},
