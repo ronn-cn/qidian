@@ -39,11 +39,11 @@
     <view class="card">
       <view class="card-header">
         <view class="sign" wx:if="{{ memberStatus }}">已开通</view>
-        <image class="card-image" src="/images/home/store_cover.png" mode="widthFix"></image>
+        <image class="card-image" src="{{storePhoto}}" mode="widthFix" binderror="errorStorePhoto"></image>
       </view>
       <view class="card-body">
         <view class="card-body-title">
-          <image class="card-body-logo" src="/images/home/qidian_logo.png" mode="widthFix"></image>
+          <image class="card-body-logo" src="{{storeAvatar}}" mode="widthFix" binderror="errorStoreAvatar"></image>
           <text class="card-body-text">{{store.name}} <text class="small-text">[营业中]</text></text>
           <view class="clear-float"></view>
         </view>
@@ -86,7 +86,7 @@
   <view class="wrapper">
     <view class="wrapper-content">
       <view>添加店长微信</view> 
-      <image class="qrimg" show-menu-by-longpress="{{true}}" mode="scaleToFill" src="{{ }}"></image>
+      <image class="qrimg" show-menu-by-longpress="{{true}}" mode="scaleToFill" src="{{ storeWx }}"  binderror="errorStoreWx"></image>
       <view class="wrapper-btn">长按识别二维码</view> 
     </view>
   </view>

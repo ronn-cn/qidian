@@ -24,12 +24,16 @@ Component({
       }],
     nickname:'',
     avatar:'/images/home/avatar.svg',
+    svrUrl: app.globalData.svrUrl,
     store:{},
     tag:{},
     memberStatus: false,
     memberType:'',
     endTime:'',
     qrShow: false,
+    storePhoto: '',
+    storeAvatar: '',
+    storeWx:'',
   },
   methods:{
     RefreshUserData(){
@@ -63,6 +67,9 @@ Component({
         if (res.code == '200'){
           this.setData({
             store: res.data,
+            storePhoto: app.globalData.svrUrl+res.data.store_phone,
+            storeAvatar: app.globalData.svrUrl+res.data.avatar,
+            storeWx: app.globalData.svrUrl+res.data.wx,
             tag: JSON.parse(res.data.tag)
           })
           this.getDis(res.data.latitude,res.data.longitude) 
@@ -200,8 +207,23 @@ Component({
           console.log("拨打电话失败")
         }    
       })
+    },
+    errorStorePhoto() {
+      this.setData({
+        storePhoto: '/images/home/store_cover.png'
+      })
+    },
+    errorStoreAvatar() {
+      this.setData({
+        storeAvatar: '/images/home/qidian_logo.png'
+      })
+    },
+    errorStoreWx() {
+      this.setData({
+        // 显示一个“未上传”的图片
+        storeWx: '/images/home/qidian_logo.png'
+      })
     }
-  
   },
   lifetimes: {
     ready () {
