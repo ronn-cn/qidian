@@ -40,7 +40,7 @@ Component({
           nickname: userInfo.name,
           avatar: userInfo.avatar
         })
-        if (userInfo.member_detail.status){
+        if (userInfo.member_detail.status == "Y"){
           this.setData({
             memberStatus: true,
             memberType: userInfo.member_detail.member_type + "会员",

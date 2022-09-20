@@ -86,7 +86,7 @@
   <view class="wrapper">
     <view class="wrapper-content">
       <view>添加店长微信</view> 
-      <image class="qrimg" show-menu-by-longpress="{{true}}" mode="scaleToFill" src="{{store.wx}}"></image>
+      <image class="qrimg" show-menu-by-longpress="{{true}}" mode="scaleToFill" src="{{ }}"></image>
       <view class="wrapper-btn">长按识别二维码</view> 
     </view>
   </view>
