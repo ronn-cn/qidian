@@ -18,20 +18,21 @@
     </view>
     <view class="container" wx:else>
       <view class="coupon-box" wx:for="{{showCoupons}}" wx:key="key">
-        <view>
-          <view class="coupon-number roboto-font">￥<text>{{item.money/100}}</text></view>
+        <view class="coupon-block0 roboto-font">￥</view>
+        <view class="coupon-block1">
+          <view class="coupon-number roboto-font"><text>{{item.money/100}}</text></view>
           <view class="coupon-tip">满{{item.condition/100}}可用</view>
         </view>
-        <view>
+        <view class="coupon-block2">
           <view class="coupon-title">{{item.name}}</view>
           <view class="coupon-use">使用范围：
             <text class="coupon-use-text" wx:if="{{item.store_id == 0}}">所有门店通用</text>
             <text class="coupon-use-text" wx:else>仅限{{item.store_name}}使用</text>
           </view>
-          <view class="coupon-date">有效期：{{util.formatDate(item.start_time)}}-{{util.formatDate(item.end_time)}}</view>
+          <view class="coupon-date">有效期：至{{util.formatDate(item.end_time)}}过期</view>
         </view>
-        <view>
-          <van-button custom-class="btn-custom" round size="small" plain 
+        <view class="coupon-block3">
+          <van-button custom-class="btn-custom" round size="mini" plain 
             color="{{activeIndex > 0? '#465677': '#FD5E36'}}" 
             disabled="{{activeIndex == 2}}"
             bindtap="clipCoupon"

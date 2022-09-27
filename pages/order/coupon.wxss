@@ -13,17 +13,28 @@
 
 .coupon-box{
   margin: 20rpx 0;
-  padding: 0 24rpx;
+  padding: 40rpx 24rpx;
   background: radial-gradient(circle at left, transparent 20rpx, #fff 0) left,
   radial-gradient(circle at right, transparent 20rpx, #fff 0) right;
   background-repeat: no-repeat;
   background-size: 50% 100%;
   border-radius: 10rpx;
-  height: 220rpx;
   display: flex;
   align-items:center;
   justify-content: space-between;
   /* position:relative; */
+}
+
+.coupon-box .coupon-block0{
+  color: #FD5E36;
+  font-size: 40rpx;
+}
+
+.coupon-box .coupon-block1{
+  padding-right: 10rpx;
+}
+.coupon-box .coupon-block2{
+  padding-right: 10rpx;
 }
 
 .coupon-box .coupon-title{
@@ -31,13 +42,13 @@
   font-size: 0.9em;
   display: flex;
   align-items: center;
-  line-height: 60rpx;
 }
 
 .coupon-box .coupon-use{
   color: #9ba4b5;
   font-size: 0.6rem;
-  line-height: 50rpx;
+  line-height: 1rem;
+  padding: 15rpx 0;
 }
 
 .coupon-box .coupon-use .coupon-use-text{
@@ -46,8 +57,7 @@
 
 .coupon-box .coupon-date{
   color: #9ba4b5;
-  font-size: 0.7rem;
-  line-height: 50rpx;
+  font-size: 0.6rem;
 }
 
 .coupon-box .coupon-number{
@@ -66,7 +76,6 @@
 }
 
 .btn-custom{
-  width: 140rpx;
   margin-right: 10rpx;
 }
 
